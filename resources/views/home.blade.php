@@ -21,7 +21,7 @@
             </div>
             <div class="w-full flex flex-col gap-2">
                 <label class="font-semibold text-xs text-gray-400 ">Role Trainer</label>
-                <button onclick="window.location.href='{{route('loginTrainer')}}'" class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none border-gray-500 bg-gray-900 text-white hover:scale-105 hover:bg-blue-600 focus:scale-105 hover:font-bold transition-all" >Login With Trainer</button>
+                <button onclick="window.location.href='{{url('/loginTrainer')}}'" class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none border-gray-500 bg-gray-900 text-white hover:scale-105 hover:bg-blue-600 focus:scale-105 hover:font-bold transition-all" >Login With Trainer</button>
             </div>
         </div>
     </div>
