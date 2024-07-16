@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +28,4 @@ Route::get('/login/Admin', [LoginAdminController::class, 'index'])->name('loginA
 Route::post('/login/Admin', [LoginAdminController::class, 'store'])->name('loginAdmin');
 Route::get('/login/Trainer', [LoginAdminController::class, 'index'])->name('loginTrainer');
 
-
-
- require __DIR__.'/admin.php';
+require __DIR__.'/admin.php';

@@ -6,15 +6,17 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
 
 class RegisterController extends Controller
 {
-    public function index () {
+    public function index()
+    {
         return view('auth.register');
     }
-    public function create (Request $request) {
+
+    public function create(Request $request)
+    {
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -46,6 +48,4 @@ class RegisterController extends Controller
         return redirect()->back()->with('success', 'User berhasil dibuat.');
 
     }
-
-
 }
