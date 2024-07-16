@@ -1,197 +1,325 @@
-<x-trainer-layout>
-    <div class="container mx-auto p-4 border-2 w-[430px] h-[645px]">
+<x-main-layout>
 
-        <!-- component -->
-        <!-- This is an example component -->
-        <div class="max-w-2xl mx-auto">
 
-            <div class="container mx-auto flex flex-wrap items-center justify-between">
-                <a href="/" class="w-11 flex">
-                    <img src="{{ asset('assets/image/rbt.png') }}" alt="">&nbsp;
-                    <span class="self-center text-lg font-semibold whitespace-nowrap">Aziz Ramadhan</span>
-                </a>
-                <div class="flex md:order-2">
-                    <div class="relative mr-3 md:mr-0 hidden md:block">
-                        <!-- Tombol Logout -->
-                        <form action="/login" method="POST">
-                            @csrf
-                            <a href="/login"
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">
-                                Logout
-                            </a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            </nav>
-            <br>
-
-            <hr>
-            <div class="flex gap-24 ml-3">
-                <div class="font-bold col-lg-3 col-6 text-center">
-                    &nbsp;
-                    <span class="text-black">Hallo,</span>
-                    <span class="text-blue-500"> Aziz Ramadhan</span>
-                </div>
-            </div>
-            <hr>
-            <br>
-            <div class="container px-1 mx-auto sm:px-1 dark:text-gray-800">
-                <h2 class="mb-1 text-1xl font-semibold leading-tight">JADWAL HARI INI :</h2>
-                <div class="overflow-auto">
-                    <table class="overflow-auto w-96 text-xs">
-                        <thead class="dark:bg-blue-600">
-                            <tr class="text-left">
-                                <th class="text-white p-1">SEKOLAH</th>
-                                <th class="text-white p-1">HARI</th>
-                                <th class="text-white p-1">JAM</th>
-                                <th class="text-white p-1">LEVEL</th>
-                                <th class="text-white p-1">ABSEN</th>
-                            </tr>
-                        </thead>
-
-                        <body>
-                            <tr class="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                                <td class="p-1">
-                                    <p>SDIT Adzkia 1</p>
-                                </td>
-                                <td class="p-1">
-                                    <p>Rabu</p>
-                                </td>
-                                <td class="P-1">
-                                    <p>14.00 - 16.30</p>
-                                </td>
-                                <td class="p-1">
-                                    <p>Basic 1</p>
-                                </td>
-                                <th
-                                    class="hover:scale-105 bg-blue-400 text-white rounded-md px-1 py-1 h-4 gap-1 float-center">
-                                    <a href="{{ url('/absen') }}">
-                                        <button>SELESAI</button>
-
-                            </tr>
-                            <tr class="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                                <td class="p-1">
-                                    <p>SDIT Adzkia 1</p>
-                                </td>
-                                <td class="p-1">
-                                    <p>Rabu</p>
-                                </td>
-                                <td class="P-1">
-                                    <p>14.00 - 16.30</p>
-                                </td>
-                                <td class="p-1">
-                                    <p>Basic 1</p>
-                                </td>
-                                <th
-                                    class="hover:scale-105 bg-red-500 text-white rounded-md px-1 py-1 gap-1 float-center">
-                                    <a href="{{ url('/absen') }}">
-                                        <button>ABSEN</button>
-
-                            </tr>
-                            <tr class="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                                <td class="p-1">
-                                    <p>SDIT Adzkia 1</p>
-                                </td>
-                                <td class="p-1">
-                                    <p>Rabu</p>
-                                </td>
-                                <td class="P-1">
-                                    <p>14.00 - 16.30</p>
-                                </td>
-                                <td class="p-1">
-                                    <p>Basic 1</p>
-                                </td>
-                                <th
-                                    class="hover:scale-105 bg-blue-400 text-white rounded-md px-1 py-1 gap-1 float-center">
-                                    <a href="{{ url('/absen') }}">
-                                        <button>SELESAI</button>
-
-                            </tr>
-                            <tr class="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                                <td class="p-1">
-                                    <p>SDIT Adzkia 1</p>
-                                </td>
-                                <td class="p-1">
-                                    <p>Rabu</p>
-                                </td>
-                                <td class="P-1">
-                                    <p>14.00 - 16.30</p>
-                                </td>
-                                <td class="p-1">
-                                    <p>Basic 1</p>
-                                </td>
-                                <th
-                                    class="hover:scale-105 bg-red-500 text-white rounded-md px-1 py-1 gap-1 float-center">
-                                    <a href="{{ url('/absen') }}">
-                                        <button>ABSEN</button>
-
-                            </tr>
-                            <tr class="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                                <td class="p-1">
-                                    <p>SDIT Adzkia 1</p>
-                                </td>
-                                <td class="p-1">
-                                    <p>Rabu</p>
-                                </td>
-                                <td class="P-1">
-                                    <p>14.00 - 16.30</p>
-                                </td>
-                                <td class="p-1">
-                                    <p>Basic 1</p>
-                                </td>
-                                <th
-                                    class="hover:scale-105 bg-blue-400 text-white rounded-md px-1 py-1 gap-1 float-center">
-                                    <a class="py-1" href="{{ url('/absen') }}">
-                                        <button>SELESAI</button>
-
-                            </tr>
-
-                        </body>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <br>
-        <br>
-        <article class="rounded-xl border border-gray-800 bg-blue-800 p-4">
-            <div class="flex items-center gap-4">
-                <img alt="" src="{{ asset('assets/image/logobtik.png') }}" class="w-20 object-cover" />
-
+    <body class="scrollbar-hidden">
+        <!-- splash-screen start -->
+        <section id="preloader" class="spalsh-screen">
+            <div class="circle text-center">
                 <div>
-                    <h3 class="text-lg font-medium text-white">MENU</h3>
-
-                    <div class="flow-root">
-
-                    </div>
+                    <h1>Travgo</h1>
+                    <p>Discover Your Destinition</p>
                 </div>
             </div>
+            <div class="loader-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </section>
+        <!-- splash-screen end -->
 
-            <ul class="mt-4 space-y-2">
-                <li>
-                    <a href="/jadwal"
-                        class="justify-between flex h-15 rounded-lg border border-white-800 p-4 hover:scale-105">
-                        <strong class="font-medium text-white">JADWAL</strong> <img
-                            src="{{ 'assets/image/calendar.png' }}" class="w-7">
+        <!-- menu, side-menu start -->
+        <section class="wrapper dz-mode">
+            <!-- menu -->
+            <div class="menu">
+                <button class="toggle-btn">
+                    <img src="assets/svg/menu/burger-white.svg" alt="" class="icon">
+                </button>
+                <div class="btn-grp d-flex align-items-center gap-16">
+                    <label for="mode-change" class="mode-change d-flex align-items-center justify-content-center">
+                        <input type="checkbox" id="mode-change">
+                        <img src="assets/svg/menu/sun-white.svg" alt="icon" class="sun">
+                        <img src="assets/svg/menu/moon-white.svg" alt="icon" class="moon">
+                    </label>
+                    <a href="pages/profile/user-profile.html">
+                        <img src="assets/svg/menu/profile-white.svg" alt="icon">
                     </a>
-                </li>
+                </div>
+            </div>
+            <div class="m-menu__overlay"></div>
+            <!-- main menu -->
+            <div class="m-menu">
+                <div class="m-menu__header">
+                    <button class="m-menu__close">
+                        <img src="assets/svg/menu/close-white.svg" alt="icon">
+                    </button>
+                    <div class="menu-user">
+                        <img src="assets/images/profile/avatar.png" alt="avatar">
+                        <div>
+                            <a href="#!">angela mayer</a>
+                            <h3>
+                                Verified user · Membership
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <h2 class="menu-title">menu</h2>
+                    </li>
 
-                <li>
-                    <a href="/instruktur"
-                        class="justify-between flex h-15 rounded-lg border border-white-800 p-4 hover:scale-105">
-                        <strong class="font-medium text-white">INSTRUKTUR</strong> <img
-                            src="{{ 'assets/image/journalteam.png' }}" class="w-7">
-                    </a>
-                </li>
-                <li>
-                    <a href="/gallery"
-                        class="justify-between flex h-15 rounded-lg border border-white-800 p-4 hover:scale-105">
-                        <strong class="font-medium text-white">GALLERY</strong> <img
-                            src="{{ 'assets/image/gallery.png' }}" class="w-7">
-                    </a>
-                </li>
-            </ul>
-        </article>
-        <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
-    </div>
-</x-trainer-layout>
+                    <li>
+                        <a href="pages/home.html">
+                            <div class="d-flex align-items-center gap-16">
+                                <span class="icon">
+                                    <img src="assets/svg/menu/pie-white.svg" alt="">
+                                </span>
+                                overview
+                            </div>
+                            <img src="assets/svg/menu/chevron-right-black.svg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="page.html">
+                            <div class="d-flex align-items-center gap-16">
+                                <span class="icon">
+                                    <img src="assets/svg/menu/page-white.svg" alt="">
+                                </span>
+                                pages
+                            </div>
+                            <img src="assets/svg/menu/chevron-right-black.svg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <h2 class="menu-title">others</h2>
+                    </li>
+
+                    <li>
+                        <label class="a-label__chevron" for="item-4">
+                            <span class="d-flex align-items-center gap-16">
+                                <span class="icon">
+                                    <img src="assets/svg/menu/grid-white.svg" alt="">
+                                </span>
+                                components
+                            </span>
+                            <img src="assets/svg/menu/chevron-right-black.svg" alt="">
+                        </label>
+                        <input type="checkbox" id="item-4" name="item-4" class="m-menu__checkbox">
+                        <div class="m-menu">
+                            <div class="m-menu__header">
+                                <label class="m-menu__toggle" for="item-4">
+                                    <img src="assets/svg/menu/back-white.svg" alt="">
+                                </label>
+                                <span class="m-menu__header-title">components</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    <a href="components/splash-screen.html">
+                                        <div class="d-flex align-items-center gap-16">
+                                            <span class="icon">
+                                                <img src="assets/svg/menu/box-white.svg" alt="icon">
+                                            </span>
+                                            splash screen
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="a-label__chevron" for="item-5">
+                            <span class="d-flex align-items-center gap-16">
+                                <span class="icon">
+                                    <img src="assets/svg/menu/gear-white.svg" alt="">
+                                </span>
+                                settings
+                            </span>
+                            <img src="assets/svg/menu/chevron-right-black.svg" alt="">
+                        </label>
+                        <input type="checkbox" id="item-5" name="item-5" class="m-menu__checkbox">
+                        <div class="m-menu">
+                            <div class="m-menu__header">
+                                <label class="m-menu__toggle" for="item-5">
+                                    <img src="assets/svg/menu/back-white.svg" alt="">
+                                </label>
+                                <span class="m-menu__header-title">settings</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    <a href="pages/profile/user-address.html">
+                                        <div class="d-flex align-items-center gap-16">
+                                            <span class="icon">
+                                                <img src="assets/svg/menu/box-white.svg" alt="icon">
+                                            </span>
+                                            My Address
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pages/profile/user-payment.html">
+                                        <div class="d-flex align-items-center gap-16">
+                                            <span class="icon">
+                                                <img src="assets/svg/menu/box-white.svg" alt="icon">
+                                            </span>
+                                            Payment Method
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pages/profile/change-password.html">
+                                        <div class="d-flex align-items-center gap-16">
+                                            <span class="icon">
+                                                <img src="assets/svg/menu/box-white.svg" alt="icon">
+                                            </span>
+                                            Change Password
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pages/profile/forgot-password.html">
+                                        <div class="d-flex align-items-center gap-16">
+                                            <span class="icon">
+                                                <img src="assets/svg/menu/box-white.svg" alt="icon">
+                                            </span>
+                                            Forgot Password
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pages/profile/security.html">
+                                        <div class="d-flex align-items-center gap-16">
+                                            <span class="icon">
+                                                <img src="assets/svg/menu/box-white.svg" alt="icon">
+                                            </span>
+                                            Security
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pages/profile/user-language.html">
+                                        <div class="d-flex align-items-center gap-16">
+                                            <span class="icon">
+                                                <img src="assets/svg/menu/box-white.svg" alt="icon">
+                                            </span>
+                                            Language
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pages/profile/notifications.html">
+                                        <div class="d-flex align-items-center gap-16">
+                                            <span class="icon">
+                                                <img src="assets/svg/menu/box-white.svg" alt="icon">
+                                            </span>
+                                            Notifications
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dz-switch">
+                        <div class="a-label__chevron">
+                            <div class="d-flex align-items-center gap-16">
+                                <span class="icon">
+                                    <img src="assets/svg/menu/moon-white.svg" alt="">
+                                </span>
+                                switch to dark mode
+                            </div>
+                            <label class="toggle-switch" for="enableMode">
+                                <input type="checkbox" id="enableMode" class="mode-switch">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- end main menu -->
+        </section>
+        <!-- menu, side-menu end -->
+
+        <main>
+            <!-- onboarding start -->
+            <section class="onboarding">
+                <div class="swiper onboarding-swiper">
+                    <div class="swiper-wrapper">
+                        <!-- item-1 -->
+                        <div class="swiper-slide">
+                            <div class="image position-relative">
+                                <img src="assets/images/onboarding/slide-1.png" alt="Slide"
+                                    class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <div class="content text-center">
+                                <h2>Best travel destinations in the world</h2>
+                                <p>Semper in cursus magna et eu varius nunc adipiscing. Elementum justo, laoreet id
+                                    semiru
+                                    forigive you.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- item-2 -->
+                        <div class="swiper-slide">
+                            <div class="image position-relative">
+                                <img src="assets/images/onboarding/slide-2.png" alt="Slide"
+                                    class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <div class="content text-center">
+                                <h2>Meet the needs of the holidays</h2>
+                                <p>Semper in cursus magna et eu varius nunc adipiscing. Elementum justo, laoreet id
+                                    semiru
+                                    forigive you.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- item-3 -->
+                        <div class="swiper-slide">
+                            <div class="image position-relative">
+                                <img src="assets/images/onboarding/slide-3.png" alt="Slide"
+                                    class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <div class="content text-center">
+                                <h2>Go on holiday with a smile</h2>
+                                <p>Semper in cursus magna et eu varius nunc adipiscing. Elementum justo, laoreet id
+                                    semiru
+                                    forigive you.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- item-4 -->
+                        <div class="swiper-slide">
+                            <div class="image position-relative">
+                                <img src="assets/images/onboarding/welcome.png" alt="Slide"
+                                    class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <div class="content text-center">
+                                <h2>We are here to make your holiday easier</h2>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <a href="pages/auth/signin.html" class="btn-primary btn-get-started">Get Started</a>
+                                <h6>Don’t have an account? <a href="pages/auth/signup.html">Register</a></h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="slider-footer">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <button type="button" class="skip-btn">
+                                <img src="assets/svg/arrow-circle.svg" alt="Arrow">
+                                Skip
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <div class="custom-pagination swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- onboarding end -->
+        </main>
+    </body>
+
+
+</x-main-layout>

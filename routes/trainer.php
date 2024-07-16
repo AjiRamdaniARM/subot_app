@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\trainer\LoginTrainerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,30 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/jd', function () {
-    return view('trainer.index');
-});
 
-Route::get('/absen', function () {
-    return view('absen');
-});
-Route::get('/jadwal', function () {
-    return view('jadwal');
-});
-Route::get('/instruktur', function () {
-    return view('instruktur');
-});
-Route::get('/gallery', function () {
-    return view('gallery');
-});
-Route::get('/loginTrainer', function () {
-    return view('auth.loginTrainer');
-});
-Route::get('/login', function () {
-    return view('trainer.index');
-});
-Route::get('/laporantrainer', function () {
-    return view('laporantrainer');
-});
-
-
+Route::get('trainer-login', [LoginTrainerController::class, 'index'])->name('login.trainer');

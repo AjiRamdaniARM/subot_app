@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 
 <head>
-
-    <script src="https://cdn.tailwindcss.com"></script>
+    @include('trainer.components.header')
 </head>
 
 <body>
     {{ $slot }}
 </body>
+@include('trainer.components.footer')
 
 </html>

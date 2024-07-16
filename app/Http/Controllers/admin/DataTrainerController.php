@@ -51,6 +51,7 @@ class DataTrainerController extends Controller
             'ktp_file' => $ktpFileName,
             'alamat' => $request->alamat,
             'lulusan' => $request->lulusan,
+            'telephone' => $request->telephone,
             'profile' => $profileFileName,
             'ttd' => $ttdFileName,
             'id_card' => $uniqueId,
@@ -104,6 +105,7 @@ class DataTrainerController extends Controller
 
         $getRequest->alamat = $request->alamat;
         $getRequest->lulusan = $request->lulusan;
+        $getRequest->telephone = $request->telephone;
 
         if ($request->hasFile('profile')) {
             // Ambil file baru dari request

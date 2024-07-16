@@ -1,4 +1,5 @@
 <x-app-layout>
+    @include('admin.build.components.trainer.modalPrivacy')
 
     <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.popUpTrainer')
@@ -75,11 +76,14 @@
                                                     <td
                                                         class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
 
-                                                        <a href="{{ url('/dataTrainer/private/' . $trainerGet->nama) }}">
+                                                        <button
+                                                            onclick="window.dialog{{ $trainerGet->nama }}.showModal();">
+                                                            {{-- href="{{ url('/dataTrainer/private/' . $trainerGet->nama) }}"> --}}
                                                             <span
                                                                 class="animasi-button bg-gradient-to-tl from-red-600 to-rose-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white ">Private
                                                                 Data</span>
-                                                        </a>
+                                                        </button>
+
                                                     </td>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
