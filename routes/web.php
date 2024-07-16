@@ -30,4 +30,3 @@ Route::get('/login/Trainer', [LoginAdminController::class, 'index'])->name('logi
 
  require __DIR__.'/admin.php';
  require __DIR__.'/trainer.php';
-require __DIR__.'/admin.php';

@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use App\View\Components\AppTrainer;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+
     /**
      * Register any application services.
      */
@@ -19,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Blade::component('trainer-layout', AppTrainer::class);
     }
 }
