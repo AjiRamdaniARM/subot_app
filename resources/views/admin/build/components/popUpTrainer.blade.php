@@ -1,7 +1,5 @@
-
-
 <div class="popup" id="popup">
-    <div class="popup__content " style="padding: 50px">
+    <div class="popup__content" style="padding: 50px">
         <div class="head flex" style="justify-items: start; align-items: center; gap: 15px">
             <div class="block">
                 <img src="{{asset('assets/img/logo.png')}}" width="100" alt="">
@@ -13,34 +11,65 @@
         <br>
         <form action="{{ route('trainer.add') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="grup-1 flex">
-                <div class="form__group field">
-                    <label class="form__label" for="nama">Full Name Trainer</label>
-                    <input class="form__field" type="text" name="nama" placeholder="Full Name" />
-                </div>
-               <div class="form__group field">
-                    <label  for="ktp_file">Trainer Graduatess</label>
-                    <input  type="file" name="ktp_file" />
-                </div>
-            </div>
 
-           <div class="form__group field">
-                <label class="form__label" for="alamat">Full Address Trainer</label>
-                <input class="form__field" type="text" name="alamat" placeholder="Full Address" />
+            <div class="grup-1">
+              <label for="inp" class="inp">
+                <input id="inp" type="text" name="nama" placeholder="&nbsp;" required />
+                <span class="label">Full Name</span>
+                <span class="focus-bg"></span>
+              </label>
+
+              <label for="inp" class="inp">
+                <input id="inp" type="text" name="alamat" placeholder="&nbsp;" />
+                <span class="label">Full Address Trainer</span>
+                <span class="focus-bg"></span>
+              </label>
+
+              <label for="inp" class="inp">
+                <input id="inp" type="text" name="lulusan" placeholder="&nbsp;" required />
+                <span class="label">Graduatess Trainer</span>
+                <span class="focus-bg"></span>
+              </label>
+
             </div>
-           <div class="form__group field">
-                <label class="form__label" for="lulusan">Trainer Graduatess</label>
-                <input class="form__field" type="text" name="lulusan" placeholder="Trainer Graduatess" />
-            </div>
-           <div class="form__group field">
-                <label for="profile">Trainer Profile</label>
-                <input type="file" name="profile" />
-            </div>
-           <div class="form__group field">
-                <label for="ttd">Trainer Signature</label>
-                <input type="file" name="ttd" />
-            </div>
-            <button type="submit">Create Data</button>
+            <br>
+            <label for="images" class="drop-container" id="dropcontainer">
+              <span class="drop-title">Drop File Ktp Image</span>
+              or
+              <input type="file" name="ktp_file"  id="images" accept="image/*" required>
+            </label>
+            <br>
+            <label for="images" class="drop-container" id="dropcontainer">
+              <span class="drop-title">Drop File Profile Image</span>
+              or
+              <input type="file" name="profile"  id="images" accept="image/*" required>
+            </label>
+            <br>
+            <label for="images" class="drop-container" id="dropcontainer">
+              <span class="drop-title">Drop File Tanda Tangan Image</span>
+              or
+              <input type="file" name="ttd"  id="images" accept="image/*" required>
+            </label>
+
+            <button
+            style="
+            background-color: rgb(39, 136, 255);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            "
+            type="submit">Create Data</button>
+            <button
+            onclick="window.location.href='#'"
+            style="
+            background-color: rgb(255, 194, 39);
+            color: rgb(0, 0, 0);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            "
+            type="submit">Close Modal</button>
         </form>
         {{-- <a href="#"">Close Popup</a> --}}
     </div>
@@ -49,66 +78,143 @@
 
   <style>
 
-.form__group {
+    .grup-1 {
+      display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+    }
+    @media (max-width: 599px) {
+      .grup-1 {
+            display: flex;
+           flex-direction: column;
+    }
+    }
+.inp {
   position: relative;
-  padding: 15px 0 0;
-  margin-top: 10px;
-  width: 50%;
-}
-
-.form__field {
-  font-family: inherit;
+  margin: auto;
   width: 100%;
-  border: 0;
-  border-bottom: 2px solid #9b9b9b;
-  outline: 0;
-  font-size: 1.3rem;
-  color: #000;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
+  max-width: 280px;
+  border-radius: 3px;
+  overflow: hidden;
 }
-.form__field::placeholder {
-  color: transparent;
-}
-.form__field:placeholder-shown ~ .form__label {
-  font-size: 1.3rem;
-  cursor: text;
+.inp .label {
+  position: absolute;
   top: 20px;
+  left: 12px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+  transform-origin: 0 0;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.2s ease;
+  pointer-events: none;
 }
-
-.form__label {
+.inp .focus-bg {
   position: absolute;
   top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: #9b9b9b;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.05);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.inp input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  width: 100%;
+  border: 0;
+  font-family: inherit;
+  padding: 16px 12px 0 12px;
+  height: 56px;
+  font-size: 16px;
+  font-weight: 400;
+  background: rgba(0, 0, 0, 0.02);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  color: #000;
+  transition: all 0.15s ease;
+}
+.inp input:hover {
+  background: rgba(0, 0, 0, 0.04);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+.inp input:not(:-moz-placeholder-shown) + .label {
+  color: rgba(0, 0, 0, 0.5);
+  transform: translate3d(0, -12px, 0) scale(0.75);
+}
+.inp input:not(:-ms-input-placeholder) + .label {
+  color: rgba(0, 0, 0, 0.5);
+  transform: translate3d(0, -12px, 0) scale(0.75);
+}
+.inp input:not(:placeholder-shown) + .label {
+  color: rgba(0, 0, 0, 0.5);
+  transform: translate3d(0, -12px, 0) scale(0.75);
+}
+.inp input:focus {
+  background: rgb(255, 183, 0);
+  outline: none;
+  box-shadow: inset 0 -2px 0 #000000;
+}
+.inp input:focus + .label {
+  color: #000000;
+  transform: translate3d(0, -12px, 0) scale(0.75);
+}
+.inp input:focus + .label + .focus-bg {
+  transform: scaleX(1);
+  transition: all 0.1s ease;
+}
+.drop-container {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px dashed #555;
+  color: #444;
+  cursor: pointer;
+  transition: background .2s ease-in-out, border .2s ease-in-out;
 }
 
-.form__field:focus {
-  padding-bottom: 6px;
-  font-weight: 700;
-  border-width: 3px;
-  border-image: linear-gradient(to right, #11998e, #38ef7d);
-  border-image-slice: 1;
-}
-.form__field:focus ~ .form__label {
-  position: absolute;
-  top: 10;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: #11998e;
-  font-weight: 700;
+.drop-container:hover {
+  background: #eee;
+  border-color: #111;
 }
 
-/* reset input */
-.form__field:required, .form__field:invalid {
-  box-shadow: none;
+.drop-container:hover .drop-title {
+  color: #222;
 }
 
+.drop-title {
+  color: #444;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: color .2s ease-in-out;
+}
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #084cdf;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
 
+input[type=file]::file-selector-button:hover {
+  background: #0d45a5;
+}
 
-
+.popup__content {
+  overflow-y: auto;
+  height: 30em;
+}
   </style>

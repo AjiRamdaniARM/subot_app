@@ -4332,3 +4332,18 @@ h6 {
     font-size: 1.4rem;
     margin-bottom: 4rem;
   }
+/* animasi hover & focus */
+  .animasi-edited-hover:hover:focus {
+    font-weight: 700;
+    color: black;
+    transition: all;
+  }
+  .animasi-delete-hover:hover:focus {
+    font-weight: 700;
+    color: rgb(255, 0, 0);
+    transition: all;
+  }
+  .animasi-button:hover:focus {
+    transform: scale(1.5);
+    transition: all;
+  }
