@@ -14,5 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::get('trainer-login', [LoginTrainerController::class, 'index'])->name('login.trainer');
+Route::get('/trainer-login', [LoginTrainerController::class, 'index'])->name('login.trainer');

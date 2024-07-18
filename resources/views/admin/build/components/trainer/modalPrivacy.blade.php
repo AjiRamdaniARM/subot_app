@@ -1,15 +1,15 @@
-<dialog id="dialog{{ $trainerGet->nama }}">
-    <form id="formId" action="{{ url('/privacy' . $trainerGet->nama) }}" method="POST">
+<dialog id="dialog">
+    <form id="formId" action="{{ url('/privacy') }}" method="POST">
         @csrf
-        <h2 class="poppins-bold">Data Ini bersifat pribadi</h2>
+        <h2 class="poppins-bold">This data is personal</h2>
         <div class="voucher-container">
-            <h6 class="voucher-title">Jika ingin mengakses data ini, Mohon masukkan PIN <span></span></h6>
+            <h6 class="voucher-title">If you wish to access this data, please enter your PIN <span></span></h6>
         </div>
         <div class="voucher-code-container">
             <h6 class="voucher-code-title">Code Pin</h6>
             <input type="password" name="pin" class="voucher-input" required>
         </div>
-        <button type="submit" class="voucher-button">Akses Now</button>
+        <button type="submit" class="voucher-button">Access Now</button>
         @if ($errors->has('pin'))
             <div>{{ $errors->first('pin') }}</div>
         @endif

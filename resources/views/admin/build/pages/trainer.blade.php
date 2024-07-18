@@ -76,8 +76,7 @@
                                                     <td
                                                         class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
 
-                                                        <button
-                                                            onclick="window.dialog{{ $trainerGet->nama }}.showModal();">
+                                                        <button onclick="window.dialog.showModal();">
                                                             {{-- href="{{ url('/dataTrainer/private/' . $trainerGet->nama) }}"> --}}
                                                             <span
                                                                 class="animasi-button bg-gradient-to-tl from-red-600 to-rose-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white ">Private
@@ -108,7 +107,7 @@
 
                 <!-- card 2 -->
 
-                <div class="flex flex-wrap -mx-3">
+                {{-- <div class="flex flex-wrap -mx-3">
                     <div class="flex-none w-full max-w-full px-3">
                         <div
                             class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
@@ -421,7 +420,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <footer class="pt-4">
                     <div class="w-full px-6 mx-auto">
                         <div class="flex flex-wrap items-center -mx-3 lg:justify-between">
@@ -506,8 +505,7 @@
                                 onclick="sidebarColor(this)"></span>
                             <span
                                 class="text-xs rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-blue-600 to-cyan-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
-                                data-color-from="blue-600" data-color-to="cyan-400"
-                                onclick="sidebarColor(this)"></span>
+                                data-color-from="blue-600" data-color-to="cyan-400" onclick="sidebarColor(this)"></span>
                             <span
                                 class="text-xs rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-green-600 to-lime-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
                                 data-color-from="green-600" data-color-to="lime-400"
@@ -518,8 +516,7 @@
                                 onclick="sidebarColor(this)"></span>
                             <span
                                 class="text-xs rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-red-600 to-rose-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
-                                data-color-from="red-600" data-color-to="rose-400"
-                                onclick="sidebarColor(this)"></span>
+                                data-color-from="red-600" data-color-to="rose-400" onclick="sidebarColor(this)"></span>
                         </div>
                     </a>
                     <!-- Sidenav Type -->

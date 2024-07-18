@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\admin\DataTrainerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\form\FormulirController;
 use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\SistemKidsCoontroller;
 use Illuminate\Support\Facades\Route;
 
 // role admin
@@ -15,7 +17,11 @@ Route::post('/dataTrainer/add', [DataTrainerController::class, 'store'])->name('
 Route::post('/dataTrainer/edit/{nama}', [DataTrainerController::class, 'edited'])->name('trainer.edit');
 Route::get('/dataTrainer/delete/{nama}', [DataTrainerController::class, 'delete'])->name('trainer.delete');
 
-
+// dataKidsRoute
+Route::get('/formulirPendaftaran', [FormulirController::class, 'index'])->name('formulir.index');
+Route::get('/formulirPendaftaran/selesai', [FormulirController::class, 'done'])->name('formulir.done');
+Route::get('/dataKids', [SistemKidsCoontroller::class, 'index'])->name('index.kids');
+Route::post('/datakids/loading', [SistemKidsCoontroller::class, 'store'])->name('input.kids');
 
 // privacyPin
 Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');
