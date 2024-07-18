@@ -8,6 +8,6 @@ class LoginTrainerController extends Controller
 {
     public function index()
     {
-        return view('trainer.signin');
+        return view('trainer.trainerLogin');
     }
 }

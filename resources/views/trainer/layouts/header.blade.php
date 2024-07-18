@@ -1,18 +1,17 @@
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
 <!-- favicon -->
-<link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ asset('assets/css/nucleo-icons.css') }}" type="image/x-icon">
 
 <!-- bootstrap -->
-<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/auth.css') }}">
 
 <!-- swiper -->
 <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/swiper-bundle.min.css') }}">
 
 <!-- datepicker -->
-<link rel="stylesheet" href="{{ asset('assets/trainerJs/js/jquery.datetimepicker.full.js') }}">
+<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/datetimepicker.css') }}">
+
+<!-- jquery ui -->
+<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/jquery-ui.min.css') }}">
 
 <!-- common -->
 <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/common.css') }}">
@@ -22,3 +21,6 @@
 
 <!-- welcome -->
 <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/welcome.css') }}">
+
+<!-- auth -->
+<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/auth.css') }}">

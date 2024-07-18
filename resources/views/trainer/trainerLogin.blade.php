@@ -1,30 +1,7 @@
-<x-main-layout>
+@extends('trainer.layouts.main')
+@section('children')
 
     <body class="scrollbar-hidden">
-        <!-- splash-screen start -->
-        <section id="preloader" class="spalsh-screen">
-            <div class="circle text-center">
-                <div>
-                    <h1>Travgo</h1>
-                    <p>Discover Your Destinition</p>
-                </div>
-            </div>
-            <div class="loader-spinner">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </section>
-        <!-- splash-screen end -->
 
         <main class="auth-main">
             <!-- menu, side-menu start -->
@@ -261,8 +238,7 @@
                     </div>
 
                     <div class="d-flex flex-column gap-16">
-                        <button type="button" class="social-btn" data-bs-toggle="modal"
-                            data-bs-target="#loginSuccess">
+                        <button type="button" class="social-btn" data-bs-toggle="modal" data-bs-target="#loginSuccess">
                             <img src="../../assets/svg/icon-google.svg" alt="Google">
                             Continue with Google
                         </button>
@@ -286,16 +262,11 @@
                     <div class="modal-body text-center">
                         <img src="../../assets/svg/check-green.svg" alt="Check">
                         <h3>You have logged in successfully</h3>
-                        <p class="mb-32">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        </p>
+                        <p class="mb-32">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                         <a href="../home.html" class="btn-primary">Continue</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- modal end -->
-
-
     </body>
-
-</x-main-layout>
+@endsection
