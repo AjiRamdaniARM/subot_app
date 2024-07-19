@@ -1,6 +1,9 @@
 <x-app-layout>
 
+    @include('admin.build.components.loading.scriptLoading')
+
     <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
+        @include('admin.build.components.loading.loadingScreen')
         @include('admin.build.components.sidenav')
         <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
             <!-- Navbar -->
@@ -13,60 +16,96 @@
                             <div class="max-w-full px-3 mb-4 lg:mb-0 lg:w-full lg:flex-none">
                                 <div
                                     class="relative flex flex-col min-w-0 mt-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-                                    <div
-                                        class="p-4 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                                        <div class="flex flex-wrap -mx-3">
-                                            <div class="flex items-center flex-none w-1/2 max-w-full px-3">
-                                                <h6 class="mb-0">Add New Child Data</h6>
-                                            </div>
-                                            <div class="flex-none w-1/2 max-w-full px-3 text-right">
-                                                <a class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25"
-                                                    href="javascript:;"> <i class="fas fa-plus"> </i>&nbsp;&nbsp;Add
-                                                    New
-                                                    Card</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-auto p-4">
-                                        <div class="flex flex-wrap -mx-3">
-                                            <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                <div
-                                                    class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl border-slate-100 bg-clip-border">
-                                                    <img class="mb-0 mr-4 w-1/10"
-                                                        src="../assets/img/logos/mastercard.png" alt="logo" />
-                                                    <h6 class="mb-0">
-                                                        ****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;7852
-                                                    </h6>
-                                                    <i class="ml-auto cursor-pointer fas fa-pencil-alt text-slate-700"
-                                                        data-target="tooltip_trigger" data-placement="top"></i>
-                                                    <div data-target="tooltip"
-                                                        class="hidden px-2 py-1 text-white bg-black rounded-lg text-sm">
-                                                        Edit Card
-                                                        <div class="invisible absolute h-2 w-2 bg-inherit before:visible before:absolute before:h-2 before:w-2 before:rotate-45 before:bg-inherit before:content-['']"
-                                                            data-popper-arrow></div>
-                                                    </div>
+                                    <form action="{{ route('admin.kids') }}" method="POST" class="text-black">
+                                        @csrf
+                                        <div
+                                            class="p-4 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                                            <div class="flex flex-wrap -mx-3">
+                                                <div class="flex items-center flex-none w-1/2 max-w-full px-3">
+                                                    <h6 class="mb-0">Add New Child Data</h6>
                                                 </div>
-                                            </div>
-                                            <div class="max-w-full px-3 md:w-1/2 md:flex-none">
-                                                <div
-                                                    class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl border-slate-100 bg-clip-border">
-                                                    <img class="mb-0 mr-4 w-1/10" src="../assets/img/logos/visa.png"
-                                                        alt="logo" />
-                                                    <h6 class="mb-0">
-                                                        ****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;5248
-                                                    </h6>
-                                                    <i class="ml-auto cursor-pointer fas fa-pencil-alt text-slate-700"
-                                                        data-target="tooltip_trigger" data-placement="top"></i>
-                                                    <div data-target="tooltip"
-                                                        class="hidden px-2 py-1 text-white bg-black rounded-lg text-sm">
-                                                        Edit Card
-                                                        <div class="invisible absolute h-2 w-2 bg-inherit before:visible before:absolute before:h-2 before:w-2 before:rotate-45 before:bg-inherit before:content-['']"
-                                                            data-popper-arrow></div>
-                                                    </div>
+                                                <div class="flex-none w-1/2 max-w-full px-3 text-right">
+                                                    <button type="submit"
+                                                        class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25"
+                                                        href="javascript:;"> <i class="fas fa-plus">
+                                                        </i>&nbsp;&nbsp;Create
+                                                        Data</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+
+                                        <div class="flex flex-col p-4" style="gap:10px">
+                                            <div class="flex flex-wrap -mx-3 ">
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <input
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-yellow-800 border border-solid shadow-none rounded-xl w-full border-black bg-clip-border py-4"
+                                                        name="nama_lengkap" type="text" required
+                                                        placeholder="Full Name" />
+                                                </div>
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <input
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
+                                                        name="tl" required type="text"
+                                                        placeholder="Place Of Birth" />
+                                                </div>
+
+
+                                            </div>
+                                            <div class="flex flex-wrap -mx-3 ">
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
+                                                    <input
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
+                                                        name="tanggal_lahir" type="date" required
+                                                        placeholder="Date Of Birth" />
+                                                </div>
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <input
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
+                                                        name="sekolah" type="text" required placeholder="School" />
+                                                </div>
+
+
+                                            </div>
+                                            <div class="flex flex-wrap -mx-3 ">
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
+                                                    <input
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
+                                                        name="kelas" type="text" required placeholder="Class" />
+                                                </div>
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <input
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
+                                                        name="nama_ortu" type="text" required
+                                                        placeholder="Parent's Name" />
+                                                </div>
+
+
+                                            </div>
+                                            <div class="flex flex-wrap -mx-3 ">
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
+                                                    <input
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
+                                                        name="telephone" type="number" required
+                                                        placeholder="Number Handphone" />
+                                                </div>
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <input
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
+                                                        name="work_ortu" type="text" required
+                                                        placeholder="Parent's Occupation" />
+                                                </div>
+
+
+                                            </div>
+                                            <div class="max-w-full px-3 mb-6 md:mb-0 md:w-full md:flex-none">
+                                                <input
+                                                    class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
+                                                    name="alamat" type="text" required placeholder="Address" />
+                                            </div>
+
+                                        </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
@@ -94,16 +133,36 @@
                                                         {{ $getDataKid->nama_lengkap }}
                                                     </h6>
                                                     <span class="mb-2 leading-tight text-xs">School: <span
-                                                            class="font-semibold text-slate-700 sm:ml-2">{{ $getDataKid->sekolah->sekolah }}</span></span>
+                                                            class="font-semibold text-slate-700 sm:ml-2">{{ $getDataKid->sekolah }}</span></span>
                                                 </div>
-                                                <div class="ml-auto text-right">
-                                                    <a class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text"
-                                                        href="javascript:;"><i
-                                                            class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-rose-400 bg-x-25 bg-clip-text"></i>Delete</a>
+                                                <div class="ml-auto text-right flex flex-wrap">
+                                                    <form
+                                                        action="{{ route('delete.kids', ['nama_lengkap' => $getDataKid->nama_lengkap]) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text">
+                                                            <i
+                                                                class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-rose-400 bg-x-25 bg-clip-text"></i>Delete
+                                                        </button>
+                                                    </form>
+
+
                                                     <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
                                                         href="javascript:;"><i
                                                             class="mr-2 fas fa-pencil-alt text-slate-700"
                                                             aria-hidden="true"></i>Edit</a>
+                                                    <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
+                                                        href="javascript:;"><svg class="w-5 text-[#344767]"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                        </svg>
+                                                        View</a>
                                                 </div>
                                             </li>
                                         @endforeach

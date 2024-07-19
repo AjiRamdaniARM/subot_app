@@ -21,7 +21,9 @@ Route::get('/dataTrainer/delete/{nama}', [DataTrainerController::class, 'delete'
 Route::get('/formulirPendaftaran', [FormulirController::class, 'index'])->name('formulir.index');
 Route::get('/formulirPendaftaran/selesai', [FormulirController::class, 'done'])->name('formulir.done');
 Route::get('/dataKids', [SistemKidsCoontroller::class, 'index'])->name('index.kids');
+Route::get('/datakids/delete/{nama_lengkap}', [SistemKidsCoontroller::class, 'delete'])->name('delete.kids');
 Route::post('/datakids/loading', [SistemKidsCoontroller::class, 'store'])->name('input.kids');
+Route::post('/datakids/loading/admin', [SistemKidsCoontroller::class, 'storeAdmin'])->name('admin.kids');
 
 // privacyPin
 Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');

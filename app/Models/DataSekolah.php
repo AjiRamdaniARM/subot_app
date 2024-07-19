@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DataSekolah extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'id_sekolah',
         'sekolah',
@@ -16,6 +17,6 @@ class DataSekolah extends Model
 
     public function siswa()
     {
-        return $this->belongsTo(DataSiswa::class, 'id_sekolah');
+        return $this->hasMany(DataSiswa::class, 'id_sekolah');
     }
 }

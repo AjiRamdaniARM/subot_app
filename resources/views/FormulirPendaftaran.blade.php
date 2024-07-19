@@ -26,21 +26,20 @@
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Nama Lengkap" name="nama_lengkap" required>
                                 </div>
-                                <div class="grup flex gap-5">
-                                    <div class="flex flex-col">
-                                        <label class="leading-loose">Tempat Lahir</label>
-                                        <input type="text"
-                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                            placeholder="Tempat Lahir" name="tl" required>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <label class="leading-loose">Tanggal Lahir</label>
-                                        <input type="date"
-                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                            name="tanggal_lahir" required>
-                                    </div>
 
+                                <div class="flex flex-col">
+                                    <label class="leading-loose">Tempat Lahir</label>
+                                    <input type="text"
+                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        placeholder="Tempat Lahir" name="tl" required>
                                 </div>
+                                <div class="flex flex-col">
+                                    <label class="leading-loose">Tanggal Lahir</label>
+                                    <input type="date"
+                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        name="tanggal_lahir" required>
+                                </div>
+
 
                                 <div class="flex flex-col">
                                     <label class="leading-loose">Sekolah</label>
@@ -79,18 +78,40 @@
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Alamat" name="alamat" required>
                                 </div>
+                                <div class="flex flex-col">
+                                    <label class="leading-loose">Pas Foto</label>
+                                    <input type="file"
+                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        placeholder="file" name="file" id="fotoInput" required>
+                                </div>
+                                <div class="flex flex-col">
+                                    <div id="preview">
+                                        <img id="previewImage" class="preview-image">
+                                    </div>
+                                </div>
+                                <script>
+                                    // Ambil referensi elemen input file
+                                    const fotoInput = document.getElementById('fotoInput');
+                                    // Ambil referensi elemen img untuk preview
+                                    const previewImage = document.getElementById('previewImage');
+
+                                    // Tambahkan event listener untuk mendengarkan perubahan pada input file
+                                    fotoInput.addEventListener('change', function() {
+                                        const file = this.files[0];
+
+                                        if (file) {
+                                            // Buat objek URL untuk file yang dipilih
+                                            const url = URL.createObjectURL(file);
+
+                                            // Set src elemen img untuk menampilkan preview gambar
+                                            previewImage.src = url;
+                                        }
+                                    });
+                                </script>
                             </div>
                             <div class="pt-4 flex items-center space-x-4">
-                                {{-- <button
-                                    class="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none">
-                                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 18L18 6M6 6l12 12"></path>
-                                    </svg> Cancel
-                                </button> --}}
                                 <button
-                                    class="button bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:scale-105 transition-all focus:scale-105"
+                                    class="button relative z-0 bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:scale-105 transition-all focus:scale-105"
                                     type="submit">Daftar
                                     <div class="arrow-wrapper">
                                         <div class="arrow"></div>

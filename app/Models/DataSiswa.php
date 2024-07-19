@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DataSiswa extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'nama_lengkap',
         'tl',
@@ -18,9 +19,10 @@ class DataSiswa extends Model
         'work_ortu',
         'alamat',
         'telephone',
+        'file'
     ];
 
-    public function sekolah()
+    public function Datasekolah()
     {
         return $this->belongsTo(DataSekolah::class, 'id_sekolah');
     }
