@@ -1,0 +1,9 @@
+.animasi-scale-hover-105:hover {
+transform: scale(1.2);
+}
+.animasi-scale-focus-105:focus {
+    transform: scale(1.2);
+    }
+.transisi-all {
+    transition: all;
+}

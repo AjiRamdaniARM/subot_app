@@ -11,13 +11,15 @@ class SistemKidsCoontroller extends Controller
 {
     public function index()
     {
+        $getDataSchool = DataSekolah::orderBy('created_at', 'DESC')->paginate(10);
+
         $getDataKids = DB::table('data_siswas')
             ->join('data_sekolahs', 'data_siswas.id_sekolah', '=', 'data_sekolahs.id_sekolah')
-            ->select('data_siswas.*', 'data_sekolahs.*')
-            ->orderBy('data_siswas.nama_lengkap', 'asc') // Urutkan berdasarkan nama sekolah secara ascending (A ke Z)
+            ->select('data_siswas.*', 'data_sekolahs.*', 'data_siswas.alamat as alamat_anak')
+            ->orderBy('data_siswas.nama_lengkap', 'asc')
             ->get();
 
-        return view('admin.build.pages.dataKids', compact('getDataKids'));
+        return view('admin.build.pages.dataKids', compact('getDataKids', 'getDataSchool'));
     }
 
     // validasi data anak dari form pendaftaran ( Hosting ) 19 / 07 / 2024
@@ -122,6 +124,7 @@ class SistemKidsCoontroller extends Controller
     public function storeAdmin(Request $request)
     {
         // validasi hasil input dan berikan meesage
+        // validasi hasil input dan berikan meesage
         $request->validate([
             'nama_lengkap' => 'required|max:255|min:3',
             'tl' => 'required|max:255|min:3',
@@ -178,14 +181,13 @@ class SistemKidsCoontroller extends Controller
         $getSiswa = DataSiswa::where('nama_lengkap', $request->nama_lengkap)->first();
         if ($getSiswa) {
             // Lakukan penanganan jika data sudah ada, misalnya tampilkan pesan error atau lakukan tindakan lain
-            return response()->json('berhasil');
+            return redirect()->back()->with('error', 'Data dengan nama lengkap tersebut sudah ada!!');
         } else {
             // validasi file ke public
             if ($request->hasFile('file')) {
                 $dataFile = $request->file('file');
                 $fileName = 'pasFoto_'.$request->nama_lengkap.'.'.$dataFile->getClientOriginalExtension();
                 $dataFile->move(public_path('/assets/data/dataAnak/img'), $fileName);
-
                 // get data hasil validasi dan masuk ke database
                 $inputSekolah = new DataSekolah();
                 $inputSekolah->id_sekolah = $uniqueId;
@@ -213,6 +215,61 @@ class SistemKidsCoontroller extends Controller
         return redirect()
             ->back()
             ->with('success', 'successful child enrollment');
+    }
+
+    public function edit(Request $request, $nama_lengkap)
+    {
+        // Generate unique ID for the school
+        $uniqueId = $this->generateUniqueId($request->sekolah);
+
+        // Find the student data
+        $getData = DataSiswa::where('nama_lengkap', $nama_lengkap)->firstOrFail();
+
+        // Find the school data
+        $getSekolah = DataSekolah::where('id_sekolah', $request->id_sekolah)->firstOrFail();
+
+        // Update school data
+        $getSekolah->id_sekolah = $uniqueId;
+        $getSekolah->sekolah = $request->sekolah;
+        $getSekolah->save();
+
+        // Update student data
+        $getData->nama_lengkap = $request->nama_lengkap;
+        $getData->tl = $request->tl;
+        $getData->tanggal_lahir = $request->tanggal_lahir;
+        $getData->id_sekolah = $uniqueId;
+        $getData->kelas = $request->kelas;
+        $getData->nama_ortu = $request->nama_ortu;
+        $getData->work_ortu = $request->work_ortu;
+        $getData->alamat = $request->alamat;
+        $getData->telephone = $request->telephone;
+
+        // Check if a new file is uploaded
+        if ($request->hasFile('file')) {
+            // Get the new file
+            $file = $request->file('file');
+
+            // Create a new file name
+            $fileName = 'pasFoto_'.$request->nama_lengkap.'.'.$file->getClientOriginalExtension();
+
+            // Determine paths for old and new files
+            $filePath = public_path('/assets/data/dataAnak/img');
+            $oldPath = $filePath.'/'.$getData->file; // Use the old file name from the database
+
+            // Delete old file if it exists
+            if (file_exists($oldPath)) {
+                unlink($oldPath);
+            }
+
+            // Move new file to the specified location
+            $file->move($filePath, $fileName);
+            $getData->file = $fileName;
+        }
+
+        // Save updated student data
+        $getData->save();
+
+        return redirect()->back();
     }
 
     private function generateUniqueId($sekolah)

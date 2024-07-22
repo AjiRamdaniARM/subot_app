@@ -2,16 +2,27 @@
 
     <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.sidenav')
+
         <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
             <!-- Navbar -->
             @include('admin.build.components.navbar')
+
             <div class="w-full px-6 py-6 mx-auto">
+
+                {{-- alert validasi data anak input  --}}
                 @if (session('success'))
                     <div class="alert alert-success text-center text-black font-bold" role="alert"
                         style="background-color: rgb(166, 255, 166); padding:3px">
                         {{ session('success') }}
                     </div>
                 @endif
+                @if (session('error'))
+                    <div class="alert alert-success text-center text-white font-bold" role="alert"
+                        style="background-color: rgb(255, 45, 22); padding:3px">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <!-- content -->
                 <div class="flex flex-wrap -mx-3">
                     <div class="max-w-full px-3 lg:w-full lg:flex-none">
@@ -37,14 +48,13 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="flex flex-col p-4" style="gap:10px">
                                             <div class="flex flex-wrap -mx-3 ">
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-yellow-800 border border-solid shadow-none rounded-xl w-full border-black bg-clip-border py-4"
-                                                        name="nama_lengkap" type="text" required
-                                                        placeholder="Full Name" />
+                                                        name="nama_lengkap" value="{{ old('nama_lengkap') }}"
+                                                        type="text" required placeholder="Full Name" />
                                                     @error('nama_lengkap')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -55,8 +65,8 @@
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="tl" required type="text"
-                                                        placeholder="Place Of Birth" />
+                                                        name="tl" value="{{ old('tl') }}" required
+                                                        type="text" placeholder="Place Of Birth" />
                                                     @error('tl')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -71,13 +81,14 @@
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
-                                                        name="tanggal_lahir" type="date" required
-                                                        placeholder="Date Of Birth" />
+                                                        name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
+                                                        type="date" required placeholder="Date Of Birth" />
                                                 </div>
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="sekolah" type="text" required placeholder="School" />
+                                                        name="sekolah" value="{{ old('sekolah') }}" type="text"
+                                                        required placeholder="School" />
                                                     @error('sekolah')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -92,7 +103,8 @@
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
-                                                        name="kelas" type="text" required placeholder="Class" />
+                                                        name="kelas" value="{{ old('kelas') }}" type="text"
+                                                        required placeholder="Class" />
                                                     @error('kelas')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -103,8 +115,8 @@
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="nama_ortu" type="text" required
-                                                        placeholder="Parent's Name" />
+                                                        name="nama_ortu" value="{{ old('nama_ortu') }}" type="text"
+                                                        required placeholder="Parent's Name" />
                                                     @error('nama_ortu')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -119,8 +131,8 @@
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
-                                                        name="telephone" type="number" required
-                                                        placeholder="Number Handphone" />
+                                                        name="telephone" value="{{ old('telephone') }}" type="number"
+                                                        required placeholder="Number Handphone" />
                                                     @error('telephone')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -131,8 +143,8 @@
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="work_ortu" type="text" required
-                                                        placeholder="Parent's Occupation" />
+                                                        name="work_ortu" value="{{ old('work_ortu') }}" type="text"
+                                                        required placeholder="Parent's Occupation" />
                                                     @error('work_ortu')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -146,7 +158,8 @@
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
-                                                        name="alamat" type="text" required placeholder="Address" />
+                                                        name="alamat" value="{{ old('alamat') }}" type="text"
+                                                        required placeholder="Address" />
                                                     @error('alamat')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -212,9 +225,10 @@
 
 
                                                     <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
-                                                        href="javascript:;"><i
+                                                        href="#popup/{{ $getDataKid->nama_lengkap }}"><i
                                                             class="mr-2 fas fa-pencil-alt text-slate-700"
                                                             aria-hidden="true"></i>Edit</a>
+                                                    @include('admin.build.components.dataKids.modalEdit')
                                                     <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
                                                         href="javascript:;"><svg class="w-5 text-[#344767]"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -242,132 +256,46 @@
                             <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
                                 <div class="flex flex-wrap -mx-3">
                                     <div class="max-w-full px-3 md:w-1/2 md:flex-none">
-                                        <h6 class="mb-0">Your Transactions</h6>
+                                        <h6 class="mb-0">All School Data</h6>
                                     </div>
-                                    <div class="flex items-center justify-end max-w-full px-3 md:w-1/2 md:flex-none">
-                                        <i class="mr-2 far fa-calendar-alt"></i>
-                                        <small>23 - 30 March 2020</small>
-                                    </div>
+
                                 </div>
                             </div>
                             <div class="flex-auto p-4 pt-6">
-                                <h6 class="mb-4 font-bold leading-tight uppercase text-xs text-slate-500">Newest
-                                </h6>
                                 <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                                    <li
-                                        class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-t-inherit text-inherit rounded-xl">
-                                        <div class="flex items-center">
-                                            <button
-                                                class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-red-600 border-transparent bg-transparent text-center align-middle font-bold uppercase text-red-600 transition-all hover:opacity-75"><i
-                                                    class="fas fa-arrow-down text-3xs"></i></button>
-                                            <div class="flex flex-col">
-                                                <h6 class="mb-1 leading-normal text-sm text-slate-700">Netflix</h6>
-                                                <span class="leading-tight text-xs">27 March 2020, at 12:30
-                                                    PM</span>
+                                    @foreach ($getDataSchool as $sekolah)
+                                        <li
+                                            class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-t-inherit text-inherit rounded-xl">
+                                            <div class="flex items-center">
+                                                <button
+                                                    class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-lime-500 border-transparent bg-transparent text-center align-middle font-bold uppercase text-lime-500 transition-all hover:opacity-75"><i
+                                                        class="fas fa-arrow-up text-3xs"></i></button>
+                                                <div class="flex flex-col">
+                                                    <h6 class="mb-1 leading-normal text-sm text-slate-700">
+                                                        {{ $sekolah->sekolah }}</h6>
+                                                    @if ($sekolah->alamat == null)
+                                                        <span class="leading-tight text-xs">Data alamat belum ada
+                                                            !!</span>
+                                                    @else
+                                                        <span
+                                                            class="leading-tight text-xs">{{ $sekolah->alamat }}</span>
+                                                    @endif
+
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="flex flex-col items-center justify-center">
-                                            <p
-                                                class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl from-red-600 to-rose-400 text-sm bg-clip-text">
-                                                - $ 2,500</p>
-                                        </div>
-                                    </li>
-                                    <li
-                                        class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 border-t-0 rounded-b-inherit text-inherit rounded-xl">
-                                        <div class="flex items-center">
-                                            <button
-                                                class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-lime-500 border-transparent bg-transparent text-center align-middle font-bold uppercase text-lime-500 transition-all hover:opacity-75"><i
-                                                    class="fas fa-arrow-up text-3xs"></i></button>
-                                            <div class="flex flex-col">
-                                                <h6 class="mb-1 leading-normal text-sm text-slate-700">Apple</h6>
-                                                <span class="leading-tight text-xs">27 March 2020, at 04:30
-                                                    AM</span>
+                                            <div class="flex flex-col items-center justify-center">
+                                                <button
+                                                    class="relative z-10 inline-block m-0 font-semibold leading-normal text-white rounded-lg text-sm animasi-scale-hover-105 transisi-all animasi-scale-focus-105"
+                                                    style="background-color: #FFAA00; padding: 5px;">
+                                                    Edit</button>
                                             </div>
-                                        </div>
-                                        <div class="flex flex-col items-center justify-center">
-                                            <p
-                                                class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl from-green-600 to-lime-400 text-sm bg-clip-text">
-                                                + $ 2,000</p>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    @endforeach
+
                                 </ul>
-                                <h6 class="my-4 font-bold leading-tight uppercase text-xs text-slate-500">Yesterday
-                                </h6>
-                                <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                                    <li
-                                        class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-t-inherit text-inherit rounded-xl">
-                                        <div class="flex items-center">
-                                            <button
-                                                class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-lime-500 border-transparent bg-transparent text-center align-middle font-bold uppercase text-lime-500 transition-all hover:opacity-75"><i
-                                                    class="fas fa-arrow-up text-3xs"></i></button>
-                                            <div class="flex flex-col">
-                                                <h6 class="mb-1 leading-normal text-sm text-slate-700">Stripe</h6>
-                                                <span class="leading-tight text-xs">26 March 2020, at 13:45
-                                                    PM</span>
-                                            </div>
-                                        </div>
-                                        <div class="flex flex-col items-center justify-center">
-                                            <p
-                                                class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl from-green-600 to-lime-400 text-sm bg-clip-text">
-                                                + $ 750</p>
-                                        </div>
-                                    </li>
-                                    <li
-                                        class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 border-t-0 text-inherit rounded-xl">
-                                        <div class="flex items-center">
-                                            <button
-                                                class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-lime-500 border-transparent bg-transparent text-center align-middle font-bold uppercase text-lime-500 transition-all hover:opacity-75"><i
-                                                    class="fas fa-arrow-up text-3xs"></i></button>
-                                            <div class="flex flex-col">
-                                                <h6 class="mb-1 leading-normal text-sm text-slate-700">HubSpot</h6>
-                                                <span class="leading-tight text-xs">26 March 2020, at 12:30
-                                                    PM</span>
-                                            </div>
-                                        </div>
-                                        <div class="flex flex-col items-center justify-center">
-                                            <p
-                                                class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl from-green-600 to-lime-400 text-sm bg-clip-text">
-                                                + $ 1,000</p>
-                                        </div>
-                                    </li>
-                                    <li
-                                        class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 border-t-0 text-inherit rounded-xl">
-                                        <div class="flex items-center">
-                                            <button
-                                                class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-lime-500 border-transparent bg-transparent text-center align-middle font-bold uppercase text-lime-500 transition-all hover:opacity-75"><i
-                                                    class="fas fa-arrow-up text-3xs"></i></button>
-                                            <div class="flex flex-col">
-                                                <h6 class="mb-1 leading-normal text-sm text-slate-700">Creative Tim
-                                                </h6>
-                                                <span class="leading-tight text-xs">26 March 2020, at 08:30
-                                                    AM</span>
-                                            </div>
-                                        </div>
-                                        <div class="flex flex-col items-center justify-center">
-                                            <p
-                                                class="relative z-10 items-center inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl from-green-600 to-lime-400 text-sm bg-clip-text">
-                                                + $ 2,500</p>
-                                        </div>
-                                    </li>
-                                    <li
-                                        class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 border-t-0 rounded-b-inherit text-inherit rounded-xl">
-                                        <div class="flex items-center">
-                                            <button
-                                                class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-slate-700 border-transparent bg-transparent text-center align-middle font-bold uppercase text-slate-700 transition-all hover:opacity-75"><i
-                                                    class="fas fa-exclamation text-3xs"></i></button>
-                                            <div class="flex flex-col">
-                                                <h6 class="mb-1 leading-normal text-sm text-slate-700">Webflow</h6>
-                                                <span class="leading-tight text-xs">26 March 2020, at 05:00
-                                                    AM</span>
-                                            </div>
-                                        </div>
-                                        <div class="flex flex-col items-center justify-center">
-                                            <p
-                                                class="flex items-center m-0 font-semibold leading-normal text-sm text-slate-700">
-                                                Pending</p>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <div class="mt-4">
+                                    {{ $getDataSchool->links() }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -416,6 +344,7 @@
                     </div>
                 </footer>
             </div>
+
         </main>
         <div fixed-plugin>
             <a fixed-plugin-button

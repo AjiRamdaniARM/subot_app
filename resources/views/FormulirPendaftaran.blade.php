@@ -71,13 +71,30 @@
                                 @enderror
 
 
-                                <div class="flex flex-col">
-                                    <label class="leading-loose">Sekolah</label>
-                                    <input type="text"
-                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                        placeholder="Cth: Sukarobot Academy" name="sekolah" value="{{ old('sekolah') }}"
-                                        required>
+                                <div class="flex flex-col md:flex-row items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="leading-loose">Sekolah</label>
+                                        <select
+                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                            name="" id="">
+                                            <option value="">Pilih Sekolah Anda</option>
+                                            @foreach ($getData as $sekolah)
+                                                <option value="{{ $sekolah->id_sekolah }}">{{ $sekolah->sekolah }}</option>
+                                            @endforeach
+                                        </select>
+                                        {{-- <label class="leading-loose">Sekolah</label>
+                                        <input type="text"
+                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                            placeholder="Cth: Sukarobot Academy" name="sekolah" value="{{ old('sekolah') }}"
+                                            required> --}}
+                                    </div>
+                                    <button
+                                        class="bg-blue-500 relative md:mt-10 mt-5 w-full md:w-44 h-12 rounded-2xl p-2 text-white font-bold ">Daftarkan
+                                        Sekolah</button>
                                 </div>
+
+
+
                                 @error('sekolah')
                                     <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
