@@ -47,7 +47,6 @@
                                                     class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                                 </th>
                                             </tr>
-
                                         </thead>
                                         <tbody>
                                             @foreach ($getTrainerData as $trainerGet)

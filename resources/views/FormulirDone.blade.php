@@ -4,13 +4,12 @@
         <div class="relative py-3 sm:max-w-xl sm:mx-auto">
             <div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
                 <div class="max-w-md mx-auto">
-                    <div class="flex items-center space-x-5">
-                        <div
-                            class="h-14 w-14 bg-orange-500 rounded-full flex flex-shrink-0 justify-center items-center text-black text-2xl font-mono">
-                            s</div>
+                    <div class="flex flex-col md:flex-row items-center space-x-5">
+                        <img src="{{ asset('assets/img/logo.png') }}" width="100" alt="">
                         <div class="block pl-2 font-semibold text-xl self-start text-gray-700">
                             <h2 class="leading-relaxed">Terima Kasih Sudah Daftar</h2>
-                            <p class="text-sm text-gray-500 font-normal leading-relaxed">Terima kasih sudah mendaftarkan anak
+                            <p class="text-sm text-gray-500 font-normal leading-relaxed">Terima kasih sudah mendaftarkan
+                                anak
                                 Anda di Sukarobot Academy!</p>
                         </div>
                     </div>

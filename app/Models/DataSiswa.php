@@ -19,7 +19,7 @@ class DataSiswa extends Model
         'work_ortu',
         'alamat',
         'telephone',
-        'file'
+        'file',  // update hosting
     ];
 
     public function Datasekolah()

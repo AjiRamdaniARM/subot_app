@@ -1,14 +1,17 @@
 <x-app-layout>
 
-    @include('admin.build.components.loading.scriptLoading')
-
     <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
-        @include('admin.build.components.loading.loadingScreen')
         @include('admin.build.components.sidenav')
         <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
             <!-- Navbar -->
             @include('admin.build.components.navbar')
             <div class="w-full px-6 py-6 mx-auto">
+                @if (session('success'))
+                    <div class="alert alert-success text-center text-black font-bold" role="alert"
+                        style="background-color: rgb(166, 255, 166); padding:3px">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <!-- content -->
                 <div class="flex flex-wrap -mx-3">
                     <div class="max-w-full px-3 lg:w-full lg:flex-none">
@@ -16,7 +19,8 @@
                             <div class="max-w-full px-3 mb-4 lg:mb-0 lg:w-full lg:flex-none">
                                 <div
                                     class="relative flex flex-col min-w-0 mt-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-                                    <form action="{{ route('admin.kids') }}" method="POST" class="text-black">
+                                    <form action="{{ route('admin.kids') }}" method="POST" class="text-black"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <div
                                             class="p-4 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
@@ -26,8 +30,8 @@
                                                 </div>
                                                 <div class="flex-none w-1/2 max-w-full px-3 text-right">
                                                     <button type="submit"
-                                                        class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25"
-                                                        href="javascript:;"> <i class="fas fa-plus">
+                                                        class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
+                                                        <i class="fas fa-plus">
                                                         </i>&nbsp;&nbsp;Create
                                                         Data</button>
                                                 </div>
@@ -41,12 +45,24 @@
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-yellow-800 border border-solid shadow-none rounded-xl w-full border-black bg-clip-border py-4"
                                                         name="nama_lengkap" type="text" required
                                                         placeholder="Full Name" />
+                                                    @error('nama_lengkap')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
+                                                            role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
                                                         name="tl" required type="text"
                                                         placeholder="Place Of Birth" />
+                                                    @error('tl')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
+                                                            role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
 
 
@@ -62,6 +78,12 @@
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
                                                         name="sekolah" type="text" required placeholder="School" />
+                                                    @error('sekolah')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
+                                                            role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
 
 
@@ -71,12 +93,24 @@
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
                                                         name="kelas" type="text" required placeholder="Class" />
+                                                    @error('kelas')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
+                                                            role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
                                                         name="nama_ortu" type="text" required
                                                         placeholder="Parent's Name" />
+                                                    @error('nama_ortu')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
+                                                            role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
 
 
@@ -87,22 +121,45 @@
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
                                                         name="telephone" type="number" required
                                                         placeholder="Number Handphone" />
+                                                    @error('telephone')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
+                                                            role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
                                                         name="work_ortu" type="text" required
                                                         placeholder="Parent's Occupation" />
+                                                    @error('work_ortu')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
+                                                            role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
-
-
-                                            </div>
-                                            <div class="max-w-full px-3 mb-6 md:mb-0 md:w-full md:flex-none">
-                                                <input
-                                                    class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
-                                                    name="alamat" type="text" required placeholder="Address" />
                                             </div>
 
+                                            <div class="flex flex-wrap -mx-3">
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <input
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
+                                                        name="alamat" type="text" required placeholder="Address" />
+                                                    @error('alamat')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
+                                                            role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <input
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
+                                                        name="file" type="file" required />
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
 
@@ -110,7 +167,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="flex flex-wrap -mx-3">
@@ -128,16 +184,23 @@
                                         @foreach ($getDataKids as $getDataKid)
                                             <li
                                                 class="relative flex p-6 mb-2 border-0 rounded-t-inherit rounded-xl bg-gray-50">
-                                                <div class="flex flex-col">
-                                                    <h6 class="mb-4 leading-normal text-sm">
-                                                        {{ $getDataKid->nama_lengkap }}
-                                                    </h6>
-                                                    <span class="mb-2 leading-tight text-xs">School: <span
-                                                            class="font-semibold text-slate-700 sm:ml-2">{{ $getDataKid->sekolah }}</span></span>
+
+                                                <div class="flex" style="gap:20px">
+                                                    <img src="{{ asset('assets/data/dataAnak/img/' . $getDataKid->file) }}"
+                                                        alt="child"
+                                                        style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%; margin: 0 auto;">
+                                                    <div class="flex flex-col">
+                                                        <h6 class="mb-4 leading-normal text-sm">
+                                                            {{ $getDataKid->nama_lengkap }}
+                                                        </h6>
+                                                        <span class="mb-2 leading-tight text-xs">School: <span
+                                                                class="font-semibold text-slate-700 sm:ml-2">{{ $getDataKid->sekolah }}</span></span>
+                                                    </div>
                                                 </div>
                                                 <div class="ml-auto text-right flex flex-wrap">
                                                     <form
-                                                        action="{{ route('delete.kids', ['nama_lengkap' => $getDataKid->nama_lengkap]) }}">
+                                                        action="{{ route('delete.kids', ['nama_lengkap' => $getDataKid->nama_lengkap]) }}"
+                                                        enctype="multipart/form-data">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
@@ -188,7 +251,8 @@
                                 </div>
                             </div>
                             <div class="flex-auto p-4 pt-6">
-                                <h6 class="mb-4 font-bold leading-tight uppercase text-xs text-slate-500">Newest</h6>
+                                <h6 class="mb-4 font-bold leading-tight uppercase text-xs text-slate-500">Newest
+                                </h6>
                                 <ul class="flex flex-col pl-0 mb-0 rounded-lg">
                                     <li
                                         class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-t-inherit text-inherit rounded-xl">
@@ -198,7 +262,8 @@
                                                     class="fas fa-arrow-down text-3xs"></i></button>
                                             <div class="flex flex-col">
                                                 <h6 class="mb-1 leading-normal text-sm text-slate-700">Netflix</h6>
-                                                <span class="leading-tight text-xs">27 March 2020, at 12:30 PM</span>
+                                                <span class="leading-tight text-xs">27 March 2020, at 12:30
+                                                    PM</span>
                                             </div>
                                         </div>
                                         <div class="flex flex-col items-center justify-center">
@@ -215,7 +280,8 @@
                                                     class="fas fa-arrow-up text-3xs"></i></button>
                                             <div class="flex flex-col">
                                                 <h6 class="mb-1 leading-normal text-sm text-slate-700">Apple</h6>
-                                                <span class="leading-tight text-xs">27 March 2020, at 04:30 AM</span>
+                                                <span class="leading-tight text-xs">27 March 2020, at 04:30
+                                                    AM</span>
                                             </div>
                                         </div>
                                         <div class="flex flex-col items-center justify-center">
@@ -236,7 +302,8 @@
                                                     class="fas fa-arrow-up text-3xs"></i></button>
                                             <div class="flex flex-col">
                                                 <h6 class="mb-1 leading-normal text-sm text-slate-700">Stripe</h6>
-                                                <span class="leading-tight text-xs">26 March 2020, at 13:45 PM</span>
+                                                <span class="leading-tight text-xs">26 March 2020, at 13:45
+                                                    PM</span>
                                             </div>
                                         </div>
                                         <div class="flex flex-col items-center justify-center">
@@ -253,7 +320,8 @@
                                                     class="fas fa-arrow-up text-3xs"></i></button>
                                             <div class="flex flex-col">
                                                 <h6 class="mb-1 leading-normal text-sm text-slate-700">HubSpot</h6>
-                                                <span class="leading-tight text-xs">26 March 2020, at 12:30 PM</span>
+                                                <span class="leading-tight text-xs">26 March 2020, at 12:30
+                                                    PM</span>
                                             </div>
                                         </div>
                                         <div class="flex flex-col items-center justify-center">
@@ -271,7 +339,8 @@
                                             <div class="flex flex-col">
                                                 <h6 class="mb-1 leading-normal text-sm text-slate-700">Creative Tim
                                                 </h6>
-                                                <span class="leading-tight text-xs">26 March 2020, at 08:30 AM</span>
+                                                <span class="leading-tight text-xs">26 March 2020, at 08:30
+                                                    AM</span>
                                             </div>
                                         </div>
                                         <div class="flex flex-col items-center justify-center">
@@ -288,7 +357,8 @@
                                                     class="fas fa-exclamation text-3xs"></i></button>
                                             <div class="flex flex-col">
                                                 <h6 class="mb-1 leading-normal text-sm text-slate-700">Webflow</h6>
-                                                <span class="leading-tight text-xs">26 March 2020, at 05:00 AM</span>
+                                                <span class="leading-tight text-xs">26 March 2020, at 05:00
+                                                    AM</span>
                                             </div>
                                         </div>
                                         <div class="flex flex-col items-center justify-center">
