@@ -79,7 +79,7 @@
                 </div>
                 <br>
                 <label for="images{{ $getDataKid->file }}" class="drop-container" id="dropcontainer">
-                    <span class="drop-title">Drop File Ktp Image</span>
+                    <span class="drop-title">Drop File Pas Foto Image</span>
                     <input type="file" hidden name="file" id="images{{ $getDataKid->file }}"
                         accept="image/*">
                 </label>

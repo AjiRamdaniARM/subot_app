@@ -10,6 +10,7 @@ class FormulirController extends Controller
     public function index()
     {
         $getData = DataSekolah::orderBy('created_at', 'DESC')->get();
+
         return view('FormulirPendaftaran', compact('getData'));
     }
 

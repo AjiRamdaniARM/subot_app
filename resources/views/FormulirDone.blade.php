@@ -15,7 +15,7 @@
                     </div>
                     <img src="{{ asset('assets/img/doneRoboto.gif') }}" alt="">
                 </div>
-                <button onclick="window.location.href='{{ url('/formulirPendaftaran') }}'"
+                <button onclick="window.location.href='{{ url('/daftar') }}'"
                     class="button bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:scale-105 transition-all focus:scale-105"
                     type="submit">Daftar Lagi
                     <div class="arrow-wrapper">

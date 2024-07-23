@@ -1,7 +1,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form');
-        const submitButton = form.querySelector('button[type="submit"]');
+        const submitButton = form.getElementById('submit');
         const loadingIndicator = document.getElementById('loading');
 
         form.addEventListener('submit', function(event) {

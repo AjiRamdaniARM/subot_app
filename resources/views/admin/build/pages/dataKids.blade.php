@@ -2,6 +2,7 @@
 
     <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.sidenav')
+        @include('modalSekolah')
 
         <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
             <!-- Navbar -->
@@ -40,6 +41,11 @@
                                                     <h6 class="mb-0">Add New Child Data</h6>
                                                 </div>
                                                 <div class="flex-none w-1/2 max-w-full px-3 text-right">
+                                                    <button type="button" onclick="window.dialogAdmin.showModal()"
+                                                        class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
+                                                        Create Schools
+                                                    </button>
+                                                    &nbsp;
                                                     <button type="submit"
                                                         class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
                                                         <i class="fas fa-plus">
@@ -85,7 +91,16 @@
                                                         type="date" required placeholder="Date Of Birth" />
                                                 </div>
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
+                                                    <select
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
+                                                        name="sekolah" id="">
+                                                        <option value="">Select Schools</option>
+                                                        @foreach ($getSelect as $get)
+                                                            <option value="{{ $get->id_sekolah }}">
+                                                                {{ $get->sekolah }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    {{-- <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
                                                         name="sekolah" value="{{ old('sekolah') }}" type="text"
                                                         required placeholder="School" />
@@ -94,7 +109,7 @@
                                                             role="alert">
                                                             {{ $message }}
                                                         </div>
-                                                    @enderror
+                                                    @enderror --}}
                                                 </div>
 
 
@@ -183,7 +198,7 @@
                 </div>
 
                 <div class="flex flex-wrap -mx-3">
-                    <div class="w-full max-w-full px-3 mt-6 md:w-7/12 md:flex-none">
+                    <div class="w-full max-w-full px-3 mt-6  md:flex-none">
                         <div
                             class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
                             <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
@@ -229,7 +244,8 @@
                                                             class="mr-2 fas fa-pencil-alt text-slate-700"
                                                             aria-hidden="true"></i>Edit</a>
                                                     @include('admin.build.components.dataKids.modalEdit')
-                                                    <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
+                                                    <a href="{{ url('/datakids/privateData/' . $getDataKid->nama_lengkap) }}"
+                                                        class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
                                                         href="javascript:;"><svg class="w-5 text-[#344767]"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -245,12 +261,16 @@
                                         @endforeach
 
                                     </ul>
+                                    <div class="mt-4">
+                                        {{ $getDataKids->links() }}
+                                    </div>
                                 @endif
 
                             </div>
                         </div>
                     </div>
-                    <div class="w-full max-w-full px-3 mt-6 md:w-5/12 md:flex-none">
+
+                    {{-- <div class="w-full max-w-full px-3 mt-6 md:w-5/12 md:flex-none">
                         <div
                             class="relative flex flex-col h-full min-w-0 mb-6 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
                             <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
@@ -298,7 +318,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
+
                 </div>
 
                 <footer class="pt-4">

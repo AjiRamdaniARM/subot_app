@@ -1,5 +1,6 @@
 @extends('layout.main')
 @section('children')
+    @include('modalSekolah')
     @include('components.scriptCompoments')
     <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
         <div class="relative py-3 sm:max-w-xl sm:mx-auto">
@@ -71,15 +72,16 @@
                                 @enderror
 
 
-                                <div class="flex flex-col md:flex-row items-center justify-between">
+                                <div class="flex flex-col">
                                     <div class="flex flex-col">
                                         <label class="leading-loose">Sekolah</label>
                                         <select
-                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                            name="" id="">
-                                            <option value="">Pilih Sekolah Anda</option>
+                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full  sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                            name="sekolah" id="">
+                                            <option value="">Silahkan Pilih Sekolah Anda</option>
                                             @foreach ($getData as $sekolah)
-                                                <option value="{{ $sekolah->id_sekolah }}">{{ $sekolah->sekolah }}</option>
+                                                <option value="{{ $sekolah->id_sekolah }}">{{ $sekolah->sekolah }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         {{-- <label class="leading-loose">Sekolah</label>
@@ -88,9 +90,19 @@
                                             placeholder="Cth: Sukarobot Academy" name="sekolah" value="{{ old('sekolah') }}"
                                             required> --}}
                                     </div>
-                                    <button
-                                        class="bg-blue-500 relative md:mt-10 mt-5 w-full md:w-44 h-12 rounded-2xl p-2 text-white font-bold ">Daftarkan
-                                        Sekolah</button>
+                                    @if (session('success'))
+                                        <button
+                                            class="bg-green-500 relative -top-5 md:mt-10 w-full rounded-lg text-center p-2 text-white font-bold "
+                                            type="button"
+                                            onclick="window.dialog.showModal();">{{ session('success') }}</button>
+                                    @else
+                                        <button
+                                            class="bg-blue-500 relative -top-5 md:mt-10 w-full rounded-lg text-center p-2 text-white font-bold "
+                                            type="button" onclick="window.dialog.showModal();">Daftarkan
+                                            Sekolah</button>
+                                    @endif
+
+
                                 </div>
 
 
@@ -218,25 +230,16 @@
                                 </script>
                             </div>
                             <div class="pt-4 flex items-center space-x-4">
-                                @if (session('error'))
-                                    <button
-                                        class="button relative z-0 bg-red-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:scale-105 transition-all focus:scale-105"
-                                        type="submit">Daftar
-                                        <div class="arrow-wrapper">
-                                            <div class="arrow"></div>
 
-                                        </div>
-                                    </button>
-                                @else
-                                    <button
-                                        class="button relative z-0 bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:scale-105 transition-all focus:scale-105"
-                                        type="submit">Daftar
-                                        <div class="arrow-wrapper">
-                                            <div class="arrow"></div>
+                                <button
+                                    class="button relative z-0 bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:scale-105 transition-all focus:scale-105"
+                                    type="submit" id="submit">Daftar
+                                    <div class="arrow-wrapper">
+                                        <div class="arrow"></div>
 
-                                        </div>
-                                    </button>
-                                @endif
+                                    </div>
+                                </button>
+
 
                             </div>
                     </form>
