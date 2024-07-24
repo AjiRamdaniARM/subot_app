@@ -37,12 +37,13 @@
                                         <div
                                             class="p-4 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                                             <div class="flex flex-wrap -mx-3">
-                                                <div class="flex items-center flex-none w-1/2 max-w-full px-3">
+                                                <div class="flex items-center flex-none max-w-full px-3">
                                                     <h6 class="mb-0">Add New Child Data</h6>
                                                 </div>
-                                                <div class="flex-none w-1/2 max-w-full px-3 text-right">
+                                                <div class="  max-w-full px-3 text-right"
+                                                    style="display:flex; flex-wrap:wrap; gap:1px">
                                                     <button type="button" onclick="window.dialogAdmin.showModal()"
-                                                        class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
+                                                        class="inline-block px-6  py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
                                                         Create Schools
                                                     </button>
                                                     &nbsp;
@@ -196,13 +197,19 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="flex flex-wrap -mx-3">
                     <div class="w-full max-w-full px-3 mt-6  md:flex-none">
                         <div
                             class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
                             <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
                                 <h6 class="mb-0">All Data Kids</h6>
+                                {{-- <a href="{{ url('users/export/') }}"
+                                    style="
+                                background-color:green;
+                                padding: 3px;
+                                color:white;
+                                ">Export
+                                    Data</a> --}}
                             </div>
                             <div class="flex-auto p-4 pt-6">
                                 @if (empty($getDataKids))

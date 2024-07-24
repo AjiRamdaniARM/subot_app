@@ -27,17 +27,17 @@
 <dialog id="dialogAdmin">
     <form action="{{ route('add.school') }}" method="POST">
         @csrf
-        <h2 class="poppins-bold">Tambah Sekolah</h2>
+        <h2 class="poppins-bold">Add School</h2>
         <div class="voucher-container-admin">
-            <h6 class="voucher-title">Jika sekolahmu tidak ada dalam daftar, silakan tambahkan di sini.<span></span>
+            <h6 class="voucher-title">If the school is not on the list, please add it here.<span></span>
             </h6>
         </div>
         <div class="voucher-code-container-admin">
             <h6 class="voucher-code-title-admin">Input Here</h6>
-            <input type="text" name="sekolah" placeholder="CTH : SUKAROBOT ACADEMY" class="voucher-input p-4"
+            <input type="text" name="sekolah" placeholder="EXP : SUKAROBOT ACADEMY" class="voucher-input p-4"
                 required onkeyup="makeUpperCase(this)">
         </div>
-        <button type="submit" class="voucher-button-admin">Tambah</button>
+        <button type="submit" class="voucher-button-admin">Create</button>
     </form>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

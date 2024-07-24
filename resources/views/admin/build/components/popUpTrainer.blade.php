@@ -1,5 +1,5 @@
 <div class="popup" id="popup">
-    <div class="popup__content" style="padding: 50px">
+    <div class="popup__content">
         <div class="head flex" style="justify-items: start; align-items: center; gap: 15px">
             <div class="block">
                 <img src="{{ asset('assets/img/logo.png') }}" width="100" alt="">
@@ -41,20 +41,22 @@
             <br>
             <label for="images" class="drop-container" id="dropcontainer">
                 <span class="drop-title">Drop File Ktp Image</span>
-                or
-                <input type="file" name="ktp_file" id="images" accept="image/*" required>
+                <div id="text-file" class="text-red-500">No Selected File</div>
+                <input type="file" name="ktp_file" id="images" hidden accept="image/*" required>
             </label>
+
+
             <br>
-            <label for="images" class="drop-container" id="dropcontainer">
+            <label for="images1" class="drop-container" id="dropcontainer">
                 <span class="drop-title">Drop File Profile Image</span>
-                or
-                <input type="file" name="profile" id="images" accept="image/*" required>
+                <div id="text-file-1" class="text-red-500">No Selected File</div>
+                <input type="file" hidden name="profile" id="images1" accept="image/*" required>
             </label>
             <br>
-            <label for="images" class="drop-container" id="dropcontainer">
+            <label for="images2" class="drop-container" id="dropcontainer">
                 <span class="drop-title">Drop File Tanda Tangan Image</span>
-                or
-                <input type="file" name="ttd" id="images" accept="image/*" required>
+                <div id="text-file-2" class="text-red-500">No Selected File</div>
+                <input type="file" hidden name="ttd" id="images2" accept="image/*" required>
             </label>
 
             <button
@@ -75,11 +77,51 @@
             margin-top: 10px;
             "
                 type="submit">Close Modal</button>
+
         </form>
         {{-- <a href="#"">Close Popup</a> --}}
     </div>
 </div>
 
+
+<script>
+    document.getElementById('images').addEventListener('change', function() {
+        var fileInput = document.getElementById('images');
+        var fileNameDisplay = document.getElementById('text-file');
+
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.style.color = 'green'
+            fileNameDisplay.textContent = fileInput.files[0].name;
+        } else {
+            fileNameDisplay.style.color = 'red'
+            fileNameDisplay.textContent = 'No file selected';
+        }
+    });
+    document.getElementById('images1').addEventListener('change', function() {
+        var fileInput = document.getElementById('images1');
+        var fileNameDisplay = document.getElementById('text-file-1');
+
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.style.color = 'green'
+            fileNameDisplay.textContent = fileInput.files[0].name;
+        } else {
+            fileNameDisplay.style.color = 'red'
+            fileNameDisplay.textContent = 'No file selected';
+        }
+    });
+    document.getElementById('images2').addEventListener('change', function() {
+        var fileInput = document.getElementById('images2');
+        var fileNameDisplay = document.getElementById('text-file-2');
+
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.style.color = 'green'
+            fileNameDisplay.textContent = fileInput.files[0].name;
+        } else {
+            fileNameDisplay.style.color = 'red'
+            fileNameDisplay.textContent = 'No file selected';
+        }
+    });
+</script>
 
 <style>
     .grup-1 {

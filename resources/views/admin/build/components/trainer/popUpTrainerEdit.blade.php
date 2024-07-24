@@ -1,5 +1,5 @@
 <div class="popup" id="popupedit{{ $trainerGet->nama }}">
-    <div class="popup__content " style="padding: 50px">
+    <div class="popup__content ">
         <div class="head flex" style="justify-items: start; align-items: center; gap: 15px">
             <div class="block">
                 <img src="{{ asset('assets/img/logo.png') }}" width="100" alt="">
@@ -44,25 +44,25 @@
 
             </div>
             <br>
-            <label for="images" class="drop-container" id="dropcontainer">
+            <label for="images22" class="drop-container" id="dropcontainer">
                 <span class="drop-title">Drop File Ktp Image</span>
-                or
+                <div id="text-file22" class="text-red-500">No Selected File</div>
                 <input type="text" name="ktp_file_old" value="{{ $trainerGet->ktp_file }}" hidden>
-                <input type="file" name="ktp_file" id="images" accept="image/*">
+                <input type="file" hidden name="ktp_file" id="images22" accept="image/*">
             </label>
             <br>
-            <label for="images" class="drop-container" id="dropcontainer">
+            <label for="images33" class="drop-container" id="dropcontainer">
                 <span class="drop-title">Drop File Profile Image</span>
-                or
+                <div id="text-file33" class="text-red-500">No Selected File</div>
                 <input type="text" name="profile_file_old" value="{{ $trainerGet->profile }}" hidden>
-                <input type="file" name="profile" id="images" accept="image/*">
+                <input type="file" hidden name="profile" id="images33" accept="image/*">
             </label>
             <br>
-            <label for="images" class="drop-container" id="dropcontainer">
-                <span class="drop-title">Drop File Tanda Tangan Image</span>
-                or
+            <label for="images44" class="drop-container" id="dropcontainer">
+                <span class="drop-title">Drop File TTD Image</span>
+                <div id="text-file44" class="text-red-500">No Selected File</div>
+                <input type="file" hidden name="ttd" id="images44" accept="image/*">
                 <input type="text" name="ttd_file_old" value="{{ $trainerGet->ttd }}" hidden>
-                <input type="file" name="ttd" id="images" accept="image/*">
             </label>
 
             <button
@@ -90,6 +90,44 @@
     </div>
 </div>
 
+<script>
+    document.getElementById('images22').addEventListener('change', function() {
+        var fileInput = document.getElementById('images22');
+        var fileNameDisplay = document.getElementById('text-file22');
+
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.style.color = 'green'
+            fileNameDisplay.textContent = fileInput.files[0].name;
+        } else {
+            fileNameDisplay.style.color = 'red'
+            fileNameDisplay.textContent = 'No file selected';
+        }
+    });
+    document.getElementById('images33').addEventListener('change', function() {
+        var fileInput = document.getElementById('images33');
+        var fileNameDisplay = document.getElementById('text-file33');
+
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.style.color = 'green'
+            fileNameDisplay.textContent = fileInput.files[0].name;
+        } else {
+            fileNameDisplay.style.color = 'red'
+            fileNameDisplay.textContent = 'No file selected';
+        }
+    });
+    document.getElementById('images44').addEventListener('change', function() {
+        var fileInput = document.getElementById('images44');
+        var fileNameDisplay = document.getElementById('text-file44');
+
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.style.color = 'green'
+            fileNameDisplay.textContent = fileInput.files[0].name;
+        } else {
+            fileNameDisplay.style.color = 'red'
+            fileNameDisplay.textContent = 'No file selected';
+        }
+    });
+</script>
 
 <style>
     .grup-1 {
