@@ -1,5 +1,9 @@
 <x-app-layout>
+
+    @include('admin.build.components.bigData.modalNotif')
     @include('modalSekolah')
+    @include('admin.build.components.bigData.modalCreate')
+
 
     <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
         {{-- sidenav --}}
@@ -11,16 +15,41 @@
             <!-- end Navbar -->
 
             <!-- cards -->
-            <div class="w-full px-6 py-6 mx-auto">
+            <div class="w-full  px-6 py-6 mx-auto ">
+
                 <!-- row 1 -->
                 @include('admin.build.components.cardBigData')
-
-                <div class="flex flex-wrap my-6 -mx-3">
-                    <!-- card 1 -->
-
-
+                <br>
+                @if (session()->has('message'))
+                    <div id="toast-default "
+                        class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+                        role="alert">
+                        <div
+                            class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-100 rounded-lg dark:bg-blue-800 dark:text-blue-200">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3 text-sm font-normal">{{ session('message') }}</div>
+                        <button type="button" onclick="document.getElementById('toast-default').style.display='none'"
+                            class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                            data-collapse-toggle="toast-default" aria-label="Close">
+                            <span class="sr-only">Close</span>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </div>
+                @endif
+                <div class="flex flex-wrap my-6 -mx-3 ">
                     {{-- data sekolah --}}
-                    <div class="w-full max-w-full px-3 md:w-1/2 md:flex-none lg:w-1/3 lg:flex-none">
+                    <div class="w-full max-w-full px-3  mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
                         <div
                             class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
 
@@ -44,6 +73,7 @@
                                 <div
                                     class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
                                     @foreach ($getSekolah as $sekolah)
+                                        @include('admin.build.components.bigData.modalEdit')
                                         <div class="relative mb-4 mt-0 after:clear-both after:table after:content-['']">
                                             <span
                                                 class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
@@ -57,9 +87,12 @@
 
                                             </span>
                                             <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                                <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">
-                                                    {{ $sekolah->sekolah }}</h6>
+                                                <a onclick="window.dialogEditSekolah{{ $sekolah->id }}.showModal()">
+                                                    <h6
+                                                        class="mb-0 text-sm font-semibold leading-normal text-slate-700">
+                                                        {{ $sekolah->sekolah }}</h6>
 
+                                                </a>
                                                 @if ($sekolah->alamat == null)
                                                     <p
                                                         class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">
@@ -85,98 +118,49 @@
                     </div>
                     {{-- akhir data sekolah --}}
 
-                    {{-- data materi --}}
-                    <div class="w-full max-w-full px-3 md:w-1/2 md:flex-none lg:w-1/3 lg:flex-none">
+                    {{-- data program --}}
+                    <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
                         <div
                             class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
-                            <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
-                                <h6>All Program data</h6>
-                                <p class="text-sm leading-normal">
-                                    <i class="fa fa-arrow-up text-lime-500"></i>
-                                    <span class="font-semibold">24%</span> this month
-                                </p>
+                            <div class="flex justify-between-items-center">
+                                <div
+                                    class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
+                                    <h6>All Programs Data</h6>
+                                    <p class="text-sm leading-normal">
+                                        <i class="fa fa-arrow-up text-lime-500"></i>
+                                        <span class="font-semibold">100%</span> this month
+                                    </p>
+                                </div>
+                                <button type="button" onclick="window.dialogProgram.showModal()"
+                                    class="inline-block px-6 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 relative"
+                                    style="height: 30px; top:15px; right:10px">
+                                    Create
+                                </button>
                             </div>
                             <div class="flex-auto p-4">
                                 <div
                                     class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
-                                    <div class="relative mb-4 mt-0 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-bell-55 leading-pro bg-gradient-to-tl from-green-600 to-lime-400 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">$2400,
-                                                Design changes</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">22
-                                                DEC 7:20 PM</p>
+                                    @foreach ($getDataPrograms as $program)
+                                        @include('admin.build.components.bigData.modalProgram')
+                                        <div class="relative mb-4 after:clear-both after:table after:content-['']">
+                                            <span
+                                                class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
+                                                <i
+                                                    class="relative z-10 leading-none text-transparent ni ni-credit-card leading-pro bg-gradient-to-tl from-red-500 to-yellow-400 bg-clip-text fill-transparent"></i>
+                                            </span>
+                                            <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
+                                                <a onclick="window.dialogEditProgram{{ $program->id }}.showModal()">
+                                                    <h6
+                                                        class="mb-0 text-sm font-semibold leading-normal text-slate-700">
+                                                        {{ $program->program }}</h6>
+                                                </a>
+                                                <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">
+                                                    {{ $program->created_at }}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="relative mb-4 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-html5 leading-pro bg-gradient-to-tl from-red-600 to-rose-400 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">New
-                                                order #1832412</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">21
-                                                DEC 11 PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-4 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-cart leading-pro bg-gradient-to-tl from-blue-600 to-cyan-400 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">Server
-                                                payments for April</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">21
-                                                DEC 9:34 PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-4 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-credit-card leading-pro bg-gradient-to-tl from-red-500 to-yellow-400 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">New
-                                                card added for order #4395133</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">20
-                                                DEC 2:20 AM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-4 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-key-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">Unlock
-                                                packages for development</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">18
-                                                DEC 4:54 AM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-0 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-money-coins leading-pro bg-gradient-to-tl from-gray-900 to-slate-800 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">New
-                                                order #9583120</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">17
-                                                DEC</p>
-                                        </div>
-                                    </div>
+                                    @endforeach
+
+
                                 </div>
                             </div>
                         </div>
@@ -184,102 +168,141 @@
                     {{-- akhir data materi --}}
 
                     {{-- data level --}}
-                    <div class="w-full max-w-full px-3 md:w-1/2 md:flex-none lg:w-1/3 lg:flex-none">
+                    <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
                         <div
                             class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
-                            <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
-                                <h6>Orders overview</h6>
-                                <p class="text-sm leading-normal">
-                                    <i class="fa fa-arrow-up text-lime-500"></i>
-                                    <span class="font-semibold">24%</span> this month
-                                </p>
+                            <div class="flex justify-between-items-center">
+                                <div
+                                    class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
+                                    <h6>All Levels Data</h6>
+                                    <p class="text-sm leading-normal">
+                                        <i class="fa fa-arrow-up text-lime-500"></i>
+                                        <span class="font-semibold">100%</span> this month
+                                    </p>
+                                </div>
+                                <button type="button" onclick="window.dialogLevel.showModal()"
+                                    class="inline-block px-6 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 relative"
+                                    style="height: 30px; top:15px; right:10px">
+                                    Create
+                                </button>
                             </div>
                             <div class="flex-auto p-4">
                                 <div
                                     class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
-                                    <div class="relative mb-4 mt-0 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-bell-55 leading-pro bg-gradient-to-tl from-green-600 to-lime-400 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">$2400,
-                                                Design changes</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">22
-                                                DEC 7:20 PM</p>
+                                    @foreach ($getDataLevels as $level)
+                                        <div class="relative mb-4 after:clear-both after:table after:content-['']">
+                                            <span
+                                                class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
+                                                <i
+                                                    class="relative z-10 leading-none text-transparent ni ni-key-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 bg-clip-text fill-transparent"></i>
+                                            </span>
+                                            <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
+                                                <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">
+                                                    {{ $level->levels }}</h6>
+                                                <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">
+                                                    {{ $level->created_at }}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="relative mb-4 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-html5 leading-pro bg-gradient-to-tl from-red-600 to-rose-400 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">New
-                                                order #1832412</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">21
-                                                DEC 11 PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-4 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-cart leading-pro bg-gradient-to-tl from-blue-600 to-cyan-400 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">Server
-                                                payments for April</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">21
-                                                DEC 9:34 PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-4 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-credit-card leading-pro bg-gradient-to-tl from-red-500 to-yellow-400 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">New
-                                                card added for order #4395133</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">20
-                                                DEC 2:20 AM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-4 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-key-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">Unlock
-                                                packages for development</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">18
-                                                DEC 4:54 AM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-0 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 leading-none text-transparent ni ni-money-coins leading-pro bg-gradient-to-tl from-gray-900 to-slate-800 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">New
-                                                order #9583120</h6>
-                                            <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">17
-                                                DEC</p>
-                                        </div>
-                                    </div>
+                                    @endforeach
+
+
                                 </div>
                             </div>
                         </div>
                     </div>
                     {{-- akhir data level --}}
+
+                    {{-- data class --}}
+                    <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
+                        <div
+                            class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
+                            <div class="flex justify-between-items-center">
+                                <div
+                                    class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
+                                    <h6>All Class Data</h6>
+                                    <p class="text-sm leading-normal">
+                                        <i class="fa fa-arrow-up text-lime-500"></i>
+                                        <span class="font-semibold">100%</span> this month
+                                    </p>
+                                </div>
+                                <button type="button" onclick="window.dialogClass.showModal()"
+                                    class="inline-block px-6 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 relative"
+                                    style="height: 30px; top:15px; right:10px">
+                                    Create
+                                </button>
+                            </div>
+                            <div class="flex-auto p-4">
+                                <div
+                                    class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
+                                    @foreach ($getDataClass as $class)
+                                        <div class="relative mb-4 after:clear-both after:table after:content-['']">
+                                            <span
+                                                class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
+                                                <i
+                                                    class="relative z-10 leading-none text-transparent ni ni-istanbul leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 bg-clip-text fill-transparent"></i>
+                                            </span>
+                                            <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
+                                                <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">
+                                                    {{ $class->kelas }}</h6>
+                                                <p
+                                                    class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">
+                                                    {{ $class->created_at }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- akhir data class --}}
+
+                    {{-- data tools --}}
+                    <div class="w-full max-w-full px-3 py-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
+                        <div
+                            class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
+                            <div class="flex justify-between-items-center">
+                                <div
+                                    class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
+                                    <h6>All Tools Data</h6>
+                                    <p class="text-sm leading-normal">
+                                        <i class="fa fa-arrow-up text-lime-500"></i>
+                                        <span class="font-semibold">100%</span> this month
+                                    </p>
+                                </div>
+                                <button type="button" onclick="window.dialogTools.showModal()"
+                                    class="inline-block px-6 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 relative"
+                                    style="height: 30px; top:15px; right:10px">
+                                    Create
+                                </button>
+                            </div>
+                            <div class="flex-auto p-4">
+                                <div
+                                    class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
+                                    @foreach ($getDataTools as $tools)
+                                        <div class="relative mb-4 after:clear-both after:table after:content-['']">
+                                            <span
+                                                class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
+                                                <i
+                                                    class="relative z-10 leading-none text-transparent ni ni-laptop leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 bg-clip-text fill-transparent"></i>
+                                            </span>
+                                            <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
+                                                <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">
+                                                    {{ $tools->alat }}</h6>
+                                                <p
+                                                    class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">
+                                                    {{ $tools->created_at }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- akhir alat class --}}
 
 
 

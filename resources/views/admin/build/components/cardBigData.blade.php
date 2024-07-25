@@ -34,8 +34,8 @@
                         <div>
                             <p class="mb-0 font-sans text-sm font-semibold leading-normal">All Programs data</p>
                             <h5 class="mb-0 font-bold">
-                                2,300
-                                <span class="text-sm leading-normal font-weight-bolder text-lime-500">+3%</span>
+                                {{ $getDataProgram }}
+                                <span class="text-sm leading-normal font-weight-bolder text-lime-500">+100%</span>
                             </h5>
                         </div>
                     </div>
@@ -59,8 +59,8 @@
                         <div>
                             <p class="mb-0 font-sans text-sm font-semibold leading-normal">All Levels Data</p>
                             <h5 class="mb-0 font-bold">
-                                +3,462
-                                <span class="text-sm leading-normal text-red-600 font-weight-bolder">-2%</span>
+                                {{ $getDataLevel }}
+                                <span class="text-sm leading-normal text-lime-500 font-weight-bolder">100%</span>
                             </h5>
                         </div>
                     </div>
@@ -84,8 +84,8 @@
                         <div>
                             <p class="mb-0 font-sans text-sm font-semibold leading-normal">All Class Data</p>
                             <h5 class="mb-0 font-bold">
-                                $103,430
-                                <span class="text-sm leading-normal font-weight-bolder text-lime-500">+5%</span>
+                                {{ $getDataKelas }}
+                                <span class="text-sm leading-normal font-weight-bolder text-lime-500">+100%</span>
                             </h5>
                         </div>
                     </div>
@@ -109,8 +109,8 @@
                         <div>
                             <p class="mb-0 font-sans text-sm font-semibold leading-normal">All Tools Data</p>
                             <h5 class="mb-0 font-bold">
-                                $103,430
-                                <span class="text-sm leading-normal font-weight-bolder text-lime-500">+5%</span>
+                                {{ $getDataAlat }}
+                                <span class="text-sm leading-normal font-weight-bolder text-lime-500">+100%</span>
                             </h5>
                         </div>
                     </div>

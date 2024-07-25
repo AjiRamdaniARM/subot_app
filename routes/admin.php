@@ -32,6 +32,16 @@ Route::get('/datakids/privateData/{nama_lengkap}', [SistemKidsCoontroller::class
 
 // bigData Route
 Route::get('/bigData', [bigDataController::class, 'index'])->name('bigaData.index');
+Route::post('/bigData/program', [bigDataController::class, 'storeProgram'])->name('bigaData.program');
+Route::post('/bigData/level', [bigDataController::class, 'storeLevel'])->name('bigaData.level');
+Route::post('/bigData/class', [bigDataController::class, 'storeClass'])->name('bigaData.class');
+Route::post('/bigData/tools', [bigDataController::class, 'storeTools'])->name('bigaData.tools');
+Route::get('/bigData/deleteSekolah/{sekolah}', [bigDataController::class, 'deleteSekolah'])->name('sekolah.delete');
+Route::post('/bigData/editSekolah/{sekolah}', [bigDataController::class, 'editSekolah'])->name('sekolah.edit');
+
+// route bigData program
+Route::get('/bigData/deleteProgram/{program}', [bigDataController::class, 'deleteProgram'])->name('program.delete');
+Route::post('/bigData/editProgram/{program}', [bigDataController::class, 'editProgram'])->name('program.edit');
 
 // privacyPin
 Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');

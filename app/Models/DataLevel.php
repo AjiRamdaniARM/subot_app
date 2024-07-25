@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kelas extends Model
+class DataLevel extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'id_level',
-        'kelas',
+        'id_programs',
+        'levels',
     ];
 }
