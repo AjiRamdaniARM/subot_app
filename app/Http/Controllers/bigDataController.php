@@ -9,6 +9,7 @@ use App\Models\DataProgram;
 use App\Models\DataSekolah;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class bigDataController extends Controller
 {
@@ -27,9 +28,18 @@ class bigDataController extends Controller
         // pemanggilan semua data
         $getSekolah = DataSekolah::orderBy('created_at', 'DESC')->paginate(6);
         $getDataPrograms = DataProgram::orderBy('created_at', 'DESC')->paginate(6);
-        $getDataLevels = DataLevel::orderBy('created_at', 'DESC')->paginate(6);
+        $getDataLevels = DB::table('data_levels')
+            ->join('data_programs', 'data_levels.id_programs', '=', 'data_programs.id')
+            ->select('data_levels.*', 'data_levels.id as id_levels', 'data_programs.*', 'data_programs.program as nama_program') // Pilih kolom yang ingin Anda ambil
+            ->orderBy('data_levels.created_at', 'DESC')
+            ->paginate(6);
+
         $getDataClass = DataKelas::orderBy('created_at', 'DESC')->paginate(6);
-        $getDataTools = DataAlat::orderBy('created_at', 'DESC')->paginate(6);
+        $getDataTools = DB::table('data_alats')
+            ->join('data_levels', 'data_alats.id_level', '=', 'data_levels.id')
+            ->select('data_alats.*', 'data_alats.id as id_alats', 'data_levels.*', 'data_levels.levels as nama_level') // Pilih kolom yang ingin Anda ambil
+            ->orderBy('data_alats.created_at', 'DESC')
+            ->paginate(6);
 
         return view('admin.build.pages.bigData', compact('getDataSekolahCount', 'getDataTools', 'getDataClass', 'getDataLevels', 'getDataPrograms', 'activePercentage', 'getSekolah', 'getDataProgram', 'getDataLevel', 'getDataKelas', 'getDataAlat'));
     }
@@ -121,17 +131,97 @@ class bigDataController extends Controller
         return redirect()->back()->with('message', 'School data is edited successfully');
     }
 
-    public function deleteProgram($program) {
+    public function deleteProgram($program)
+    {
         $getDataProgram = DataProgram::where('program', $program)->first();
         $getDataProgram->delete();
+
         return redirect()->back()->with('message', 'Program deleted successfully');
     }
 
-    public function editProgram(Request $request,$program) {
+    public function editProgram(Request $request, $program)
+    {
         $getDataProgram = DataProgram::where('program', $program)->firstOrFail();
-        $getDataProgram -> program = $request->program;
-        $getDataProgram -> save();
+        $getDataProgram->program = $request->program;
+        $getDataProgram->save();
 
         return redirect()->back()->with('message', 'Program updated successfully');
+    }
+
+    public function deleteLevel($levels)
+    {
+        $getDataLevels = DataLevel::where('levels', $levels)->first();
+        $getDataLevels->delete();
+
+        return redirect()->back()->with('message', 'Levels deleted successfully');
+    }
+
+    public function editLevel(Request $request, $levels)
+    {
+
+        if ($levels == null) {
+            return response()->json(['error' => 'data levels tidak terdeteksi']);
+        } else {
+            $getDataLevels = DataLevel::where('levels', $levels)->firstOrFail();
+            $getDataLevels->id_programs = $request->id_program;
+            $getDataLevels->levels = $request->levels;
+            $getDataLevels->save();
+
+            return redirect()->back()->with('message', 'Levels edited successfully');
+        }
+
+    }
+
+    public function deleteClass($kelas)
+    {
+        if ($kelas == null) {
+            return response()->json(['error' => 'data class not found']);
+        } else {
+            $getDataClass = DataKelas::where('kelas', $kelas)->first();
+            $getDataClass->delete();
+
+            return redirect()->back()->with('message', 'Class deleted successfully');
+        }
+
+    }
+
+    public function editClass(Request $request, $kelas)
+    {
+        if ($kelas == null) {
+            return response()->json(['error' => 'class not found']);
+        } else {
+            $getDataClass = DataKelas::where('kelas', $kelas)->firstOrFail();
+            $getDataClass->kelas = $request->kelas;
+            $getDataClass->save();
+
+            return redirect()->back()->with('message', 'success edited class');
+        }
+
+    }
+
+    public function deleteTools($alat)
+    {
+        if ($alat == null) {
+            return response()->json(['error' => 'Error']);
+        } else {
+            $getDataTools = DataAlat::where('alat', $alat)->first();
+            $getDataTools->delete();
+
+            return redirect()->back()->with('message', 'Tools deleted successfully');
+        }
+    }
+
+    public function editTools(Request $request, $alat)
+    {
+        if ($alat == null) {
+            return response()->json(['error' => 'class not found']);
+        } else {
+            $getDataTools = DataAlat::where('alat', $alat)->firstOrFail();
+            $getDataTools->id_level = $request->id_levels;
+            $getDataTools->alat = $request->tools;
+            $getDataTools->save();
+
+            return redirect()->back()->with('message', 'success edited class');
+        }
     }
 }

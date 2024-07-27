@@ -190,6 +190,7 @@
                                 <div
                                     class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
                                     @foreach ($getDataLevels as $level)
+                                        @include('admin.build.components.bigData.modalLevel')
                                         <div class="relative mb-4 after:clear-both after:table after:content-['']">
                                             <span
                                                 class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
@@ -197,8 +198,11 @@
                                                     class="relative z-10 leading-none text-transparent ni ni-key-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 bg-clip-text fill-transparent"></i>
                                             </span>
                                             <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                                <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">
-                                                    {{ $level->levels }}</h6>
+                                                <a onclick="window.dialogEditLevel{{ $level->id_levels }}.showModal()">
+                                                    <h6
+                                                        class="mb-0 text-sm font-semibold leading-normal text-slate-700">
+                                                        {{ $level->levels }}</h6>
+                                                </a>
                                                 <p class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">
                                                     {{ $level->created_at }}</p>
                                             </div>
@@ -235,6 +239,7 @@
                                 <div
                                     class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
                                     @foreach ($getDataClass as $class)
+                                        @include('admin.build.components.bigData.modalClass')
                                         <div class="relative mb-4 after:clear-both after:table after:content-['']">
                                             <span
                                                 class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
@@ -242,8 +247,11 @@
                                                     class="relative z-10 leading-none text-transparent ni ni-istanbul leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 bg-clip-text fill-transparent"></i>
                                             </span>
                                             <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                                <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">
-                                                    {{ $class->kelas }}</h6>
+                                                <a onclick="window.dialogEditClass{{ $class->id }}.showModal()">
+                                                    <h6
+                                                        class="mb-0 text-sm font-semibold leading-normal text-slate-700">
+                                                        {{ $class->kelas }}</h6>
+                                                </a>
                                                 <p
                                                     class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">
                                                     {{ $class->created_at }}</p>
@@ -281,6 +289,7 @@
                                 <div
                                     class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
                                     @foreach ($getDataTools as $tools)
+                                        @include('admin.build.components.bigData.modalTools')
                                         <div class="relative mb-4 after:clear-both after:table after:content-['']">
                                             <span
                                                 class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
@@ -288,8 +297,12 @@
                                                     class="relative z-10 leading-none text-transparent ni ni-laptop leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 bg-clip-text fill-transparent"></i>
                                             </span>
                                             <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                                <h6 class="mb-0 text-sm font-semibold leading-normal text-slate-700">
-                                                    {{ $tools->alat }}</h6>
+                                                <a
+                                                    onclick="window.dialogToolsClass{{ $tools->id_alats }}.showModal()">
+                                                    <h6
+                                                        class="mb-0 text-sm font-semibold leading-normal text-slate-700">
+                                                        {{ $tools->alat }}</h6>
+                                                </a>
                                                 <p
                                                     class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">
                                                     {{ $tools->created_at }}</p>

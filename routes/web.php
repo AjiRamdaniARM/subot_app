@@ -26,7 +26,7 @@ Route::post('/registerPrivate/register', [RegisterController::class, 'create'])-
 // auth role login
 Route::get('/login/Admin', [LoginAdminController::class, 'index'])->name('loginAdmin');
 Route::post('/login/Admin', [LoginAdminController::class, 'store'])->name('loginAdmin');
-Route::get('/login/Trainer', [LoginAdminController::class, 'index'])->name('loginTrainer');
+// Route::get('/login/Trainer', [LoginAdminController::class, 'index'])->name('loginTrainer');
 
 require __DIR__.'/admin.php';
 require __DIR__.'/trainer.php';

@@ -13,4 +13,9 @@ class DataLevel extends Model
         'id_programs',
         'levels',
     ];
+
+    public function programs()
+    {
+        return $this->hasMany(DataProgram::class, 'id');
+    }
 }

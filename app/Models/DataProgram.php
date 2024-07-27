@@ -12,4 +12,9 @@ class DataProgram extends Model
     protected $fillable = [
         'program',
     ];
+
+    public function levels()
+    {
+        return $this->belongsTo(DataLevel::class, 'id_programs');
+    }
 }

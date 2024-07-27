@@ -43,6 +43,20 @@ Route::post('/bigData/editSekolah/{sekolah}', [bigDataController::class, 'editSe
 Route::get('/bigData/deleteProgram/{program}', [bigDataController::class, 'deleteProgram'])->name('program.delete');
 Route::post('/bigData/editProgram/{program}', [bigDataController::class, 'editProgram'])->name('program.edit');
 
+// route bigData levels
+Route::get('/bigData/deleteLevel/{levels}', [bigDataController::class, 'deleteLevel'])->name('level.delete');
+Route::post('/bigData/editLevel/{levels}', [bigDataController::class, 'editLevel'])->name('level.edit');
+
+// Route bigData Class
+Route::get('/bigData/deleteClass/{kelas}', [bigDataController::class, 'deleteClass'])->name('class.delete');
+Route::post('/bigData/editClass/{kelas}', [bigDataController::class, 'editClass'])->name('class.edit');
+
+// route bigData Tools
+Route::get('/bigData/deleteTools/{alat}', [bigDataController::class, 'deleteTools'])->name('tools.delete');
+Route::post('/bigData/editTools/{alat}', [bigDataController::class, 'editTools'])->name('tools.edit');
+
+// Route
+
 // privacyPin
 Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');
 Route::post('/privacy/{nama}', [PrivacyController::class, 'checkPin'])->name('privacy.checkPin');

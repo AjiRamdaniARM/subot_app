@@ -1,16 +1,16 @@
 {{-- akhir edit data sekolah --}}
-<dialog id="dialogEditProgram{{ $program->id }}">
+<dialog id="dialogEditLevel{{ $level->id_levels }}">
 
-    <h2 class="poppins-bold">{{ $program->program }}</h2>
+    <h2 class="poppins-bold">{{ $level->levels }}</h2>
     <div class="voucher-container-admin">
-        <h6 class="voucher-title-admin">Select Edit or Delete Data Program.<span></span></h6>
+        <h6 class="voucher-title-admin">Select Edit or Delete Data Levels.<span></span></h6>
     </div>
     <div class="voucher-code-container-admin">
         <h6 class="voucher-code-title-admin">Edit Data</h6>
-        <button class="voucher-input text-white " onclick="window.modalProgramEdit{{ $program->id }}.showModal();"
+        <button class="voucher-input text-white " onclick="window.modalLevelEdit{{ $level->id_levels }}.showModal();"
             style="background-color: #904913">Edit Data</button>
     </div>
-    <form action="{{ url('/bigData/deleteProgram/' . $program->program) }}">
+    <form action="{{ url('/bigData/deleteLevel/' . $level->levels) }}">
         @method('DELETE')
         @csrf
         <div class="voucher-code-container-admin">
@@ -18,26 +18,38 @@
             <button class="voucher-input text-white" style="background-color: #901313">Delete Data</button>
         </div>
     </form>
-    <button onclick="window.dialogEditProgram{{ $program->id }}.close();" aria-label="close" class="x">❌</button>
+    <button onclick="window.dialogEditLevel{{ $level->id_levels }}.close();" aria-label="close"
+        class="x">❌</button>
 </dialog>
 
-<dialog id="modalProgramEdit{{ $program->id }}">
-    <h2 class="poppins-bold">{{ $program->program }}</h2>
+<dialog id="modalLevelEdit{{ $level->id_levels }}">
+    <h2 class="poppins-bold">{{ $level->levels }}</h2>
 
     <div class="voucher-container-admin">
-        <h6 class="voucher-title-admin">Edit program data.<span></span></h6>
+        <h6 class="voucher-title-admin">Edit levels data.<span></span></h6>
     </div>
 
-    <form action="{{ url('bigData/editProgram/' . $program->program) }}" method="POST">
+    <form action="{{ url('bigData/editLevel/' . $level->levels) }}" method="POST">
         @csrf
         <div class="voucher-code-container-admin">
-            <h6 class="voucher-code-title-admin">Edit Name Program</h6>
-            <input type="text" name="program" value="{{ $program->program }}" class="voucher-input p-4" required>
+            <h6 class="voucher-code-title-admin">Select Levels</h6>
+            <select name="id_program" id="program" class="voucher-input px-3" required>
+                <option class="uppercase" style="background-color: red" value="{{ $level->id }}">
+                    {{ $level->nama_program }} ( dipilih )</option>
+                @foreach ($getDataPrograms as $program)
+                    <option value="{{ $program->id }}">{{ $program->program }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="voucher-code-container-admin">
+            <h6 class="voucher-code-title-admin">Edit Name Levels</h6>
+            <input type="text" name="levels" value="{{ $level->levels }}" class="voucher-input p-4" required>
         </div>
         <button type="submit" class="voucher-button-admin">Create</button>
     </form>
 
-    <button onclick="window.modalProgramEdit{{ $program->id }}.close();" aria-label="close" class="x">❌</button>
+    <button onclick="window.modalLevelEdit{{ $level->id_levels }}.close();" aria-label="close"
+        class="x">❌</button>
 
 </dialog>
 {{-- akhir edit data sekolah --}}

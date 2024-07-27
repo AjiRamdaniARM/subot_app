@@ -1,16 +1,15 @@
-{{-- akhir edit data sekolah --}}
-<dialog id="dialogEditProgram{{ $program->id }}">
-
-    <h2 class="poppins-bold">{{ $program->program }}</h2>
+{{-- akhir edit data kelas --}}
+<dialog id="dialogEditClass{{ $class->id }}">
+    <h2 class="poppins-bold">{{ $class->kelas }}</h2>
     <div class="voucher-container-admin">
-        <h6 class="voucher-title-admin">Select Edit or Delete Data Program.<span></span></h6>
+        <h6 class="voucher-title-admin">Select Edit or Delete Data Class.<span></span></h6>
     </div>
     <div class="voucher-code-container-admin">
         <h6 class="voucher-code-title-admin">Edit Data</h6>
-        <button class="voucher-input text-white " onclick="window.modalProgramEdit{{ $program->id }}.showModal();"
+        <button class="voucher-input text-white " onclick="window.modalEditClass{{ $class->id }}.showModal();"
             style="background-color: #904913">Edit Data</button>
     </div>
-    <form action="{{ url('/bigData/deleteProgram/' . $program->program) }}">
+    <form action="{{ url('/bigData/deleteClass/' . $class->kelas) }}">
         @method('DELETE')
         @csrf
         <div class="voucher-code-container-admin">
@@ -18,26 +17,26 @@
             <button class="voucher-input text-white" style="background-color: #901313">Delete Data</button>
         </div>
     </form>
-    <button onclick="window.dialogEditProgram{{ $program->id }}.close();" aria-label="close" class="x">❌</button>
+    <button onclick="window.dialogEditClass{{ $class->id }}.close();" aria-label="close" class="x">❌</button>
 </dialog>
 
-<dialog id="modalProgramEdit{{ $program->id }}">
-    <h2 class="poppins-bold">{{ $program->program }}</h2>
+<dialog id="modalEditClass{{ $class->id }}">
+    <h2 class="poppins-bold">{{ $class->kelas }}</h2>
 
     <div class="voucher-container-admin">
-        <h6 class="voucher-title-admin">Edit program data.<span></span></h6>
+        <h6 class="voucher-title-admin">Edit class data.<span></span></h6>
     </div>
 
-    <form action="{{ url('bigData/editProgram/' . $program->program) }}" method="POST">
+    <form action="{{ url('/bigData/editClass/' . $class->kelas) }}" method="POST">
         @csrf
         <div class="voucher-code-container-admin">
-            <h6 class="voucher-code-title-admin">Edit Name Program</h6>
-            <input type="text" name="program" value="{{ $program->program }}" class="voucher-input p-4" required>
+            <h6 class="voucher-code-title-admin">Edit Name Class</h6>
+            <input type="text" name="kelas" value="{{ $class->kelas }}" class="voucher-input p-4" required>
         </div>
         <button type="submit" class="voucher-button-admin">Create</button>
     </form>
 
-    <button onclick="window.modalProgramEdit{{ $program->id }}.close();" aria-label="close" class="x">❌</button>
+    <button onclick="window.modalEditClass{{ $class->id }}.close();" aria-label="close" class="x">❌</button>
 
 </dialog>
 {{-- akhir edit data sekolah --}}

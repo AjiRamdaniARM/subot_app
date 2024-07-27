@@ -15,3 +15,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/trainer-login', [LoginTrainerController::class, 'index'])->name('login.trainer');
+Route::get('/home', [LoginTrainerController::class, 'home'])->name('home');
+Route::get('/home/absen', [LoginTrainerController::class, 'absen'])->name('absen');
+Route::get('/laporantrainer', [LoginTrainerController::class, 'laporantrainer'])->name('laporantrainer');
+Route::get('/jadwalhari', [LoginTrainerController::class, 'jadwalhari'])->name('jadwalhari');
+Route::get('/notifications', [LoginTrainerController::class, 'notifications'])->name('notifications');
+Route::get('/user', [LoginTrainerController::class, 'user'])->name('user');
+Route::get('/explore', [LoginTrainerController::class, 'explore'])->name('explore');
+Route::get('/jadwal', [LoginTrainerController::class, 'jadwal'])->name('jadwal');
+Route::get('/absensiswa', [LoginTrainerController::class, 'absensiswa'])->name('absensiswa');
+Route::get('/pesan', [LoginTrainerController::class, 'pesan'])->name('pesan');
+Route::get('/chat', [LoginTrainerController::class, 'chat'])->name('chat');
+Route::get('/instruktur', [LoginTrainerController::class, 'instruktur'])->name('instruktur');
+Route::get('/gallery', [LoginTrainerController::class, 'gallery'])->name('gallery');
+Route::get('/pembayaran ', [LoginTrainerController::class, 'pembayaran'])->name('pembayaran');
+Route::get('/invoice', [LoginTrainerController::class, 'invoice'])->name('invoice');
+Route::get('/modul', [LoginTrainerController::class, 'modul'])->name('modul');
+Route::get('/event', [LoginTrainerController::class, 'event'])->name('event');
+Route::get('/useredit', [LoginTrainerController::class, 'useredit'])->name('useredit');
+Route::get('/historyabsen', [LoginTrainerController::class, 'historyabsen'])->name('historyabsen');

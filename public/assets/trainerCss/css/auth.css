@@ -21,7 +21,7 @@ Author url: https://themeforest.net/user/website_stock/portfolio
 }
 
 .auth.signin {
-  background: var(--primary);
+  background-color : #2196F3 ;
 }
 
 .auth .heading {
