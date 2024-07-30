@@ -6,10 +6,10 @@
   <main class="ticket-detail">
     <!-- page-title -->
     <div class="page-title">
-      <button type="button" class="back-btn back-page-btn d-flex align-items-center justify-content-center rounded-full">
+      <button type="button" onclick="window.location.href='{{ url('/pembayaran') }}' "class="back-btn back-page-btn d-flex align-items-center justify-content-center rounded-full">
         <img src="{{ asset('assets/trainerSvg/svg/arrow-left-black.svg') }}" alt="arrow">
       </button>
-      <h3 class="main-title">Detail Ticket</h3>
+      <h3 class="main-title">Invoice</h3>
     </div>
 
     <div class="details-body">
@@ -47,15 +47,15 @@
         <ul>
           <li class="d-flex align-items-center justify-content-between">
             <p>Name</p>
-            <p>Andy Lexian</p>
+            <p>Sd It Adzkia 2</p>
           </li>
           <li class="d-flex align-items-center justify-content-between">
             <p>Email</p>
-            <p>example@mail.com</p>
+            <p>Sdadzkia2@gmail.com</p>
           </li>
           <li class="d-flex align-items-center justify-content-between">
             <p>Payment</p>
-            <p>Mastercard</p>
+            <p>Bank Bsi</p>
           </li>
           <li class="d-flex align-items-center justify-content-between">
             <p>Status</p>
@@ -84,10 +84,6 @@
             <p>Check Out</p>
             <p>June 14, 2022</p>
           </li>
-          <li class="d-flex align-items-center justify-content-between">
-            <p>Type Room</p>
-            <p>Presidential Suite</p>
-          </li>
         </ul>
       </section>
       <!-- order-info end -->
@@ -95,25 +91,25 @@
       <!-- total-price -->
       <div class="price border-t d-flex align-items-center justify-content-between pt-24 pb-12">
         <p>Total</p>
-        <p><span>$320</span></p>
+        <p><span>Rp. 200.000</span></p>
       </div>
 
       <!-- promo-code -->
-      <div class="price d-flex align-items-center justify-content-between py-12">
+      {{-- <div class="price d-flex align-items-center justify-content-between py-12">
         <p>Code Promo</p>
         <p><span>HEZORKS</span></p>
-      </div>
+      </div> --}}
 
       <!-- promo-price -->
-      <div class="price promo-price border-b pb-24 promo-price d-flex align-items-center justify-content-between pt-12 pb-24">
+      {{-- <div class="price promo-price border-b pb-24 promo-price d-flex align-items-center justify-content-between pt-12 pb-24">
         <p>Promo</p>
         <p><span>-$20</span></p>
-      </div>
+      </div> --}}
 
       <!-- total-price -->
       <div class="price d-flex align-items-center justify-content-between pt-24">
         <p>Total Pay</p>
-        <p><span>$300</span></p>
+        <p><span>Rp. 300.00</span></p>
       </div>
   
       <!-- download-btn start -->

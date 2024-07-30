@@ -11,15 +11,62 @@
             @include('admin.build.components.navbar')
             <!-- end Navbar -->
             <div class="w-full px-6 py-6 mx-auto">
-                <!-- card 2 -->
 
-                {{-- <div class="flex flex-wrap -mx-3">
+                <div class="flex flex-wrap my-6 -mx-3">
+                    <!-- card 1 -->
+
+                    <div class="w-full max-w-full px-3 mt-0 mb-6 md:mb-0 md:w-1/2 md:flex-none lg:w-2/3 lg:flex-none">
+                        <img src="{{ asset('assets/img/bannerJadwal.png') }}" class="w-full rounded-lg" alt="">
+                    </div>
+
+                    <!-- card 2 -->
+
+                    <div class="w-full max-w-full px-3 md:w-1/2 md:flex-none lg:w-1/3 lg:flex-none">
+                        <div
+                            class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
+                            <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
+                                <h6>Orders overview</h6>
+                                <p class="leading-normal text-sm">
+                                    <i class="fa fa-arrow-up text-lime-500"></i>
+                                    <span class="font-semibold">24%</span> this month
+                                </p>
+                            </div>
+                            <div class="flex-auto p-4">
+                                <div
+                                    class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
+                                    <div class="relative mb-4 mt-0 after:clear-both after:table after:content-['']">
+                                        <span
+                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
+                                            <i
+                                                class="relative z-10 text-transparent ni leading-none ni-bell-55 leading-pro bg-gradient-to-tl from-green-600 to-lime-400 bg-clip-text fill-transparent"></i>
+                                        </span>
+                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
+                                            <h6 class="mb-0 font-semibold leading-normal text-sm text-slate-700">$2400,
+                                                Design changes</h6>
+                                            <p class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">22
+                                                DEC 7:20 PM</p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap -mx-3">
                     <div class="flex-none w-full max-w-full px-3">
                         <div
                             class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                             <div
                                 class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                                <h6>Projects table</h6>
+                                <h6>Schedule List</h6>
+                                <button onclick="window.location.href='{{ route('schedule.create') }}'"
+                                    class="bg-gradient-to-tl from-blue-600 to-cyan-400 font-bold text-white p-1 rounded hover:scale-102"
+                                    style="transition:all">
+                                    Create Schedule
+                                </button>
                             </div>
                             <div class="flex-auto px-0 pt-0 pb-2">
                                 <div class="p-0 overflow-x-auto">
@@ -50,7 +97,7 @@
                                                     class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                     <div class="flex px-2">
                                                         <div>
-                                                            <img src="../assets/img/small-logos/logo-spotify.svg"
+                                                            <img src="{{ asset('assets/img/alarm.png') }}"
                                                                 class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 rounded-full ease-soft-in-out h-9 w-9"
                                                                 alt="spotify" />
                                                         </div>
@@ -90,243 +137,18 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex px-2">
-                                                        <div>
-                                                            <img src="../assets/img/small-logos/logo-invision.svg"
-                                                                class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 rounded-full ease-soft-in-out h-9 w-9"
-                                                                alt="invision" />
-                                                        </div>
-                                                        <div class="my-auto">
-                                                            <h6 class="mb-0 text-sm leading-normal">Invision</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <p class="mb-0 text-sm font-semibold leading-normal">$5,000</p>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <span class="text-xs font-semibold leading-tight">done</span>
-                                                </td>
-                                                <td
-                                                    class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex items-center justify-center">
-                                                        <span
-                                                            class="mr-2 text-xs font-semibold leading-tight">100%</span>
-                                                        <div>
-                                                            <div
-                                                                class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                                <div class="duration-600 ease-soft bg-gradient-to-tl from-green-600 to-lime-400 -mt-0.38 -ml-px flex h-1.5 w-full flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                    role="progressbar" aria-valuenow="100"
-                                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <button
-                                                        class="inline-block px-6 py-3 mb-0 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="text-xs leading-tight fa fa-ellipsis-v"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex px-2">
-                                                        <div>
-                                                            <img src="../assets/img/small-logos/logo-jira.svg"
-                                                                class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 rounded-full ease-soft-in-out h-9 w-9"
-                                                                alt="jira" />
-                                                        </div>
-                                                        <div class="my-auto">
-                                                            <h6 class="mb-0 text-sm leading-normal">Jira</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <p class="mb-0 text-sm font-semibold leading-normal">$3,400</p>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <span class="text-xs font-semibold leading-tight">canceled</span>
-                                                </td>
-                                                <td
-                                                    class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex items-center justify-center">
-                                                        <span
-                                                            class="mr-2 text-xs font-semibold leading-tight">30%</span>
-                                                        <div>
-                                                            <div
-                                                                class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                                <div class="duration-600 ease-soft bg-gradient-to-tl from-red-600 to-rose-400 -mt-0.38 w-3/10 -ml-px flex h-1.5 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                    role="progressbar" aria-valuenow="30"
-                                                                    aria-valuemin="0" aria-valuemax="30"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <button
-                                                        class="inline-block px-6 py-3 mb-0 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="text-xs leading-tight fa fa-ellipsis-v"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex px-2">
-                                                        <div>
-                                                            <img src="../assets/img/small-logos/logo-slack.svg"
-                                                                class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 rounded-full ease-soft-in-out h-9 w-9"
-                                                                alt="slack" />
-                                                        </div>
-                                                        <div class="my-auto">
-                                                            <h6 class="mb-0 text-sm leading-normal">Slack</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <p class="mb-0 text-sm font-semibold leading-normal">$1,000</p>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <span class="text-xs font-semibold leading-tight">canceled</span>
-                                                </td>
-                                                <td
-                                                    class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex items-center justify-center">
-                                                        <span
-                                                            class="mr-2 text-xs font-semibold leading-tight">0%</span>
-                                                        <div>
-                                                            <div
-                                                                class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                                <div class="duration-600 ease-soft bg-gradient-to-tl from-green-600 to-lime-400 -mt-0.38 -ml-px flex h-1.5 w-0 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                    role="progressbar" aria-valuenow="0"
-                                                                    aria-valuemin="0" aria-valuemax="0"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <button
-                                                        class="inline-block px-6 py-3 mb-0 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="text-xs leading-tight fa fa-ellipsis-v"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex px-2">
-                                                        <div>
-                                                            <img src="../assets/img/small-logos/logo-webdev.svg"
-                                                                class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 rounded-full ease-soft-in-out h-9 w-9"
-                                                                alt="webdev" />
-                                                        </div>
-                                                        <div class="my-auto">
-                                                            <h6 class="mb-0 text-sm leading-normal">Webdev</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <p class="mb-0 text-sm font-semibold leading-normal">$14,000</p>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <span class="text-xs font-semibold leading-tight">working</span>
-                                                </td>
-                                                <td
-                                                    class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex items-center justify-center">
-                                                        <span
-                                                            class="mr-2 text-xs font-semibold leading-tight">80%</span>
-                                                        <div>
-                                                            <div
-                                                                class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                                <div class="duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-4/5 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                    role="progressbar" aria-valuenow="80"
-                                                                    aria-valuemin="0" aria-valuemax="80"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <button
-                                                        class="inline-block px-6 py-3 mb-0 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="text-xs leading-tight fa fa-ellipsis-v"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
-                                                    <div class="flex px-2">
-                                                        <div>
-                                                            <img src="../assets/img/small-logos/logo-xd.svg"
-                                                                class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 rounded-full ease-soft-in-out h-9 w-9"
-                                                                alt="xd" />
-                                                        </div>
-                                                        <div class="my-auto">
-                                                            <h6 class="mb-0 text-sm leading-normal">Adobe XD</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
-                                                    <p class="mb-0 text-sm font-semibold leading-normal">$2,300</p>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
-                                                    <span class="text-xs font-semibold leading-tight">done</span>
-                                                </td>
-                                                <td
-                                                    class="p-2 text-center align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
-                                                    <div class="flex items-center justify-center">
-                                                        <span
-                                                            class="mr-2 text-xs font-semibold leading-tight">100%</span>
-                                                        <div>
-                                                            <div
-                                                                class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                                <div class="duration-600 ease-soft bg-gradient-to-tl from-green-600 to-lime-400 -mt-0.38 -ml-px flex h-1.5 w-full flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                    role="progressbar" aria-valuenow="100"
-                                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
-                                                    <button
-                                                        class="inline-block px-6 py-3 mb-0 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="text-xs leading-tight fa fa-ellipsis-v"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
+
+
+
+
+
                 <footer class="pt-4">
                     <div class="w-full px-6 mx-auto">
                         <div class="flex flex-wrap items-center -mx-3 lg:justify-between">
@@ -411,7 +233,8 @@
                                 onclick="sidebarColor(this)"></span>
                             <span
                                 class="text-xs rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-blue-600 to-cyan-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
-                                data-color-from="blue-600" data-color-to="cyan-400" onclick="sidebarColor(this)"></span>
+                                data-color-from="blue-600" data-color-to="cyan-400"
+                                onclick="sidebarColor(this)"></span>
                             <span
                                 class="text-xs rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-green-600 to-lime-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
                                 data-color-from="green-600" data-color-to="lime-400"
@@ -422,7 +245,8 @@
                                 onclick="sidebarColor(this)"></span>
                             <span
                                 class="text-xs rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-red-600 to-rose-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
-                                data-color-from="red-600" data-color-to="rose-400" onclick="sidebarColor(this)"></span>
+                                data-color-from="red-600" data-color-to="rose-400"
+                                onclick="sidebarColor(this)"></span>
                         </div>
                     </a>
                     <!-- Sidenav Type -->

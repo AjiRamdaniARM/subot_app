@@ -11,9 +11,6 @@
           <img src="{{ asset('assets/trainerSvg/svg/search.svg') }}" alt="search" class="shrink-0">
           <input type="search" class="input-search input-field" placeholder="Search...">
           <div class="filter shrink-0">
-            <button type="button" class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#filterModal">
-              <img src="{{ asset('assets/trainerSvg/svg/filter-black.svg') }}" alt="filter">
-            </button>
           </div>
         </div>
       </form>
@@ -31,8 +28,6 @@
           <a href="{{ url('/event') }}">
             <div class="image position-relative">
               <img src="{{ asset('assets/img/cover.jpg') }}" alt="desert" class="img-fluid w-100 overflow-hidden radius-8">
-              <span class="d-flex align-items-center justify-content-center rounded-full">
-              </span>
             </div>
             <div class="content">
               <h4>Sukabumi robotik competetion</h4>
@@ -69,8 +64,6 @@
           <a href="vacation-details.html">
             <div class="image position-relative">
               <img src="{{ asset('assets/img/coming soon.gif') }}" alt="desert" class="img-fluid w-100 overflow-hidden radius-8">
-              <span class="d-flex align-items-center justify-content-center rounded-full">
-              </span>
             </div>
             <div class="content">
               <h4>Coming Soon</h4>
@@ -172,7 +165,7 @@
     <ul class="d-flex align-items-center justify-content-around w-100 h-100">
       <li>
         <a href="{{ url('/home') }}">
-          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/home.svg') }}" alt="home">
+          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/home-active.svg') }}" alt="home">
         </a>
       </li>
       <li>

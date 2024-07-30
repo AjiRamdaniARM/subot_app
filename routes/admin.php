@@ -5,6 +5,7 @@ use App\Http\Controllers\bigDataController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\form\FormulirController;
 use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SistemKidsCoontroller;
 use Illuminate\Support\Facades\Route;
 
@@ -55,7 +56,9 @@ Route::post('/bigData/editClass/{kelas}', [bigDataController::class, 'editClass'
 Route::get('/bigData/deleteTools/{alat}', [bigDataController::class, 'deleteTools'])->name('tools.delete');
 Route::post('/bigData/editTools/{alat}', [bigDataController::class, 'editTools'])->name('tools.edit');
 
-// Route
+// Route jadwal
+Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+Route::get('/schedule/create', [ScheduleController::class, 'indexCreate'])->name('schedule.create');
 
 // privacyPin
 Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');

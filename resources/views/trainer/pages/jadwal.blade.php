@@ -8,6 +8,7 @@
     <!-- page-title -->
     <div class="page-title">
       <h3 class="main-title">Jadwal Bulan Juli</h3>
+      <hr>
     </div>
   </main>
 
@@ -16,7 +17,7 @@
     <ul class="d-flex align-items-center justify-content-around w-100 h-100">
       <li>
         <a href="{{ url('/home') }}">
-          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/home.svg') }}" alt="home">
+          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/home-active.svg') }}" alt="home">
         </a>
       </li>
       <li>
@@ -31,7 +32,7 @@
       </li>
       <li>
         <a href="wishlist.html">
-          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/heart-active.svg') }}" alt="heart">
+          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/heart.svg') }}" alt="heart">
         </a>
       </li>
       <li>

@@ -17,9 +17,9 @@
           <img src="{{ asset('assets/trainerSvg/svg/search.svg') }}" alt="search" class="shrink-0">
           <input type="search" class="input-search input-field" placeholder="Search...">
           <div class="filter shrink-0">
-            <button type="button" class="d-flex align-items-center">
+            {{-- <button type="button" class="d-flex align-items-center">
               <img src="{{ asset('assets/trainerSvg/svg/filter-black.svg') }}" alt="filter">
-            </button>
+            </button> --}}
           </div>
         </div>
       </form>
@@ -38,7 +38,7 @@
   
             <div>
               <h4>Bunda Kennet</h4>
-              <p>Hallo Kak, Apakah Les Sudah Selesai?...</p>
+              <p>Hallo Kak...</p>
             </div>
           </div>
   
@@ -56,9 +56,9 @@
     </section>
 
     <!-- add button -->
-    <button type="button" class="add-chat d-flex align-items-center justify-content-center rounded-full">
+    {{-- <button type="button" class="add-chat d-flex align-items-center justify-content-center rounded-full">
       <img src="{{ asset('assets/trainerSvg/svg/plus-white.svg') }}" alt="plus">
-    </button>
+    </button> --}}
   </main>
 </body>
 @endsection

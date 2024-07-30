@@ -214,7 +214,7 @@
           <img src="{{ asset('assets/img/robot.png') }}" alt="avatar" class="w-100 h-100 object-fit-cover">
         </div>
         <div>
-          <h3>Hi, Aziz Ramadhan</h3>
+          <h3>Aziz Ramadhan</h3>
           <p class="d-flex align-items-center gap-04">
             <img src="{{ asset('assets/trainerSvg/svg/map-marker.svg') }}" alt="icon">
             Sukabumi
@@ -380,12 +380,9 @@
     <div class="swiper visited-swiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide place-card">
-          <a href="{{ url('/event') }}" class="text-decoration-none">
+          <a href="" class="text-decoration-none">
             <div class="image position-relative">
               <img src="{{ asset('assets/img/cover.jpg') }}" alt="desert" class="rounded" style="max-width: 100%; height: auto;">
-              <span class="icon-heart d-flex align-items-center justify-content-center rounded-full">
-                <img src="{{ asset('assets/trainerSvg/svg/heart-red.svg') }}" alt="icon">
-              </span>
             </div>
             <div class="content mt-2">
               <h4>Src Competetion</h4>
@@ -584,7 +581,7 @@
       </li>
       <li>
         <a href="{{ url('/explore') }}">
-          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/category-active.svg') }}" alt="category">
+          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/category.svg') }}" alt="category">
         </a>
       </li>
       <li>

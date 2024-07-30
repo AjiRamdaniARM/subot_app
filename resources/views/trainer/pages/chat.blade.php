@@ -4,11 +4,11 @@
   <main class="chat">
     <!-- page-title -->
     <div class="page-title">
-      <button type="button" class="back-btn back-page-btn d-flex align-items-center justify-content-center rounded-full">
+      <button type="button" onclick="window.location.href='{{ url('/pesan') }}'" class="back-btn back-page-btn d-flex align-items-center justify-content-center rounded-full">
         <img src="{{ asset('assets/trainerSvg/svg/arrow-left-black.svg') }}" alt="arrow">
       </button>
       <h3 class="main-title">Richar Kandowen</h3>
-      <div class="dropdown">
+      {{-- <div class="dropdown">
         <button type="button" class="more-btn d-flex align-items-center justify-content-center rounded-full" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="{{ asset('assets/trainerSvg/svg/more.svg') }}" alt="arrow">
         </button>
@@ -26,7 +26,7 @@
             </a>
           </li>
         </ul>
-      </div>
+      </div> --}}
     </div>
 
     <!-- inbox start -->
@@ -125,14 +125,14 @@
           <label for="input-file" class="input-file-label shrink-0">
             <input type="file" id="input-file">
             <span class="d-flex align-items-center justify-content-center rounded-full">
-              <img src="../../assets/svg/paperclip.svg" alt="icon">
+              <img src="{{ asset('assets/trainerSvg/svg/paperclip.svg') }}" alt="icon">
             </span>
           </label>
 
           <input type="text" placeholder="Message" class="flex-grow input-msg">
 
           <button type="button" class="d-flex align-items-center justify-content-center rounded-full shrink-0">
-            <img src="../../assets/svg/send.svg" alt="icon">
+            <img src="{{ asset('assets/trainerSvg/svg/send.svg') }}" alt="icon">
           </button>
         </div>
       </form>

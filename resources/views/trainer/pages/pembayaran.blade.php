@@ -26,7 +26,7 @@
           <div class="ticket-card radius-8">
             <!-- card-title -->
             <div class="card-title d-flex align-items-center justify-content-between">
-              <p>22 march 2022, Thu</p>
+              <p>Senin, 22 Maret 2024</p>
               <span>Segera Lunasi</span>
             </div>
 
@@ -48,7 +48,7 @@
             <!-- card-footer -->
             <div class="card-footer d-flex align-items-center justify-content-between">
               <div>
-                <p>Total Price</p>
+                <p>Total</p>
                 <h3>Rp. 200.000</h3>
               </div>
 
@@ -61,7 +61,7 @@
           <div class="ticket-card radius-8">
             <!-- card-title -->
             <div class="card-title d-flex align-items-center justify-content-between">
-              <p>22 march 2022, Thu</p>
+              <p>Senin, 22 Maret 2024</p>
               <span>Segera Lunasi !</span>
             </div>
 
@@ -83,7 +83,7 @@
             <!-- card-footer -->
             <div class="card-footer d-flex align-items-center justify-content-between">
               <div>
-                <p>Total Price</p>
+                <p>Total</p>
                 <h3>Rp. 300.000</h3>
               </div>
 
@@ -99,7 +99,7 @@
     <ul class="d-flex align-items-center justify-content-around w-100 h-100">
       <li>
         <a href="{{ url('/home') }}">
-          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/home.svg') }}" alt="home">
+          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/home-active.svg') }}" alt="home">
         </a>
       </li>
       <li>

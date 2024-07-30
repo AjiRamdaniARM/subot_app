@@ -2026,6 +2026,7 @@ h6 {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+
 .from-blue-600 {
   --tw-gradient-from: #2152ff;
   --tw-gradient-to: rgb(33 82 255 / 0);
@@ -4346,4 +4347,8 @@ h6 {
   .animasi-button:hover:focus {
     transform: scale(1.5);
     transition: all;
+  }
+
+  .bg-blue-500 {
+    background-color: rgb(0, 117, 234);
   }

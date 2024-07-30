@@ -6,7 +6,7 @@
   <main>
     <!-- page-title -->
     <div class="page-title">
-      <button type="button" class="back-btn back-page-btn d-flex align-items-center justify-content-center rounded-full">
+      <button type="button" onclick="window.location.href='{{ url('user') }}'" class="back-btn back-page-btn d-flex align-items-center justify-content-center rounded-full">
         <img src="{{ asset('assets/trainerSvg/svg/arrow-left-black.svg') }}" alt="arrow">
       </button>
       <h3 class="main-title">Profile</h3>
@@ -72,7 +72,7 @@
 
     <!-- save-btn start -->
     <div class="save-btn mt-64 px-24 mb-32">
-      <a href="user-profile.html" class="btn-primary">Save Changes</a>
+      <a href="{{ url('/user') }}" class="btn-primary">Save Changes</a>
     </div>
   </main>
 

@@ -26,8 +26,13 @@
       <h3>Sukabumi Robotic Competetion</h3>
       <p>Sukabumi, 25 Agustus 2024<span></span> <br> University Nusa Putra</p>
       <div class="d-flex align-items-center gap-16">
-        <a href="{{ url('/chat') }}" class="msg-btn flex-grow d-inline-block radius-12">Send Message</a>
-      </div>
+        <a href="https://wa.link/9skeuw" 
+           class="msg-btn flex-grow d-inline-block radius-12" 
+           target="_blank" 
+           rel="noopener noreferrer">
+          Send Message
+        </a>
+      </div>      
     </section>
     <br>
     <!-- profile-info end -->

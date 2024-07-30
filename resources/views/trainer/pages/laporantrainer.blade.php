@@ -124,7 +124,7 @@
             <div>
               <p class="pb-8">Tanggal</p>
               <label for="hcindate" class="w-100 d-flex align-items-center gap-8 radius-24" data-bs-toggle="modal" data-bs-target="#checkInModal">
-                <input type="text" id="hcindate" placeholder="Date" class="input-field">
+                <input type="date" id="hcindate" placeholder="Date" class="input-field">
                 <span class="icon shrink-0">
                 </span>
               </label>
@@ -134,7 +134,7 @@
             <div>
               <p class="pb-8">Jam</p>
               <label for="hcoutdate" class="w-100 d-flex align-items-center gap-8 radius-24" data-bs-toggle="modal" data-bs-target="#checkOutModal">
-                <input type="text" id="hcoutdate" placeholder="Jam" class="input-field">
+                <input type="time" id="hcoutdate" placeholder="Jam" class="input-field">
                 <span class="icon shrink-0">
                 </span>
               </label>
@@ -184,48 +184,8 @@
     </div>
   </main>
 
-  <!-- checkin date-modal start -->
-  <div class="modal fade checkInModal dateModal modalBg" id="checkInModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header justify-content-center">
-          <h1 class="modal-title" id="checkInModalLabel">Date Check In</h1>
-        </div>
-        <div class="modal-body">
-          <input type="text" id="checkInDateInput"/>
-
-          <div class="btns d-flex align-items-center gap-16">
-            <button type="button" class="radius-20 w-50 cancel-btn" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-            <button type="button" class="radius-20 w-50 apply-btn" data-bs-dismiss="modal" aria-label="Close">Apply</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- checkin date-modal end -->
-
-  <!-- checkout date-modal start -->
-  <div class="modal fade checkOutModal dateModal modalBg" id="checkOutModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header justify-content-center">
-          <h1 class="modal-title" id="checkOutModalLabel">Date Check Out</h1>
-        </div>
-        <div class="modal-body">
-          <input type="text" id="checkOutDateInput"/>
-
-          <div class="btns d-flex align-items-center gap-16">
-            <button type="button" class="radius-20 w-50 cancel-btn" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-            <button type="button" class="radius-20 w-50 apply-btn" data-bs-dismiss="modal" aria-label="Close">Apply</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- checkout date-modal end -->
-
   <!-- service modal start -->
-  <div class="modal fade serviceModal bottomModal modalBg" id="serviceModal" tabindex="-1" aria-hidden="true">
+  {{-- <div class="modal fade serviceModal bottomModal modalBg" id="serviceModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -234,7 +194,7 @@
           </button>
           <h1 class="modal-title">All Facilities</h1>
         </div>
-        <div class="modal-body">
+        {{-- <div class="modal-body">
           <div class="facilities">
             <div class="grid gap-24">
               <!-- item 1 -->
@@ -303,9 +263,9 @@
             </div>
           </div>
 
-        </div>
+        </div> --}}
       </div>
     </div>
-  </div>
+  {{-- </div> --}}
   </body>
 @endsection

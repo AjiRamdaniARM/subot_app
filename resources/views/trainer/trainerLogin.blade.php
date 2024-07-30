@@ -10,14 +10,8 @@
           <img src="../../assets/svg/menu/burger-white.svg" alt="" class="icon">
         </button>
         <div class="btn-grp d-flex align-items-center gap-16">
-          <label for="mode-change" class="mode-change d-flex align-items-center justify-content-center">
-            <input type="checkbox" id="mode-change">
-            <img src="{{ asset('assets/trainerSvg/svg/menu/sun-white.svg') }}" alt="icon" class="sun">
-            <img src="{{ asset('assets/trainerSvg/svg/menu/moon-white.svg') }}" alt="icon" class="moon">
+
           </label>
-          <a href="../profile/user-profile.html">
-            <img src="{{ asset('assets/trainerSvg/svg/menu/profile-white.svg') }}" alt="icon">
-          </a>
         </div>
       </div>
       <div class="m-menu__overlay"></div>
@@ -192,20 +186,7 @@
               </ul>
             </div>
           </li>
-          <li class="dz-switch">
-            <div class="a-label__chevron">
-              <div class="d-flex align-items-center gap-16">
-                <span class="icon">
-                  <img src="../../assets/svg/menu/moon-white.svg" alt="">
-                </span>
-                switch to dark mode
-              </div>
-              <label class="toggle-switch" for="enableMode">
-                <input type="checkbox" id="enableMode" class="mode-switch">
-                <span class="slider"></span>
-              </label>
-            </div>
-          </li>
+
         </ul>
       </div>
       <!-- end main menu -->
@@ -215,7 +196,7 @@
     <!-- signin start -->
     <section class="auth signin">
       <div class="heading">
-        <h2>Hi, Welcome Back!</h2>
+        <h2>Selamat Datang !</h2>
         <p>SUKAROBOT ACCADEMY</p>
       </div>
   

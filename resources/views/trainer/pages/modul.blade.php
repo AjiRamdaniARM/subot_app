@@ -268,7 +268,7 @@
     <ul class="d-flex align-items-center justify-content-around w-100 h-100">
       <li>
         <a href="{{ url('/home') }}">
-          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/home.svg') }}" alt="home">
+          <img src="{{ asset('assets/trainerSvg/svg/bottom-nav/home-active.svg') }}" alt="home">
         </a>
       </li>
       <li>

@@ -20,7 +20,7 @@
         <ul>
           <li class="d-flex gap-12">
             <div class="image d-flex align-items-center justify-content-center rounded-full overflow-hidden shrink-0">
-              <img src="{{ asset('assets/trainerImages/images/chat/img-2.png') }}" alt="person" class="img-fluid h-100 w-100 object-fit-cover">
+              <img src="{{ asset('assets/img/notif.gif') }}" alt="person" class="img-fluid h-100 w-100 object-fit-cover">
             </div>
             <div>
               <p class="pb-8">Jadwal Hari Ini Di Adzkia 1</p>
@@ -35,10 +35,10 @@
         <ul>
           <li class="d-flex gap-12">
             <div class="image d-flex align-items-center justify-content-center rounded-full overflow-hidden shrink-0">
-              <img src="{{asset('assets/trainerSvg/svg/wallet-blue.svg')}}" alt="icon">
+              <img src="{{ asset('assets/img/notif.gif') }}" alt="icon">
             </div>
             <div>
-              <p class="pb-8">Jadwal Adzkia 1 telah successful</p>
+              <p class="pb-8">Jadwal Hari Ini Di Sd Aisyiyah</p>
               <small class="d-block">1 day Ago</small>
             </div>
           </li>

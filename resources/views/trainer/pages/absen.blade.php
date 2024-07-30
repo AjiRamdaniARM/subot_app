@@ -7,7 +7,7 @@
   <main class="details hotel-details">
     <!-- banner start -->
     <section class="banner position-relative">
-      <img src="{{ asset('assets/img/Ochobot aesthetic.jpeg') }}" alt="Banner" class="w-100 img-fluid">
+      <img src="{{ asset('assets/img/profilesekola.png') }}" alt="Banner" class="w-100 img-fluid">
       
       <!-- title -->
       <div class="page-title">
@@ -201,7 +201,7 @@
   </main>
 
   <!-- service modal start -->
-  <div class="modal fade serviceModal bottomModal modalBg" id="serviceModal" tabindex="-1" aria-hidden="true">
+  {{-- <div class="modal fade serviceModal bottomModal modalBg" id="serviceModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -282,7 +282,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
 
 </body>
 
