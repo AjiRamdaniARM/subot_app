@@ -109,7 +109,7 @@
                                         </div>
                                     @endforeach
                                     <div class="mt-4">
-                                        {{ $getSekolah->links() }}
+                                        {{ $getSekolah->appends(['schools_page' => $getSekolah->currentPage()])->links() }}
                                     </div>
 
                                 </div>
@@ -160,7 +160,9 @@
                                         </div>
                                     @endforeach
 
-
+                                    <div class="mt-4">
+                                        {{ $getDataPrograms->appends(['program' => $getDataPrograms->currentPage()])->links() }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -209,7 +211,9 @@
                                         </div>
                                     @endforeach
 
-
+                                    <div class="mt-4">
+                                        {{ $getDataLevels->appends(['level' => $getDataLevels->currentPage()])->links() }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -258,7 +262,9 @@
                                             </div>
                                         </div>
                                     @endforeach
-
+                                    <div class="mt-4">
+                                        {{ $getDataClass->appends(['kelas' => $getDataClass->currentPage()])->links() }}
+                                    </div>
 
                                 </div>
                             </div>
@@ -309,7 +315,9 @@
                                             </div>
                                         </div>
                                     @endforeach
-
+                                    <div class="mt-4">
+                                        {{ $getDataTools->appends(['alat' => $getDataTools->currentPage()])->links() }}
+                                    </div>
 
                                 </div>
                             </div>

@@ -61,12 +61,18 @@
                             class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                             <div
                                 class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                                <h6>Schedule List</h6>
-                                <button onclick="window.location.href='{{ route('schedule.create') }}'"
-                                    class="bg-gradient-to-tl from-blue-600 to-cyan-400 font-bold text-white p-1 rounded hover:scale-102"
-                                    style="transition:all">
-                                    Create Schedule
-                                </button>
+                                <div class="flex items-center justify-start">
+                                    <h6>Schedule List</h6>
+                                    &nbsp;&nbsp;
+                                    <button onclick="window.location.href='{{ route('schedule.create') }}'"
+                                        class="bg-gradient-to-tl from-blue-600 to-cyan-400 font-bold text-white p-1 rounded hover:scale-102"
+                                        style="transition:all;">
+                                        Create Schedule
+                                    </button>
+                                </div>
+                                <div class="mt-4 px-1">
+                                    {{ $getDataSchedule->links() }}
+                                </div>
                             </div>
                             <div class="flex-auto px-0 pt-0 pb-2">
                                 <div class="p-0 overflow-x-auto">
@@ -76,69 +82,72 @@
                                             <tr>
                                                 <th
                                                     class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Project</th>
+                                                    Trainer</th>
                                                 <th
                                                     class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Budget</th>
+                                                    Teacher time</th>
                                                 <th
                                                     class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Status</th>
+                                                    School</th>
                                                 <th
                                                     class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Completion</th>
+                                                    Class Academy </th>
                                                 <th
                                                     class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap">
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex px-2">
-                                                        <div>
-                                                            <img src="{{ asset('assets/img/alarm.png') }}"
-                                                                class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 rounded-full ease-soft-in-out h-9 w-9"
-                                                                alt="spotify" />
-                                                        </div>
-                                                        <div class="my-auto">
-                                                            <h6 class="mb-0 text-sm leading-normal">Spotify</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <p class="mb-0 text-sm font-semibold leading-normal">$2,500</p>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <span class="text-xs font-semibold leading-tight">working</span>
-                                                </td>
-                                                <td
-                                                    class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex items-center justify-center">
-                                                        <span
-                                                            class="mr-2 text-xs font-semibold leading-tight">60%</span>
-                                                        <div>
-                                                            <div
-                                                                class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                                <div class="duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-3/5 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                    role="progressbar" aria-valuenow="60"
-                                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            @foreach ($getDataSchedule as $schedule)
+                                                <tr>
+                                                    <td
+                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                        <div class="flex px-2">
+                                                            <div>
+                                                                <img src="{{ asset('assets/img/alarm.png') }}"
+                                                                    class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 rounded-full ease-soft-in-out h-9 w-9"
+                                                                    alt="spotify" />
+                                                            </div>
+                                                            <div class="my-auto">
+                                                                <h6 class="mb-0 text-sm leading-normal">
+                                                                    {{ $schedule->nama }}</h6>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <button
-                                                        class="inline-block px-6 py-3 mb-0 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400">
-                                                        <i class="text-xs leading-tight fa fa-ellipsis-v"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                    <td
+                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                        <p class="mb-0 text-sm font-semibold leading-normal">
+                                                            {{ date('H:i', strtotime($schedule->jm_awal)) }} -
+                                                            {{ date('H:i', strtotime($schedule->jm_akhir)) }}
+                                                        </p>
+                                                    </td>
+                                                    <td
+                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                        <span
+                                                            class="text-xs font-semibold leading-tight">{{ $schedule->sekolah }}</span>
+                                                    </td>
+                                                    <td
+                                                        class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                        <div class="flex items-center justify-center">
+                                                            <span
+                                                                class="mr-2 text-xs font-semibold leading-tight">{{ $schedule->kelas }}</span>
+
+                                                        </div>
+                                                    </td>
+                                                    <td
+                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                        <button
+                                                            class="inline-block px-6 py-3 mb-0 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400">
+                                                            <i class="text-xs leading-tight fa fa-ellipsis-v"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
                                         </tbody>
+
                                     </table>
+
                                 </div>
                             </div>
                         </div>

@@ -11,7 +11,8 @@ class Schedules extends Model
 
     protected $fillable = [
         'id_trainer',
-        'id_box',
+        'id_alat',
+        'id_kelas',
         'hari',
         'jm_awal',
         'jm_akhir',

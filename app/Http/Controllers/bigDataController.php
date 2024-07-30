@@ -26,20 +26,20 @@ class bigDataController extends Controller
         $getDataAlat = DataAlat::all()->count();
 
         // pemanggilan semua data
-        $getSekolah = DataSekolah::orderBy('created_at', 'DESC')->paginate(6);
-        $getDataPrograms = DataProgram::orderBy('created_at', 'DESC')->paginate(6);
+        $getSekolah = DataSekolah::orderBy('created_at', 'DESC')->paginate(6, ['*'], 'schools_page');
+        $getDataPrograms = DataProgram::orderBy('created_at', 'DESC')->paginate(6, ['*'], 'program');
         $getDataLevels = DB::table('data_levels')
             ->join('data_programs', 'data_levels.id_programs', '=', 'data_programs.id')
             ->select('data_levels.*', 'data_levels.id as id_levels', 'data_programs.*', 'data_programs.program as nama_program') // Pilih kolom yang ingin Anda ambil
             ->orderBy('data_levels.created_at', 'DESC')
-            ->paginate(6);
+            ->paginate(6, ['*'], 'level');
 
-        $getDataClass = DataKelas::orderBy('created_at', 'DESC')->paginate(6);
+        $getDataClass = DataKelas::orderBy('created_at', 'DESC')->paginate(6, ['*'], 'kelas');
         $getDataTools = DB::table('data_alats')
             ->join('data_levels', 'data_alats.id_level', '=', 'data_levels.id')
             ->select('data_alats.*', 'data_alats.id as id_alats', 'data_levels.*', 'data_levels.levels as nama_level') // Pilih kolom yang ingin Anda ambil
             ->orderBy('data_alats.created_at', 'DESC')
-            ->paginate(6);
+            ->paginate(6, ['*'], 'alat');
 
         return view('admin.build.pages.bigData', compact('getDataSekolahCount', 'getDataTools', 'getDataClass', 'getDataLevels', 'getDataPrograms', 'activePercentage', 'getSekolah', 'getDataProgram', 'getDataLevel', 'getDataKelas', 'getDataAlat'));
     }

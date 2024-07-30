@@ -10,6 +10,7 @@ class BigData extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_bigData',
         'id_sekolah',
         'id_level',
         'id_siswa',
