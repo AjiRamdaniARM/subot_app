@@ -59,6 +59,7 @@ Route::post('/bigData/editTools/{alat}', [bigDataController::class, 'editTools']
 // Route jadwal
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
 Route::get('/schedule/create', [ScheduleController::class, 'indexCreate'])->name('schedule.create');
+Route::post('/schedule/create/prosses', [ScheduleController::class, 'post'])->name('schedule.post');
 
 // privacyPin
 Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');

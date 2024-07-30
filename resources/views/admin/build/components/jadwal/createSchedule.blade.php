@@ -13,7 +13,7 @@
             <div class="w-full px-6 py-6 mx-auto">
                 <img src="{{ asset('assets/img/bannerSchdeulw.png') }}" class="w-full rounded-lg" alt="">
                 <div class="form" style="padding-top:20px">
-                    <form class="w-full max-w-lg">
+                    <form class="w-full max-w-lg" action="{{ route('schedule.post') }}" method="POST">
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -54,11 +54,11 @@
                                     for="grid-last-name">
                                     Class Academy
                                 </label>
-                                <select name="id_trainer" id="trainer"
+                                <select name="id_kelas" id="class"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="">Select Class</option>
                                     @foreach ($getDataClass as $class)
-                                        <option value="{{ $trainer->id }}">{{ $class->kelas }}</option>
+                                        <option value="{{ $class->id }}">{{ $class->kelas }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -67,7 +67,7 @@
                                     for="grid-last-name">
                                     TOOLS
                                 </label>
-                                <select name="id_trainer" id="trainer"
+                                <select name="id_alat" id="alat"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="">Select Tools</option>
                                     @foreach ($getDataTools as $tools)
@@ -83,7 +83,7 @@
                                     for="grid-last-name">
                                     first hour teaching
                                 </label>
-                                <input type="time"
+                                <input type="time" name="jm_awal"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             </div>
                             <div class="w-full md:w-1/2 px-3">
@@ -91,7 +91,7 @@
                                     for="grid-last-name">
                                     final hour of teaching
                                 </label>
-                                <input type="time"
+                                <input type="time" name="jm_akhir"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             </div>
                         </div>
@@ -101,14 +101,16 @@
                                     for="grid-last-name">
                                     Pj Club
                                 </label>
-                                <select name="id_trainer" id="trainer"
+                                <select name="pj_eskul" id="trainer"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="">Select Pj Club</option>
                                     @foreach ($getDataTrainer as $trainer)
-                                        <option value="{{ $trainer->id }}">{{ $trainer->nama }}</option>
+                                        <option value="{{ $trainer->nama }}">{{ $trainer->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
+                            {{-- fitur disabled --}}
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 "
                                     for="grid-last-name" style="color: red">
@@ -118,14 +120,17 @@
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     disabled>
                             </div>
+                            {{-- fitur disabled --}}
+
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-1/2 px-3">
+
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
                                     final attendance deadline
                                 </label>
-                                <input type="time"
+                                <input type="time" name="dj_akhir"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             </div>
                             <div class="w-full md:w-1/2 px-3">
@@ -133,7 +138,7 @@
                                     for="grid-last-name">
                                     teaching schedule date
                                 </label>
-                                <input type="date"
+                                <input type="date" name="tanggal_jd"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             </div>
 
@@ -145,7 +150,7 @@
                                     for="grid-last-name">
                                     Status Schedule
                                 </label>
-                                <select name="id_trainer" id="trainer"
+                                <select name="ket" id="status"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="">Select Status</option>
                                     <option value="Aktif">Aktif</option>
@@ -157,7 +162,7 @@
                                     for="grid-last-name">
                                     school
                                 </label>
-                                <select name="id_trainer" id="school"
+                                <select name="id_sekolah" id="school"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="">Select School</option>
                                     @foreach ($getDataSchool as $school)
@@ -172,7 +177,7 @@
                                     for="grid-last-name">
                                     Program academy
                                 </label>
-                                <select name="id_trainer" id="trainer"
+                                <select name="id_program" id="trainer"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="">Select Program</option>
                                     @foreach ($getDataProgram as $program)
@@ -352,7 +357,7 @@
                     row.innerHTML = `
                 <td class="border px-4 py-2">${siswa.nama_lengkap}</td>
                 <td class="border px-4 py-2 text-center">
-                    <input type="checkbox" name="siswa[]" value="${siswa.id}" class="form-checkbox h-5 w-5 text-blue-600">
+                    <input type="checkbox" name="id_siswa[]" value="${siswa.id}" class="form-checkbox h-5 w-5 text-blue-600">
                 </td>
             `;
                     siswaTableBody.appendChild(row);
