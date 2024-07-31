@@ -5,6 +5,7 @@ use App\Http\Controllers\bigDataController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\form\FormulirController;
 use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\profileAdmin\profile;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SistemKidsCoontroller;
 use App\Http\Controllers\superAdmin\StaffController;
@@ -57,15 +58,19 @@ Route::post('/bigData/editClass/{kelas}', [bigDataController::class, 'editClass'
 Route::get('/bigData/deleteTools/{alat}', [bigDataController::class, 'deleteTools'])->name('tools.delete');
 Route::post('/bigData/editTools/{alat}', [bigDataController::class, 'editTools'])->name('tools.edit');
 
-// Route jadwal
+// Route jadwal admin
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
 Route::get('/schedule/create', [ScheduleController::class, 'indexCreate'])->name('schedule.create');
 Route::post('/schedule/create/prosses', [ScheduleController::class, 'post'])->name('schedule.post');
+Route::post('/schedule/replaceTrainer/{nama}', [ScheduleController::class, 'replace'])->name('schedule.replace');
 
 // fitur superAdmin
 Route::get('/dataStaff', [StaffController::class, 'index'])->name('dataStaff.index');
 Route::post('/superadmin/update/{id}', [StaffController::class, 'update'])->name('superadmin.update');
 Route::post('/superadmin/delete/{id}', [StaffController::class, 'delete'])->name('superadmin.delete');
+
+// route profile admin
+Route::get('/profileAdmin', [profile::class, 'index'])->name('profileAdmin.index');
 
 // privacyPin
 Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');

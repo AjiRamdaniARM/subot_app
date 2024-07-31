@@ -158,19 +158,18 @@
                                     <option value="Tidak Aktif">Tidak Aktif</option>
                                 </select>
                             </div>
+
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-last-name">
-                                    school
+                                    for="grid-last-name" style="color: rgb(192, 109, 2)">
+                                    api google maps ( optional)
                                 </label>
-                                <select name="id_sekolah" id="school" required
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select School</option>
-                                    @foreach ($getDataSchool as $school)
-                                        <option value="{{ $school->id_sekolah }}">{{ $school->sekolah }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" name="api_maps"
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    placeholder="link google maps">
                             </div>
+
+
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-1/2 px-3">
@@ -200,17 +199,21 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="flex flex-wrap -mx-3 mb-6">
-                            <div class="w-full px-3">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-last-name" style="color: rgb(192, 109, 2)">
-                                    api google maps ( optional)
-                                </label>
-                                <input type="text" name="api_maps"
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    placeholder="link google maps">
-                            </div>
 
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full  px-3" style="display: none;">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    for="grid-last-name">
+                                    school
+                                </label>
+                                <select name="id_sekolah" id="school"
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="">Select School</option>
+                                    @foreach ($getDataSchool as $school)
+                                        <option value="{{ $school->id_sekolah }}">{{ $school->sekolah }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
                         <table class="w-full leading-normal">
@@ -365,6 +368,44 @@
                 });
             });
         });
+        document.addEventListener('DOMContentLoaded', function() {
+            const classSelect = document.getElementById('class');
+            const schoolSelect = document.getElementById('school');
+            const siswaTableBody = document.getElementById('siswa-table-body');
+            const allSiswa = @json($getDataSiswa);
+
+            classSelect.addEventListener('change', function() {
+                const selectedClass = classSelect.options[classSelect.selectedIndex].text;
+
+                if (selectedClass.toLowerCase() === 'club') {
+                    schoolSelect.parentElement.style.display = 'block';
+                    schoolSelect.required = true;
+                } else {
+                    schoolSelect.parentElement.style.display = 'none';
+                    schoolSelect.required = false;
+                }
+
+                const selectedSchoolId = this.value;
+                siswaTableBody.innerHTML = '';
+
+                const filteredSiswa = allSiswa.filter(siswa => siswa.id_kelas == selectedSchoolId);
+
+                filteredSiswa.forEach(siswa => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                <td class="border px-4 py-2">${siswa.nama_lengkap}</td>
+                <td class="border px-4 py-2 text-center">
+                    <input type="checkbox" name="id_siswa[]" value="${siswa.id}" class="form-checkbox h-5 w-5 text-blue-600" >
+                </td>
+            `;
+                    siswaTableBody.appendChild(row);
+                });
+            });
+
+            // Trigger change event to set initial state on page load
+            classSelect.dispatchEvent(new Event('change'));
+        });
+
         document.getElementById('post').addEventListener('submit', function(event) {
             var checkboxes = document.querySelectorAll('input[name="id_siswa[]"]');
             var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);

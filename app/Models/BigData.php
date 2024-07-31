@@ -11,10 +11,7 @@ class BigData extends Model
 
     protected $fillable = [
         'id_bigData',
-        'id_sekolah',
-        'id_level',
+        'id_kelas',
         'id_siswa',
-        'id_program',
-        'api_maps',
     ];
 }

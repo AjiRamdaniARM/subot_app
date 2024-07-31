@@ -99,6 +99,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($getDataSchedule as $schedule)
+                                                @include('admin.build.components.modalSchedule.modalViewAll')
                                                 <tr>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -123,8 +124,9 @@
                                                     </td>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+
                                                         <span
-                                                            class="text-xs font-semibold leading-tight">{{ $schedule->sekolah }}</span>
+                                                            class="text-xs font-semibold leading-tight">{{ \Carbon\Carbon::parse($schedule->tanggal_jd)->translatedFormat('d F Y') }}</span>
                                                     </td>
                                                     <td
                                                         class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -136,11 +138,14 @@
                                                     </td>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+
                                                         <button
+                                                            onclick="window.modalAll{{ $schedule->id_schedules }}.showModal()"
                                                             class="inline-block px-6 py-3 mb-0 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400">
                                                             <i class="text-xs leading-tight fa fa-ellipsis-v"></i>
                                                         </button>
                                                     </td>
+
                                                 </tr>
                                             @endforeach
 
@@ -153,10 +158,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
 
                 <footer class="pt-4">
                     <div class="w-full px-6 mx-auto">

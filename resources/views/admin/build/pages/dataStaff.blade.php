@@ -2,7 +2,6 @@
 
     <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.sidenav')
-        @include('modalSekolah')
         <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
             <!-- Navbar -->
             @include('admin.build.components.navbar')
@@ -22,7 +21,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
-
+                <img src="{{ asset('assets/img/bannerstaff.jpeg') }}" class="w-full rounded-lg" alt="">
                 <!-- content -->
                 <div class="flex flex-wrap -mx-3">
                     <div class="max-w-full px-3 lg:w-full lg:flex-none">
@@ -37,30 +36,27 @@
                                             class="p-4 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                                             <div class="flex flex-wrap -mx-3">
                                                 <div class="flex items-center flex-none max-w-full px-3">
-                                                    <h6 class="mb-0">Add New Child Data</h6>
+                                                    <h6 class="mb-0">Add New Staff</h6>
                                                 </div>
-                                                <div class="  max-w-full px-3 text-right"
+                                                <div class="max-w-full px-3 text-right"
                                                     style="display:flex; flex-wrap:wrap; gap:1px">
-                                                    <button type="button" onclick="window.dialogAdmin.showModal()"
-                                                        class="inline-block px-6  py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
-                                                        Create Schools
-                                                    </button>
-                                                    &nbsp;
                                                     <button type="submit"
                                                         class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
-                                                        <i class="fas fa-plus">
-                                                        </i>&nbsp;&nbsp;Create
-                                                        Data</button>
+                                                        <i class="fas fa-plus"></i>&nbsp;&nbsp;Create Data
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="flex flex-col p-4" style="gap:10px">
-                                            <div class="flex flex-wrap -mx-3 ">
+                                            <div class="flex flex-wrap -mx-3">
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
+                                                    <label for="nama_lengkap"
+                                                        class="block text-sm font-medium text-gray-700">Full
+                                                        Name</label>
+                                                    <input id="nama_lengkap"
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-yellow-800 border border-solid shadow-none rounded-xl w-full border-black bg-clip-border py-4"
                                                         name="nama_lengkap" value="{{ old('nama_lengkap') }}"
-                                                        type="text" required placeholder="Full Name" />
+                                                        type="text" required />
                                                     @error('nama_lengkap')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -69,10 +65,13 @@
                                                     @enderror
                                                 </div>
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
+                                                    <label for="tl"
+                                                        class="block text-sm font-medium text-gray-700">Full Address
+                                                        Staff</label>
+                                                    <input id="tl"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
                                                         name="tl" value="{{ old('tl') }}" required
-                                                        type="text" placeholder="Place Of Birth" />
+                                                        type="text" />
                                                     @error('tl')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -80,26 +79,16 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-
-
                                             </div>
-                                            <div class="flex flex-wrap -mx-3 ">
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
-                                                        name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
-                                                        type="date" required placeholder="Date Of Birth" />
-                                                </div>
-
-
-
-                                            </div>
-                                            <div class="flex flex-wrap -mx-3 ">
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
-                                                    <input
+                                            <div class="flex flex-wrap -mx-3">
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="kelas"
+                                                        class="block text-sm font-medium text-gray-700">Graduates
+                                                        Staff</label>
+                                                    <input id="kelas"
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
                                                         name="kelas" value="{{ old('kelas') }}" type="text"
-                                                        required placeholder="Class" />
+                                                        required />
                                                     @error('kelas')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -108,10 +97,13 @@
                                                     @enderror
                                                 </div>
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
+                                                    <label for="nama_ortu"
+                                                        class="block text-sm font-medium text-gray-700">No Telp
+                                                        Staff</label>
+                                                    <input id="nama_ortu"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
                                                         name="nama_ortu" value="{{ old('nama_ortu') }}" type="text"
-                                                        required placeholder="Parent's Name" />
+                                                        required />
                                                     @error('nama_ortu')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -119,42 +111,16 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-
-
                                             </div>
-                                            <div class="flex flex-wrap -mx-3 ">
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
-                                                        name="telephone" value="{{ old('telephone') }}" type="number"
-                                                        required placeholder="Number Handphone" />
-                                                    @error('telephone')
-                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
-                                                            role="alert">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="work_ortu" value="{{ old('work_ortu') }}" type="text"
-                                                        required placeholder="Parent's Occupation" />
-                                                    @error('work_ortu')
-                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
-                                                            role="alert">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
                                             <div class="flex flex-wrap -mx-3">
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
+                                                    <label for="alamat"
+                                                        class="block text-sm font-medium text-gray-700">Place of
+                                                        Birth</label>
+                                                    <input id="alamat"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
                                                         name="alamat" value="{{ old('alamat') }}" type="text"
-                                                        required placeholder="Address" />
+                                                        required />
                                                     @error('alamat')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -162,150 +128,128 @@
                                                         </div>
                                                     @enderror
                                                 </div>
+                                                <!--input file-->
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
+                                                    <label for="file_ktp"
+                                                        class="block text-sm font-medium text-gray-700">KTP
+                                                        Photo</label>
+                                                    <input id="file_ktp"
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
-                                                        name="file" type="file" required />
+                                                        name="file_ktp" type="file" required />
+                                                </div>
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="file_profile"
+                                                        class="block text-sm font-medium text-gray-700">Profile
+                                                        Photo</label>
+                                                    <input id="file_profile"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
+                                                        name="file_profile" type="file" required />
+                                                </div>
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="file_signature"
+                                                        class="block text-sm font-medium text-gray-700">Signature
+                                                        Photo</label>
+                                                    <input id="file_signature"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
+                                                        name="file_signature" type="file" required />
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="flex flex-wrap -mx-3">
-                    <div class="w-full max-w-full px-3 mt-6  md:flex-none">
+                    <div class="flex-none w-full max-w-full px-3">
                         <div
-                            class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-                            <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                                <h6 class="mb-0">All Data Kids</h6>
-                                {{-- <a href="{{ url('users/export/') }}"
-                                    style="
-                                background-color:green;
-                                padding: 3px;
-                                color:white;
-                                ">Export
-                                    Data</a> --}}
+                            class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
+                            <div
+                                class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex-items">
+                                <h6>Staff Table</h6>
+                                &nbsp; &nbsp; &nbsp;
                             </div>
-                            <div class="flex-auto p-4 pt-6">
-                                @if (empty($getDataKids))
-                                    <div class="text-black">no child data for now</div>
-                                @else
-                                    <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                                        @foreach ($getDataKids as $getDataKid)
-                                            <li
-                                                class="relative flex p-6 mb-2 border-0 rounded-t-inherit rounded-xl bg-gray-50">
+                            <div class="flex-auto px-0 pt-0 pb-2">
+                                <div class="p-0 overflow-x-auto">
+                                    <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+                                        <thead class="align-bottom">
 
-                                                <div class="flex" style="gap:20px">
-                                                    <img src="{{ asset('assets/data/dataAnak/img/' . $getDataKid->file) }}"
-                                                        alt="child"
-                                                        style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%; margin: 0 auto;">
-                                                    <div class="flex flex-col">
-                                                        <h6 class="mb-4 leading-normal text-sm">
-                                                            {{ $getDataKid->nama_lengkap }}
-                                                        </h6>
-                                                        <span class="mb-2 leading-tight text-xs">School: <span
-                                                                class="font-semibold text-slate-700 sm:ml-2">{{ $getDataKid->sekolah }}</span></span>
+                                            <tr>
+                                                <th
+                                                    class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                                    Staff</th>
+                                                <th
+                                                    class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                                    Status</th>
+                                                <th
+                                                    class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                                    confidential data</th>
+                                                <th
+                                                    class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                                    Aksi</th>
+                                                <th
+                                                    class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{-- @foreach ($getTrainerData as $trainerGet) --}}
+                                            <tr>
+                                                <td
+                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                    <div class="flex px-2 py-1">
+                                                        <div>
+                                                            <img src="{{ asset('assets/trainer_data/profile/Profile_Asep Saeban.jpg') }}"
+                                                                class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
+                                                                alt="user1" />
+                                                        </div>
+                                                        <div class="flex flex-col justify-center">
+                                                            <h6 class="mb-0 text-sm leading-normal">
+                                                                Aziz Ramadhan
+                                                                <p class="mb-0 text-xs leading-tight text-slate-400">
+                                                                    University Nusa Putra
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="ml-auto text-right flex flex-wrap">
-                                                    <form
-                                                        action="{{ route('delete.kids', ['nama_lengkap' => $getDataKid->nama_lengkap]) }}"
-                                                        enctype="multipart/form-data">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text">
-                                                            <i
-                                                                class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-rose-400 bg-x-25 bg-clip-text"></i>Delete
-                                                        </button>
-                                                    </form>
+                                                </td>
+                                                <td --}} <p class="mb-0 text-xs font-semibold leading-tight">Aktif</p>
+                                                </td>
+                                                <td
+                                                    class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
 
+                                                    {{-- <button onclick="window.dialog.showModal();"> --}}
+                                                    <a href="{{ url('') }}">
+                                                        <span
+                                                            class="animasi-button bg-gradient-to-tl from-red-600 to-rose-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white ">Private
+                                                            Data</span>
+                                                    </a>
 
-                                                    <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
-                                                        href="#popup/{{ $getDataKid->nama_lengkap }}"><i
-                                                            class="mr-2 fas fa-pencil-alt text-slate-700"
-                                                            aria-hidden="true"></i>Edit</a>
-                                                    @include('admin.build.components.dataKids.modalEdit')
-                                                    <a href="{{ url('/datakids/privateData/' . $getDataKid->nama_lengkap) }}"
-                                                        class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
-                                                        href="javascript:;"><svg class="w-5 text-[#344767]"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                        </svg>
-                                                        View</a>
-                                                </div>
-                                            </li>
-                                        @endforeach
+                                                </td>
+                                                <td
+                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent text-right">
+                                                    <style>
+                                                        .action-link {
+                                                            margin-left: 10px;
+                                                            /* Mengganti margin-right dengan margin-left untuk alignment di kanan */
+                                                        }
+                                                    </style>
 
-                                    </ul>
-                                    <div class="mt-4">
-                                        {{ $getDataKids->links() }}
-                                    </div>
-                                @endif
+                                                    <a href="#" class="action-link">Edit</a>
+                                                    <a href="#" class="action-link">Delete</a>
+                                                    <a href="#" class="action-link">CP</a>
 
+                                                    <!-- Link untuk popup jika diperlukan -->
+                                                    <a href="#popupdelete"></a>
+                                                </td>
+                                            </tr>
+                                            {{-- @endforeach --}}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    {{-- <div class="w-full max-w-full px-3 mt-6 md:w-5/12 md:flex-none">
-                        <div
-                            class="relative flex flex-col h-full min-w-0 mb-6 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-                            <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                                <div class="flex flex-wrap -mx-3">
-                                    <div class="max-w-full px-3 md:w-1/2 md:flex-none">
-                                        <h6 class="mb-0">All School Data</h6>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="flex-auto p-4 pt-6">
-                                <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                                    @foreach ($getDataSchool as $sekolah)
-                                        <li
-                                            class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-t-inherit text-inherit rounded-xl">
-                                            <div class="flex items-center">
-                                                <button
-                                                    class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-lime-500 border-transparent bg-transparent text-center align-middle font-bold uppercase text-lime-500 transition-all hover:opacity-75"><i
-                                                        class="fas fa-arrow-up text-3xs"></i></button>
-                                                <div class="flex flex-col">
-                                                    <h6 class="mb-1 leading-normal text-sm text-slate-700">
-                                                        {{ $sekolah->sekolah }}</h6>
-                                                    @if ($sekolah->alamat == null)
-                                                        <span class="leading-tight text-xs">Data alamat belum ada
-                                                            !!</span>
-                                                    @else
-                                                        <span
-                                                            class="leading-tight text-xs">{{ $sekolah->alamat }}</span>
-                                                    @endif
-
-                                                </div>
-                                            </div>
-                                            <div class="flex flex-col items-center justify-center">
-                                                <button
-                                                    class="relative z-10 inline-block m-0 font-semibold leading-normal text-white rounded-lg text-sm animasi-scale-hover-105 transisi-all animasi-scale-focus-105"
-                                                    style="background-color: #FFAA00; padding: 5px;">
-                                                    Edit</button>
-                                            </div>
-                                        </li>
-                                    @endforeach
-
-                                </ul>
-                                <div class="mt-4">
-                                    {{ $getDataSchool->links() }}
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-
                 </div>
 
                 <footer class="pt-4">

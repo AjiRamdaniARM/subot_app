@@ -253,7 +253,7 @@
 
               <li class="mt-0.5 w-full">
                   <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                      href="./pages/profile.html">
+                      href="{{ route('profileAdmin.index') }}">
                       <div
                           class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                           <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
@@ -311,8 +311,7 @@
           </div>
           <!-- pro btn  -->
           <a class="inline-block w-full px-6 py-3 my-4 text-xs font-bold text-center text-white uppercase align-middle transition-all ease-in border-0 rounded-lg select-none shadow-soft-md bg-150 bg-x-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102"
-              target="_blank"
-              href="https://www.creative-tim.com/product/soft-ui-dashboard-pro-tailwind?ref=sidebarfree">Contact
+              target="_blank" href="https://wa.link/1h1bsi">Contact
               Developer</a>
       </div>
   </aside>

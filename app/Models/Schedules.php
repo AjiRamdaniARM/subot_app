@@ -13,6 +13,9 @@ class Schedules extends Model
         'id_trainer',
         'id_alat',
         'id_kelas',
+        'id_sekolah',
+        'id_level',
+        'id_program',
         'hari',
         'jm_awal',
         'jm_akhir',
@@ -22,5 +25,6 @@ class Schedules extends Model
         'dj_awal',
         'dj_akhir',
         'tanggal_jd',
+        'api_maps',
     ];
 }

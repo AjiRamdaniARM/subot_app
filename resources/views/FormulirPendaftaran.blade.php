@@ -71,13 +71,30 @@
                                     </div>
                                 @enderror
 
+                                <div class="flex flex-col">
+                                    <div class="flex flex-col">
+                                        <label class="leading-loose">Pilih Kelas</label>
+                                        <select
+                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full  sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                            name="id_kelas" id="" required>
+                                            <option value="">Silahkan Pilih Kelas</option>
+                                            @foreach ($getDataKelas as $kelas)
+                                                <option value="{{ $kelas->id }}">{{ $kelas->kelas }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+
+
+                                </div>
 
                                 <div class="flex flex-col">
                                     <div class="flex flex-col">
                                         <label class="leading-loose">Sekolah</label>
                                         <select
                                             class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full  sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                            name="sekolah" id="">
+                                            name="sekolah" id="" required>
                                             <option value="">Silahkan Pilih Sekolah Anda</option>
                                             @foreach ($getData as $sekolah)
                                                 <option value="{{ $sekolah->id_sekolah }}">{{ $sekolah->sekolah }}

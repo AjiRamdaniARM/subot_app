@@ -90,6 +90,7 @@ class SistemKidsCoontroller extends Controller
                 $dataFile->move(public_path('/assets/data/dataAnak/img'), $fileName);
 
                 $validateDataKids = new DataSiswa();
+                $validateDataKids->id_kelas = $request->id_kelas;
                 $validateDataKids->nama_lengkap = $request->nama_lengkap;
                 $validateDataKids->tl = $request->tl;
                 $validateDataKids->tanggal_lahir = $request->tanggal_lahir;
