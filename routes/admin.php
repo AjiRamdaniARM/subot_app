@@ -7,6 +7,7 @@ use App\Http\Controllers\form\FormulirController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SistemKidsCoontroller;
+use App\Http\Controllers\superAdmin\StaffController;
 use Illuminate\Support\Facades\Route;
 
 // role admin
@@ -60,6 +61,11 @@ Route::post('/bigData/editTools/{alat}', [bigDataController::class, 'editTools']
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
 Route::get('/schedule/create', [ScheduleController::class, 'indexCreate'])->name('schedule.create');
 Route::post('/schedule/create/prosses', [ScheduleController::class, 'post'])->name('schedule.post');
+
+// fitur superAdmin
+Route::get('/dataStaff', [StaffController::class, 'index'])->name('dataStaff.index');
+Route::post('/superadmin/update/{id}', [StaffController::class, 'update'])->name('superadmin.update');
+Route::post('/superadmin/delete/{id}', [StaffController::class, 'delete'])->name('superadmin.delete');
 
 // privacyPin
 Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');
