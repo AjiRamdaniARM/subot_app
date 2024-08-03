@@ -323,7 +323,60 @@
                             </div>
                         </div>
                     </div>
-                    {{-- akhir alat class --}}
+                    {{-- akhir tools  --}}
+
+                    {{-- data materi --}}
+                    <div class="w-full max-w-full px-3 py-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
+                        <div
+                            class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
+                            <div class="flex justify-between-items-center">
+                                <div
+                                    class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
+                                    <h6>All Materi Data</h6>
+                                    <p class="text-sm leading-normal">
+                                        <i class="fa fa-arrow-up text-lime-500"></i>
+                                        <span class="font-semibold">100%</span> this month
+                                    </p>
+                                </div>
+                                <button type="button" onclick="window.dialogMateri.showModal()"
+                                    class="inline-block px-6 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 relative"
+                                    style="height: 30px; top:15px; right:10px">
+                                    Create
+                                </button>
+                            </div>
+                            <div class="flex-auto p-4">
+                                <div
+                                    class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
+                                    @foreach ($getDataMateri as $materi)
+                                        @include('admin.build.components.bigData.modalMateris')
+                                        <div class="relative mb-4 after:clear-both after:table after:content-['']">
+                                            <span
+                                                class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
+                                                <i
+                                                    class="relative z-10 leading-none text-transparent ni ni-laptop leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 bg-clip-text fill-transparent"></i>
+                                            </span>
+                                            <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
+                                                <a
+                                                    onclick="window.dialogMateriClass{{ $materi->id_materi }}.showModal()">
+                                                    <h6
+                                                        class="mb-0 text-sm font-semibold leading-normal text-slate-700">
+                                                        {{ $materi->materi }}</h6>
+                                                </a>
+                                                <p
+                                                    class="mt-1 mb-0 text-xs font-semibold leading-tight text-slate-400">
+                                                    {{ $materi->created_at }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <div class="mt-4">
+                                        {{ $getDataMateri->appends(['materi' => $getDataMateri->currentPage()])->links() }}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- akhir tools  --}}
 
 
 
@@ -374,6 +427,6 @@
             </div>
             <!-- end cards -->
         </main>
-        @include('admin.build.components.plugins')
+
     </body>
 </x-app-layout>

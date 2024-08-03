@@ -915,6 +915,6 @@
             </div>
             <!-- end cards -->
         </main>
-        @include('admin.build.components.plugins')
+
     </body>
 </x-app-layout>

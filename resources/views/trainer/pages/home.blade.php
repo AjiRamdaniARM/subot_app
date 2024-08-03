@@ -218,7 +218,7 @@
                     <img src="{{ asset('assets/img/robot.png') }}" alt="avatar" class="w-100 h-100 object-fit-cover">
                 </div>
                 <div>
-                    <h3>Aziz Ramadhan</h3>
+                    <h3> {{ auth()->guard('trainer')->user()->nama }}</h3>
                     <p class="d-flex align-items-center gap-04">
                         <img src="{{ asset('assets/trainerSvg/svg/map-marker.svg') }}" alt="icon">
                         Sukabumi
@@ -274,51 +274,92 @@
                     <a href="{{ url('jadwalhari') }}" class="shrink-0 d-inline-block">See All</a>
                 </div>
 
-                <ul>
-                    <!-- item 1 -->
-                    <li>
-                        <a href="{{ url('/home/absen') }}" class="d-flex align-items-center gap-12">
-                            <div class="image shrink-0 overflow-hidden radius-8">
-                                <img src="{{ asset('assets/img/absen.gif') }}" alt="Place"
-                                    class="img-fluid w-100 h-100 object-fit-cover">
-                            </div>
-
-                            <div
-                                class="content shrink-0 d-flex align-items-center gap-12 justify-content-between flex-grow">
-                                <div>
-                                    <h4>SD ADZKIA 2</h4>
-                                    <h5>08.00 - 10.00</h5>
-                                    <p class="d-flex align-items-center gap-8 location">
-                                        20 Agustus 2024
-                                    </p>
+                <ul id="schedule-list">
+                    @foreach ($getScheduleTrainer as $jadwal)
+                        <li>
+                            <a href="{{ url('/home/absen/' . $jadwal->id_schedules) }}"
+                                class="d-flex align-items-center gap-12">
+                                <div class="image shrink-0 overflow-hidden radius-8">
+                                    <img src="{{ asset('assets/img/absen.gif') }}" alt="Place"
+                                        class="img-fluid w-100 h-100 object-fit-cover">
                                 </div>
-                                <p class="price"><span>Basic 2 | Box 1</span></p>
-                            </div>
-                        </a>
-                    </li>
-
-                    <!-- item 2 -->
-                    <li>
-                        <a href="{{ url('/home/absen') }}" class="d-flex align-items-center gap-12">
-                            <div class="image shrink-0 overflow-hidden radius-8">
-                                <img src="{{ asset('assets/img/absen.gif') }}" alt="Place"
-                                    class="img-fluid w-100 h-100 object-fit-cover">
-                            </div>
-
-                            <div
-                                class="content shrink-0 d-flex align-items-center gap-12 justify-content-between flex-grow">
-                                <div>
-                                    <h4>SD AISYIYAH</h4>
-                                    <h5>16.00 - 17.30</h5>
-                                    <p class="d-flex align-items-center gap-8 location">
-                                        21 Agustus 2024
-                                    </p>
+                                <div
+                                    class="content shrink-0 d-flex align-items-center gap-12 justify-content-between flex-grow">
+                                    <div>
+                                        @if ($jadwal->kelas_name == 'Club')
+                                            <h4>{{ $jadwal->sekolah }}</h4>
+                                        @else
+                                            <h4>{{ $jadwal->kelas_name }}</h4>
+                                        @endif
+                                        <h5> {{ date('H:i', strtotime($jadwal->jm_awal)) }} -
+                                            {{ date('H:i', strtotime($jadwal->jm_akhir)) }}</h5>
+                                        <p class="d-flex align-items-center gap-8 location">
+                                            {{ \Carbon\Carbon::parse($jadwal->tanggal_jd)->translatedFormat('d F Y') }} -
+                                            ({{ $jadwal->hari }})
+                                        </p>
+                                    </div>
+                                    <p class="price"><span>{{ $jadwal->levels }} | {{ $jadwal->nama_alat }}</span></p>
                                 </div>
-                                <p class="price"><span>Basic 1 | Box 2</span></p>
-                            </div>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
+
+                <script>
+                    window.Echo.channel('schedules')
+                        .listen('ScheduleUpdated', (e) => {
+                            const newSchedule = e.schedule;
+                            const scheduleList = document.getElementById('schedule-list');
+                            const newListItem = `
+                                <li>
+                                    <a href="/home/absen/${newSchedule.id_schedules}" class="d-flex align-items-center gap-12">
+                                        <div class="image shrink-0 overflow-hidden radius-8">
+                                            <img src="/assets/img/absen.gif" alt="Place" class="img-fluid w-100 h-100 object-fit-cover">
+                                        </div>
+                                        <div class="content shrink-0 d-flex align-items-center gap-12 justify-content-between flex-grow">
+                                            <div>
+                                                <h4>${newSchedule.kelas_name == 'Club' ? newSchedule.sekolah : newSchedule.kelas_name}</h4>
+                                                <h5>${new Date(newSchedule.jm_awal).toLocaleTimeString()} - ${new Date(newSchedule.jm_akhir).toLocaleTimeString()}</h5>
+                                                <p class="d-flex align-items-center gap-8 location">
+                                                    ${new Date(newSchedule.tanggal_jd).toLocaleDateString()} - (${newSchedule.hari})
+                                                </p>
+                                            </div>
+                                            <p class="price"><span>${newSchedule.levels} | ${newSchedule.nama_alat}</span></p>
+                                        </div>
+                                    </a>
+                                </li>
+                            `;
+                            scheduleList.innerHTML += newListItem;
+                        });
+                </script>
+
+                <script>
+                    window.Echo.channel('schedules')
+                        .listen('ScheduleUpdated', (e) => {
+                            const newSchedule = e.schedule;
+                            const scheduleList = document.getElementById('schedule-list');
+                            const newListItem = `
+                    <li>
+                        <a href="/home/absen/${newSchedule.id_schedules}" class="d-flex align-items-center gap-12">
+                            <div class="image shrink-0 overflow-hidden radius-8">
+                                <img src="/assets/img/absen.gif" alt="Place" class="img-fluid w-100 h-100 object-fit-cover">
+                            </div>
+                            <div class="content shrink-0 d-flex align-items-center gap-12 justify-content-between flex-grow">
+                                <div>
+                                    <h4>${newSchedule.kelas_name == 'Club' ? newSchedule.sekolah : newSchedule.kelas_name}</h4>
+                                    <h5>${new Date(newSchedule.jm_awal).toLocaleTimeString()} - ${new Date(newSchedule.jm_akhir).toLocaleTimeString()}</h5>
+                                    <p class="d-flex align-items-center gap-8 location">
+                                        ${new Date(newSchedule.tanggal_jd).toLocaleDateString()} - (${newSchedule.hari})
+                                    </p>
+                                </div>
+                                <p class="price"><span>${newSchedule.levels} | ${newSchedule.nama_alat}</span></p>
+                            </div>
+                        </a>
+                    </li>
+                `;
+                            scheduleList.innerHTML += newListItem;
+                        });
+                </script>
             </section>
             <!-- budget end -->
 
@@ -514,109 +555,109 @@
             <!-- guide start -->
             <!-- <section class="guide py-12">
 
-          <div class="title d-flex align-items-center justify-content-between">
-            <h2 class="shrink-0">Tour Guide</h2>
-            <a href="tour-guide.html" class="shrink-0 d-inline-block">See All</a>
-          </div>
+                                                                                                                                                                                                                      <div class="title d-flex align-items-center justify-content-between">
+                                                                                                                                                                                                                        <h2 class="shrink-0">Tour Guide</h2>
+                                                                                                                                                                                                                        <a href="tour-guide.html" class="shrink-0 d-inline-block">See All</a>
+                                                                                                                                                                                                                      </div>
 
 
-          <div class="d-flex gap-24 all-cards scrollbar-hidden">
+                                                                                                                                                                                                                      <div class="d-flex gap-24 all-cards scrollbar-hidden">
 
-            <a href="profile/guide-profile.html" class="d-flex gap-16 item w-fit shrink-0">
-              <div class="image position-relative shrink-0">
-                <img src="../assets/images/home/guide-1.png" alt="guide" class="guide-img object-fit-cover img-fluid radius-12">
-                <div class="rating d-flex align-items-center gap-04 w-fit">
-                  <img src="../assets/svg/star-yellow.svg" alt="Star">
-                  <span class="d-inline-block">4.0</span>
-                </div>
-              </div>
+                                                                                                                                                                                                                        <a href="profile/guide-profile.html" class="d-flex gap-16 item w-fit shrink-0">
+                                                                                                                                                                                                                          <div class="image position-relative shrink-0">
+                                                                                                                                                                                                                            <img src="../assets/images/home/guide-1.png" alt="guide" class="guide-img object-fit-cover img-fluid radius-12">
+                                                                                                                                                                                                                            <div class="rating d-flex align-items-center gap-04 w-fit">
+                                                                                                                                                                                                                              <img src="../assets/svg/star-yellow.svg" alt="Star">
+                                                                                                                                                                                                                              <span class="d-inline-block">4.0</span>
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                          </div>
 
-              <div class="content">
-                <h4>Emilia Ricardo</h4>
-                <h5>$25 (1 Day)</h5>
-                <p class="d-flex align-items-center gap-8 location">
-                  <img src="../assets/svg/map-black.svg" alt="icon">
-                  Polynesia, French
-                </p>
-              </div>
-            </a>
+                                                                                                                                                                                                                          <div class="content">
+                                                                                                                                                                                                                            <h4>Emilia Ricardo</h4>
+                                                                                                                                                                                                                            <h5>$25 (1 Day)</h5>
+                                                                                                                                                                                                                            <p class="d-flex align-items-center gap-8 location">
+                                                                                                                                                                                                                              <img src="../assets/svg/map-black.svg" alt="icon">
+                                                                                                                                                                                                                              Polynesia, French
+                                                                                                                                                                                                                            </p>
+                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                        </a>
 
 
-            <a href="profile/guide-profile.html" class="d-flex gap-16 item w-fit shrink-0">
-              <div class="image position-relative shrink-0">
-                <img src="../assets/images/home/guide-2.png" alt="guide" class="guide-img object-fit-cover img-fluid radius-12">
-                <div class="rating d-flex align-items-center gap-04 w-fit">
-                  <img src="../assets/svg/star-yellow.svg" alt="Star">
-                  <span class="d-inline-block">4.0</span>
-                </div>
-              </div>
+                                                                                                                                                                                                                        <a href="profile/guide-profile.html" class="d-flex gap-16 item w-fit shrink-0">
+                                                                                                                                                                                                                          <div class="image position-relative shrink-0">
+                                                                                                                                                                                                                            <img src="../assets/images/home/guide-2.png" alt="guide" class="guide-img object-fit-cover img-fluid radius-12">
+                                                                                                                                                                                                                            <div class="rating d-flex align-items-center gap-04 w-fit">
+                                                                                                                                                                                                                              <img src="../assets/svg/star-yellow.svg" alt="Star">
+                                                                                                                                                                                                                              <span class="d-inline-block">4.0</span>
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                          </div>
 
-              <div class="content">
-                <h4>Jonsky Alexia</h4>
-                <h5>$30 (1 Day)</h5>
-                <p class="d-flex align-items-center gap-8 location">
-                  <img src="../assets/svg/map-black.svg" alt="icon">
-                  South America
-                </p>
-              </div>
-            </a>
+                                                                                                                                                                                                                          <div class="content">
+                                                                                                                                                                                                                            <h4>Jonsky Alexia</h4>
+                                                                                                                                                                                                                            <h5>$30 (1 Day)</h5>
+                                                                                                                                                                                                                            <p class="d-flex align-items-center gap-8 location">
+                                                                                                                                                                                                                              <img src="../assets/svg/map-black.svg" alt="icon">
+                                                                                                                                                                                                                              South America
+                                                                                                                                                                                                                            </p>
+                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                        </a>
 
-          </div>
-        </section> -->
+                                                                                                                                                                                                                      </div>
+                                                                                                                                                                                                                    </section> -->
             <!-- guide end -->
 
             <!-- budget start -->
             <!-- <section class="budget pt-12">
 
-          <div class="title d-flex align-items-center justify-content-between">
-            <h2 class="shrink-0">On Budget Tour</h2>
-            <a href="hotels.html" class="shrink-0 d-inline-block">See All</a>
-          </div>
+                                                                                                                                                                                                                      <div class="title d-flex align-items-center justify-content-between">
+                                                                                                                                                                                                                        <h2 class="shrink-0">On Budget Tour</h2>
+                                                                                                                                                                                                                        <a href="hotels.html" class="shrink-0 d-inline-block">See All</a>
+                                                                                                                                                                                                                      </div>
 
-          <ul>
+                                                                                                                                                                                                                      <ul>
 
-            <li>
-              <a href="hotel-details.html" class="d-flex align-items-center gap-12">
-                <div class="image shrink-0 overflow-hidden radius-8">
-                  <img src="../assets/images/home/budget-1.png" alt="Place" class="img-fluid w-100 h-100 object-fit-cover">
-                </div>
+                                                                                                                                                                                                                        <li>
+                                                                                                                                                                                                                          <a href="hotel-details.html" class="d-flex align-items-center gap-12">
+                                                                                                                                                                                                                            <div class="image shrink-0 overflow-hidden radius-8">
+                                                                                                                                                                                                                              <img src="../assets/images/home/budget-1.png" alt="Place" class="img-fluid w-100 h-100 object-fit-cover">
+                                                                                                                                                                                                                            </div>
 
-                <div class="content shrink-0 d-flex align-items-center gap-12 justify-content-between flex-grow">
-                  <div>
-                    <h4>Ledadu Beach</h4>
-                    <h5>3 days 2 nights</h5>
-                    <p class="d-flex align-items-center gap-8 location">
-                      <img src="../assets/svg/map-marker.svg" alt="icon">
-                      Australia
-                    </p>
-                  </div>
-                  <p class="price"><span>$20</span>/Person</p>
-                </div>
-              </a>
-            </li>
+                                                                                                                                                                                                                            <div class="content shrink-0 d-flex align-items-center gap-12 justify-content-between flex-grow">
+                                                                                                                                                                                                                              <div>
+                                                                                                                                                                                                                                <h4>Ledadu Beach</h4>
+                                                                                                                                                                                                                                <h5>3 days 2 nights</h5>
+                                                                                                                                                                                                                                <p class="d-flex align-items-center gap-8 location">
+                                                                                                                                                                                                                                  <img src="../assets/svg/map-marker.svg" alt="icon">
+                                                                                                                                                                                                                                  Australia
+                                                                                                                                                                                                                                </p>
+                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                              <p class="price"><span>$20</span>/Person</p>
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                          </a>
+                                                                                                                                                                                                                        </li>
 
 
-            <li>
-              <a href="hotel-details.html" class="d-flex align-items-center gap-12">
-                <div class="image shrink-0 overflow-hidden radius-8">
-                  <img src="../assets/images/home/budget-2.png" alt="Place" class="img-fluid w-100 h-100 object-fit-cover">
-                </div>
+                                                                                                                                                                                                                        <li>
+                                                                                                                                                                                                                          <a href="hotel-details.html" class="d-flex align-items-center gap-12">
+                                                                                                                                                                                                                            <div class="image shrink-0 overflow-hidden radius-8">
+                                                                                                                                                                                                                              <img src="../assets/images/home/budget-2.png" alt="Place" class="img-fluid w-100 h-100 object-fit-cover">
+                                                                                                                                                                                                                            </div>
 
-                <div class="content shrink-0 d-flex align-items-center gap-12 justify-content-between flex-grow">
-                  <div>
-                    <h4>Endigada Beach</h4>
-                    <h5>5 days 4 nights</h5>
-                    <p class="d-flex align-items-center gap-8 location">
-                      <img src="../assets/svg/map-marker.svg" alt="icon">
-                      Australia
-                    </p>
-                  </div>
-                  <p class="price"><span>$25</span>/Person</p>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </section> -->
+                                                                                                                                                                                                                            <div class="content shrink-0 d-flex align-items-center gap-12 justify-content-between flex-grow">
+                                                                                                                                                                                                                              <div>
+                                                                                                                                                                                                                                <h4>Endigada Beach</h4>
+                                                                                                                                                                                                                                <h5>5 days 4 nights</h5>
+                                                                                                                                                                                                                                <p class="d-flex align-items-center gap-8 location">
+                                                                                                                                                                                                                                  <img src="../assets/svg/map-marker.svg" alt="icon">
+                                                                                                                                                                                                                                  Australia
+                                                                                                                                                                                                                                </p>
+                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                              <p class="price"><span>$25</span>/Person</p>
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                          </a>
+                                                                                                                                                                                                                        </li>
+                                                                                                                                                                                                                      </ul>
+                                                                                                                                                                                                                    </section> -->
             <!-- budget end -->
         </main>
 

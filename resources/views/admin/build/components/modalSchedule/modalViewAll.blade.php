@@ -1,4 +1,5 @@
 {{-- akhir edit data sekolah --}}
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <dialog id="modalAll{{ $schedule->id_schedules }}">
 
     <h2 class="poppins-bold">{{ $schedule->nama }}</h2>
@@ -10,29 +11,39 @@
     </div>
     <div class="voucher-code-container-admin">
         <h6 class="voucher-code-title-admin">Replace the Trainer</h6>
-        <button onclick="window.modalReplace{{ $schedule->id_trainer }}.showModal();" class="voucher-input text-white "
+        <button onclick="window.modalReplace{{ $schedule->id_schedules }}.showModal();" class="voucher-input text-white "
             style="background-color: #904913">Replace Data</button>
     </div>
 
     <div class="voucher-code-container-admin">
         <h6 class="voucher-code-title-admin">Status Schedule</h6>
-        <button class="voucher-input text-white" style="background-color: #901313">Status Data</button>
+        <button class="voucher-input text-white"
+            onclick="window.modalReplaceStatus{{ $schedule->id_schedules }}.showModal();"
+            style="background-color: #901313">Status Data</button>
     </div>
     <div class="voucher-code-container-admin">
         <h6 class="voucher-code-title-admin">Edit Data</h6>
-        <button class="voucher-input text-white" style="background-color: #904913">Edit Data</button>
+        <button class="voucher-input text-white"
+            onclick="window.location.href='{{ url('/schedule/edit/' . $schedule->id_schedules) }}'"
+            style="background-color: #904913">Edit Data</button>
     </div>
-    <div class="voucher-code-container-admin">
-        <h6 class="voucher-code-title-admin">Delete Data</h6>
-        <button class="voucher-input text-white" style="background-color: #901313">Delete Data</button>
-    </div>
-
-    <button onclick="window.modalAll{{ $schedule->id_schedules }}.close();" aria-label="close" class="x">❌</button>
+    <form action="{{ url('/schedule/deleteSchedule/' . $schedule->id_schedules) }}" method="GET">
+        @csrf
+        <div class="voucher-code-container-admin" data-id_schedules="{{ $schedule->id }}">
+            <h6 class="voucher-code-title-admin">Delete Data</h6>
+            <button type="submit" class="voucher-input text-white delete-button"
+                style="background-color: #901313">Delete
+                Data</button>
+        </div>
+    </form>
+    <button onclick="window.modalAll{{ $schedule->id_schedules }}.close();" aria-label="close"
+        class="x">❌</button>
 </dialog>
 
 
+
 {{-- modal replace data trainer --}}
-<dialog id="modalReplace{{ $schedule->id_trainer }}">
+<dialog id="modalReplace{{ $schedule->id_schedules }}">
     <h2 class="poppins-bold">{{ $schedule->nama }}</h2>
     <div class="voucher-container-admin">
         <h6 class="voucher-title-admin">
@@ -57,10 +68,42 @@
         <button type="submit" class="voucher-button-admin">Replace Trainer</button>
     </form>
 
-    <button onclick="window.modalReplace{{ $schedule->id_trainer }}.close();" aria-label="close"
+    <button onclick="window.modalReplace{{ $schedule->id_schedules }}.close();" aria-label="close"
         class="x">❌</button>
 </dialog>
 {{-- akhir replace data trainer --}}
+
+{{-- modal replace data status --}}
+<dialog id="modalReplaceStatus{{ $schedule->id_schedules }}">
+
+    <h2 class="poppins-bold">{{ $schedule->nama }}</h2>
+    <div class="voucher-container-admin">
+        <h6 class="voucher-title-admin">
+            {{ \Carbon\Carbon::parse($schedule->tanggal_jd)->translatedFormat('d F Y') }} |
+            {{ date('H:i', strtotime($schedule->jm_awal)) }} -
+            {{ date('H:i', strtotime($schedule->jm_akhir)) }} | {{ $schedule->kelas }} <span></span></h6>
+    </div>
+
+    <form action="{{ url('/schedule/replaceStatus/' . $schedule->id_schedules) }}" method="POST">
+        @csrf
+        <div class="voucher-code-container-admin">
+            <h6 class="voucher-code-title-admin">Select Levels</h6>
+            <select name="status" id="ket" class="voucher-input px-3" required>
+                <option class="uppercase" style="background-color: red" value="{{ $schedule->id_trainer }}" selected>
+                    {{ $schedule->ket }} (dipilih)
+                </option>
+                <option value="Aktif">Aktif</option>
+                <option value="Tidak Aktif">Tidak Aktif</option>
+            </select>
+        </div>
+        <button type="submit" class="voucher-button-admin">Replace Trainer</button>
+    </form>
+
+
+    <button onclick="window.modalReplaceStatus{{ $schedule->id_schedules }}.close();" aria-label="close"
+        class="x">❌</button>
+</dialog>
+{{-- akhir replace data status --}}
 
 <style>
     .poppins-bold {

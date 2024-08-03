@@ -3,22 +3,40 @@
 namespace App\Http\Controllers\trainer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TrainerLoginRequest;
+use App\Models\dataTrainer;
+use Illuminate\Support\Facades\Auth;
 
 class LoginTrainerController extends Controller
 {
     public function index()
     {
-        return view('trainer.trainerLogin');
+        $getDataTrainer = DataTrainer::orderBy('nama', 'asc')->get();
+
+        return view('trainer.trainerLogin', compact('getDataTrainer'));
     }
 
-    public function home()
+    public function loginTrainer(TrainerLoginRequest $request)
     {
-        return view('trainer.pages.home');
-    }
+        $credentials = [
+            'id' => $request->id,
+            'password' => $request->password,
+        ];
 
-    public function absen()
-    {
-        return view('trainer.pages.absen');
+        $trainer = dataTrainer::where('id', $request->id)
+            ->where('password', $request->password)
+            ->first();
+
+        if ($trainer) {
+            Auth::guard('trainer')->login($trainer, $request->filled('remember'));
+            $request->session()->regenerate();
+
+            return redirect()->intended(route('home'));
+        } else {
+            return back()->withErrors([
+                'password' => 'The provided credentials do not match our records.',
+            ]);
+        }
     }
 
     public function laporantrainer()
@@ -49,11 +67,6 @@ class LoginTrainerController extends Controller
     public function jadwal()
     {
         return view('trainer.pages.jadwal');
-    }
-
-    public function absensiswa()
-    {
-        return view('trainer.pages.absensiswa');
     }
 
     public function pesan()

@@ -108,6 +108,38 @@
 
     <button onclick="window.dialogTools.close();" aria-label="close" class="x">❌</button>
 </dialog>
+<dialog id="dialogMateri">
+    <form action="{{ route('bigaData.materi') }}" method="POST">
+        @csrf
+        <h2 class="poppins-bold">Add Materi</h2>
+        <div class="voucher-container-admin">
+            <h6 class="voucher-title-admin">add a tools to create a schedule.<span></span></h6>
+        </div>
+        <div class="voucher-code-container-admin">
+            <h6 class="voucher-code-title-admin">Select Levels</h6>
+            <select name="id_level" id="level" class="voucher-input px-3" required>
+                <option value="">Select Levels</option>
+                @foreach ($getDataLevels as $program)
+                    <option value="{{ $program->id }}">{{ $program->levels }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="voucher-code-container-admin">
+            <h6 class="voucher-code-title-admin">Input Here</h6>
+            <input type="text" name="materi" placeholder="Exp : Robotik  " class="voucher-input p-4" required>
+        </div>
+        <button type="submit" class="voucher-button-admin">Create</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function makeUpperCase(input) {
+            input.value = input.value.toUpperCase();
+        }
+    </script>
+
+    <button onclick="window.dialogMateri.close();" aria-label="close" class="x">❌</button>
+</dialog>
 
 
 <style>
