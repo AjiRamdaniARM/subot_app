@@ -39,11 +39,6 @@ class LoginTrainerController extends Controller
         }
     }
 
-    public function laporantrainer()
-    {
-        return view('trainer.pages.laporantrainer');
-    }
-
     public function jadwalhari()
     {
         return view('trainer.pages.jadwalhari');

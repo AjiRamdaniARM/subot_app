@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\trainer\Absensi;
 use App\Http\Controllers\trainer\homeController;
+use App\Http\Controllers\trainer\LaporanController as TrainerLaporanController;
 use App\Http\Controllers\trainer\LoginTrainerController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:trainer')->group(function () {
     Route::get('/home', [homeController::class, 'home'])->name('home');
     Route::get('/home/absen/{id_schedules}', [homeController::class, 'absen'])->name('absen');
-    Route::get('/laporantrainer', [LoginTrainerController::class, 'laporantrainer'])->name('laporantrainer');
+    Route::get('/laporantrainer/{id_schedules}', [TrainerLaporanController::class, 'laporantrainer'])->name('laporantrainer');
     Route::get('/jadwalhari', [LoginTrainerController::class, 'jadwalhari'])->name('jadwalhari');
     Route::get('/notifications', [LoginTrainerController::class, 'notifications'])->name('notifications');
     Route::get('/user', [LoginTrainerController::class, 'user'])->name('user');
@@ -34,6 +36,11 @@ Route::middleware('auth:trainer')->group(function () {
     Route::get('/event', [LoginTrainerController::class, 'event'])->name('event');
     Route::get('/useredit', [LoginTrainerController::class, 'useredit'])->name('useredit');
     Route::get('/historyabsen', [LoginTrainerController::class, 'historyabsen'])->name('historyabsen');
+
+    // absensi siswa route
+    Route::post('/absensiswa/prossess/{id}', [Absensi::class, 'absensi'])->name('absensiSiswa.update');
+    // route post laporan
+    Route::post('/laporantrainer/prossess/{id_schedules}', [TrainerLaporanController::class, 'postLaporan'])->name('absensiSiswa.update');
 });
 Route::get('/LoginTrainer', [LoginTrainerController::class, 'index'])->name('login.trainer');
 Route::post('/login-trainer/prosses', [LoginTrainerController::class, 'loginTrainer'])->name('login.prosses');

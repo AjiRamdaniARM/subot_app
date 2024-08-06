@@ -35,6 +35,7 @@ class homeController extends Controller
             ->select(
                 'schedules.*',
                 'schedules.id as id_schedules',
+                'schedules.created_at as created_at_jd',
                 'data_trainers.nama as trainer_name',
                 'data_trainers.id as id_trainer',
                 'data_kelas.kelas as kelas_name',
@@ -49,6 +50,7 @@ class homeController extends Controller
 
                 // tambahkan kolom lainnya sesuai kebutuhan
             )
+            ->orderBy('created_at_jd', 'DESC')
             ->get();
 
         // Periksa jika jadwal ditemukan
@@ -118,6 +120,6 @@ class homeController extends Controller
         // Dapatkan data siswa berdasarkan id_siswa dari hasil sebelumnya
         $getDataStudent = DataSiswa::whereIn('id', $getDataBig)->get();
 
-        return view('trainer.pages.absensiswa', compact('getDataStudent'));
+        return view('trainer.pages.absensiswa', compact('getDataStudent', 'getDataSchedules'));
     }
 }

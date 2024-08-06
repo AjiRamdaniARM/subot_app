@@ -14,7 +14,12 @@
                         class="back-btn back-page-btn d-flex align-items-center justify-content-center rounded-full">
                         <img src="{{ asset('assets/trainerSvg/svg/arrow-left-black.svg') }}" alt="arrow">
                     </button>
-                    <h3 class="main-title">{{ $getScheduleTrainer->sekolah }}</h3>
+                    @if ($getScheduleTrainer->kelas_name == 'Club')
+                        <h3 class="main-title">{{ $getScheduleTrainer->sekolah }}</h3>
+                    @else
+                        <h3 class="main-title">{{ $getScheduleTrainer->kelas_name }}</h3>
+                    @endif
+
                 </div>
             </section>
             <!-- banner end -->
@@ -24,7 +29,11 @@
                 <!-- details-title -->
                 <section class="d-flex align-items-center gap-8 details-title">
                     <div class="flex-grow">
-                        <h3>{{ $getScheduleTrainer->sekolah }}</h3>
+                        @if ($getScheduleTrainer->kelas_name == 'Club')
+                            <h3>{{ $getScheduleTrainer->sekolah }}</h3>
+                        @else
+                            <h3>{{ $getScheduleTrainer->kelas_name }}</h3>
+                        @endif
                         <ul class="d-flex align-items-center gap-8">
                             <li class="d-flex align-items-center gap-04">
                                 <img src="{{ asset('assets/trainerSvg/svg/map-marker.svg') }}" alt="icon">
@@ -37,22 +46,23 @@
                         </ul>
                     </div>
                 </section>
-
                 <section class="guide py-12">
                     <div class="title d-flex align-items-center justify-content-between">
                         <h2 class="shrink-0">Siswa</h2>
-                        <a href="{{ url('/absensiswa/' . $getScheduleTrainer->id_schedules) }}"
-                            class="shrink-0 d-inline-block">See
-                            All</a>
+                        @if ($getScheduleTrainer->absensi_anak == 'tutup')
+                            <a class="shrink-0 d-inline-block">Anda Sudah Absen </a>
+                        @else
+                            <a href="{{ url('/absensiswa/' . $getScheduleTrainer->id_schedules) }}"
+                                class="shrink-0 d-inline-block">See
+                                All</a>
+                        @endif
+
                     </div>
-
-
                     <div class="d-flex gap-24 all-cards scrollbar-hidden">
-
                         @foreach ($getDataStudent as $student)
                             <a class="d-flex gap-16 item w-fit shrink-0">
                                 <div class="image position-relative shrink-0">
-                                    <img src="{{ asset('assets/data/dataAnak/img/') }}" alt="guide"
+                                    <img src="{{ asset('assets/data/dataAnak/img/' . $student->file) }}" alt="guide"
                                         class="guide-img object-fit-cover img-fluid radius-12">
                                 </div>
 
@@ -76,7 +86,7 @@
                 <section class="reviews py-16">
                     <!-- title -->
                     <div class="title d-flex align-items-center justify-content-between">
-                        <h4 class="shrink-0">DOCUMENTASI</h4>
+                        <h4 class="shrink-0">Dokumentasi</h4>
                     </div>
 
                     <div class="container mt-5">
@@ -182,10 +192,16 @@
 
                         <!-- map -->
                         <div class="overflow-hidden radius-16 map">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d846588.5514550178!2d-118.35899906676545!3d34.01855672774309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2sbd!4v1701149305360!5m2!1sen!2sbd"
-                                style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            @if ($getScheduleTrainer->api_maps == null)
+                                <div style="background-color: white; padding:10px">
+                                    <h6>Mohon maaf atas ketidaknyamanannya. Untuk pertanyaan mengenai alamat atau informasi
+                                        lainnya, silakan hubungi administrator kami.</h6>
+                                </div>
+                            @else
+                                <iframe src="{{ $getScheduleTrainer->api_maps }}" style="border:0;" allowfullscreen=""
+                                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            @endif
+
                         </div>
                     </section>
                     <!-- location end -->
@@ -195,94 +211,10 @@
                 <!-- details-footer start -->
                 <section class="details-footer d-flex align-items-center justify-content-between gap-8 w-100">
                     <p><span>{{ date('H:i', strtotime($getScheduleTrainer->dj_akhir)) }}</span></p>
-                    <a href="{{ url('/laporantrainer') }}">Continue</a>
+                    <a href="{{ url('/laporantrainer/' . $getScheduleTrainer->id_schedules) }}">Continue</a>
                 </section>
                 <!-- details-footer end -->
         </main>
-
-        <!-- service modal start -->
-        {{-- <div class="modal fade serviceModal bottomModal modalBg" id="serviceModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="modal-close rounded-full" data-bs-dismiss="modal" aria-label="Close">
-            <img src="../assets/svg/close-black.svg" alt="Close">
-          </button>
-          <h1 class="modal-title">All Facilities</h1>
-        </div>
-        <div class="modal-body">
-          <div class="facilities">
-            <div class="grid gap-24">
-              <!-- item 1 -->
-              <div class="item text-center">
-                <div class="icon d-flex align-items-center justify-content-center rounded-full">
-                  <img src="../assets/svg/wind.svg" alt="icon">
-                </div>
-                <p>Ac</p>
-              </div>
-
-              <!-- item 2 -->
-              <div class="item text-center">
-                <div class="icon d-flex align-items-center justify-content-center rounded-full">
-                  <img src="../assets/svg/building.svg" alt="icon">
-                </div>
-                <p>Restaurant</p>
-              </div>
-
-              <!-- item 3 -->
-              <div class="item text-center">
-                <div class="icon d-flex align-items-center justify-content-center rounded-full">
-                  <img src="../assets/svg/water.svg" alt="icon">
-                </div>
-                <p>Swimming Pool</p>
-              </div>
-
-              <!-- item 4 -->
-              <div class="item text-center">
-                <div class="icon d-flex align-items-center justify-content-center rounded-full">
-                  <img src="../assets/svg/24-support.svg" alt="icon">
-                </div>
-                <p>24-Hours Front Desk</p>
-              </div>
-
-              <!-- item 4 -->
-              <div class="item text-center">
-                <div class="icon d-flex align-items-center justify-content-center rounded-full">
-                  <img src="../assets/svg/building.svg" alt="icon">
-                </div>
-                <p>Modern Room</p>
-              </div>
-
-              <!-- item 2 -->
-              <div class="item text-center">
-                <div class="icon d-flex align-items-center justify-content-center rounded-full">
-                  <img src="../assets/svg/24-support.svg" alt="icon">
-                </div>
-                <p>24-Hours Security</p>
-              </div>
-
-              <!-- item 3 -->
-              <div class="item text-center">
-                <div class="icon d-flex align-items-center justify-content-center rounded-full">
-                  <img src="../assets/svg/water.svg" alt="icon">
-                </div>
-                <p>Beautiful View</p>
-              </div>
-
-              <!-- item 4 -->
-              <div class="item text-center">
-                <div class="icon d-flex align-items-center justify-content-center rounded-full">
-                  <img src="../assets/svg/wind.svg" alt="icon">
-                </div>
-                <p>Open Space</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div> --}}
 
     </body>
 @endsection

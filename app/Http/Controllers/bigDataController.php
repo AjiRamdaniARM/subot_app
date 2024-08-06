@@ -36,12 +36,11 @@ class bigDataController extends Controller
             ->orderBy('data_levels.created_at', 'DESC')
             ->paginate(6, ['*'], 'level');
 
-
         $getDataMateri = DB::table('data_materis')
-        ->join('data_levels', 'data_materis.id_level', '=', 'data_levels.id')
-        ->select('data_materis.*', 'data_materis.id as id_materi', 'data_levels.*', 'data_levels.levels as nama_level') // Pilih kolom yang ingin Anda ambil
-        ->orderBy('data_materis.created_at', 'DESC')
-        ->paginate(6, ['*'], 'materi');
+            ->join('data_levels', 'data_materis.id_level', '=', 'data_levels.id')
+            ->select('data_materis.*', 'data_materis.id as id_materi', 'data_levels.*', 'data_levels.levels as nama_level') // Pilih kolom yang ingin Anda ambil
+            ->orderBy('data_materis.created_at', 'DESC')
+            ->paginate(6, ['*'], 'materi');
 
         $getDataClass = DataKelas::orderBy('created_at', 'DESC')->paginate(6, ['*'], 'kelas');
         $getDataTools = DB::table('data_alats')
@@ -50,7 +49,7 @@ class bigDataController extends Controller
             ->orderBy('data_alats.created_at', 'DESC')
             ->paginate(6, ['*'], 'alat');
 
-        return view('admin.build.pages.bigData', compact('getDataSekolahCount', 'getDataTools', 'getDataClass', 'getDataLevels', 'getDataPrograms', 'activePercentage', 'getSekolah', 'getDataProgram', 'getDataLevel', 'getDataKelas', 'getDataAlat','getDataMateri'));
+        return view('admin.build.pages.bigData', compact('getDataSekolahCount', 'getDataTools', 'getDataClass', 'getDataLevels', 'getDataPrograms', 'activePercentage', 'getSekolah', 'getDataProgram', 'getDataLevel', 'getDataKelas', 'getDataAlat', 'getDataMateri'));
     }
 
     public function storeProgram(Request $request)
@@ -121,7 +120,8 @@ class bigDataController extends Controller
         return redirect()->back()->with('message', 'New Tools Added Successfully');
     }
 
-    public function storeMateri(Request $request) {
+    public function storeMateri(Request $request)
+    {
         $request->validate([
             'id_level' => 'required',
             'materi' => 'required|string|min:2|max:255',
@@ -247,11 +247,12 @@ class bigDataController extends Controller
             $getDataTools->alat = $request->tools;
             $getDataTools->save();
 
-            return redirect()->back()->with('message', 'success edited class');
+            return redirect()->back()->with('message', 'success edited Tools class');
         }
     }
 
-    public function deleteMateri ($materi){
+    public function deleteMateri($materi)
+    {
         if ($materi == null) {
             return response()->json(['error' => 'Error materi prosses']);
         } else {
@@ -259,6 +260,20 @@ class bigDataController extends Controller
             $getDataTools->delete();
 
             return redirect()->back()->with('message', 'Materi deleted successfully');
+        }
+    }
+
+    public function editMateri(Request $request, $materi)
+    {
+        if ($materi == null) {
+            return response()->json(['error' => 'class not found']);
+        } else {
+            $getDataTools = DataMateri::where('materi', $materi)->firstOrFail();
+            $getDataTools->id_level = $request->id_levels;
+            $getDataTools->materi = $request->materi;
+            $getDataTools->save();
+
+            return redirect()->back()->with('message', 'success edited  materi');
         }
     }
 }

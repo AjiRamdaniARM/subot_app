@@ -23,7 +23,8 @@ class ScheduleController extends Controller
         $getDataSchedule = DB::table('schedules')
             ->join('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
             ->join('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
-            ->select('schedules.*', 'schedules.id as id_schedules', 'data_trainers.*', 'data_trainers.id as id_trainer', 'data_kelas.*')
+            ->join('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
+            ->select('schedules.*', 'schedules.id as id_schedules', 'data_trainers.*', 'data_trainers.id as id_trainer', 'data_kelas.*','data_laporans.*')
             ->paginate(10);
 
         $getDataTrainer = dataTrainer::orderBy('nama', 'asc')->get();

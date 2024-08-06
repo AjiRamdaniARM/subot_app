@@ -22,20 +22,20 @@
         class="x">❌</button>
 </dialog>
 
-<dialog id="modalToolsEdit{{ $materi->id_materi }}">
+<dialog id="modalMateriEdit{{ $materi->id_materi }}">
     <h2 class="poppins-bold">{{ $materi->materi }}</h2>
 
     <div class="voucher-container-admin">
         <h6 class="voucher-title-admin">Edit Tools data.<span></span></h6>
     </div>
 
-    <form action="{{ url('/bigData/editTools/' . $materi->materi) }}" method="POST">
+    <form action="{{ url('/bigData/editMateri/' . $materi->materi) }}" method="POST">
         @csrf
         <div class="voucher-code-container-admin">
             <h6 class="voucher-code-title-admin">Select Tools</h6>
             <select name="id_levels" id="levels" class="voucher-input px-3" required>
                 <option class="uppercase" style="background-color: red" value="{{ $level->id_levels }}">
-                    {{ $tools->nama_level }} ( dipilih )</option>
+                    {{ $materi->nama_level }} ( dipilih )</option>
                 @foreach ($getDataLevels as $level)
                     <option value="{{ $level->id_levels }}">{{ $level->levels }}</option>
                 @endforeach
@@ -43,12 +43,13 @@
         </div>
         <div class="voucher-code-container-admin">
             <h6 class="voucher-code-title-admin">Edit Name Tools</h6>
-            <input type="text" name="tools" value="{{ $tools->alat }}" class="voucher-input p-4" required>
+            <input type="text" name="materi" value="{{ $materi->materi }}" class="voucher-input p-4" required>
         </div>
         <button type="submit" class="voucher-button-admin">Create</button>
     </form>
 
-    <button onclick="window.modalToolsEdit{{ $tools->id_alats }}.close();" aria-label="close" class="x">❌</button>
+    <button onclick="window.modalMateriEdit{{ $materi->id_materi }}.close();" aria-label="close"
+        class="x">❌</button>
 
 </dialog>
 {{-- akhir edit data sekolah --}}

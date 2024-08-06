@@ -23,18 +23,84 @@
                     <ul>
                         <li class="d-flex align-items-center justify-content-between">
                             <p>Name</p>
-                            <p>Aziz Ramadhan</p>
+                            <p>{{ $getScheduleTrainer->trainer_name }}</p>
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
-                            <p>Email</p>
-                            <p>Azizramadhan5000@gmail.com</p>
+                            <p>Nomot Telepone</p>
+                            <p>{{ $getScheduleTrainer->telephone }}</p>
                         </li>
                     </ul>
                 </section>
                 <!-- customer-info end -->
 
-                <!-- order-info start -->
-                {{-- <section class="order-info py-12">
+
+                <!-- facilities end -->
+
+                <!-- search start -->
+                <section class="search pt-12">
+                    <!-- title -->
+                    <div class="title d-flex align-items-center justify-content-between">
+                        <h4 class="shrink-0">Laporan</h4>
+                    </div>
+
+                    <form action="{{ '/laporantrainer/prossess/' . $getScheduleTrainer->id_schedules }}" method="POST">
+                        @csrf
+                        <div class="block">
+                            <div>
+                                <p class="pb-8">Materi</p>
+                                <select id="materi" name="materi" class="input-field">
+                                    <option value="">Pilih Materi</option>
+                                    @foreach ($getDataMateri as $materi)
+                                        <option value="{{ $materi->id }}">{{ $materi->materi }}</option>
+                                    @endforeach
+                                    <!-- Tambahkan opsi dropdown sesuai kebutuhan -->
+                                </select>
+                            </div>
+                            <br>
+                            <!--Kendala-->
+
+                            <!--TTD-->
+                            <div>
+                                <p class="pb-8">Tanda Tangan</p>
+                                <div class="w-100 d-flex align-items-center gap-8 radius-24">
+                                    <select id="ttd" name="id_ttd" class="input-field">
+                                        <option value="">Pilih Tanda Tangan</option>
+                                        @foreach ($getDataTrainer as $trainer)
+                                            <option value="{{ $trainer->ttd }}">{{ $trainer->nama }}</option>
+                                        @endforeach
+                                        <!-- Tambahkan opsi dropdown sesuai kebutuhan -->
+                                    </select>
+                                    <span class="icon shrink-0">
+                                        <!-- Tambahkan ikon atau elemen visual lainnya di sini jika diperlukan -->
+                                    </span>
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                <p class="pb-8">Catatan</p>
+                                <label for="hcoutdate" class="w-100 d-flex align-items-center gap-8 radius-24"
+                                    data-bs-toggle="modal" data-bs-target="">
+                                    <textarea type="text" id="catatan" name="catatan" placeholder="Kendala" class="input-field p-3"> </textarea>
+                                    <span class="icon shrink-0">
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- pay-btn start -->
+                        <div class="pay-btn mt-64">
+                            <button type="submit" class="btn-primary">Continue</button>
+                        </div>
+                    </form>
+                </section>
+                <!-- search end -->
+
+
+            </div>
+        </main>
+
+
+        <!-- order-info start -->
+        {{-- <section class="order-info py-12">
         <div class="title mb-16">
           <h4>Order Info</h4>
         </div>
@@ -64,10 +130,10 @@
           <p>Presidential Suite</p>
         </div>
       </section> --}}
-                <!-- order-info end -->
+        <!-- order-info end -->
 
-                <!-- facilities start -->
-                {{-- <section class="facilities py-12">
+        <!-- facilities start -->
+        {{-- <section class="facilities py-12">
 
         <div class="title d-flex align-items-center justify-content-between">
           <h4 class="shrink-0">Common Facilities</h4>
@@ -109,94 +175,6 @@
 
         </div>
       </section> --}}
-                <!-- facilities end -->
-
-                <!-- search start -->
-                <section class="search pt-12">
-                    <!-- title -->
-                    <div class="title d-flex align-items-center justify-content-between">
-                        <h4 class="shrink-0">Laporan</h4>
-                    </div>
-
-                    <form action="#">
-                        <div class="grid">
-
-                            <!-- Tanggal -->
-                            {{-- <div>
-              <p class="pb-8">Tanggal</p>
-              <label for="hcindate" class="w-100 d-flex align-items-center gap-8 radius-24" data-bs-toggle="modal" data-bs-target="#checkInModal">
-                <input type="date" id="hcindate" placeholder="Date" class="input-field">
-                <span class="icon shrink-0">
-                </span>
-              </label>
-            </div> --}}
-
-                            <!-- Jam -->
-                            {{-- <div>
-              <p class="pb-8">Jam</p>
-              <label for="hcoutdate" class="w-100 d-flex align-items-center gap-8 radius-24" data-bs-toggle="modal" data-bs-target="#checkOutModal">
-                <input type="time" id="hcoutdate" placeholder="Jam" class="input-field">
-                <span class="icon shrink-0">
-                </span>
-              </label>
-            </div> --}}
-                            <!--respon anak-->
-                            <div>
-                                <p class="pb-8">Respon Anak</p>
-                                <label for="hcoutdate" class="w-100 d-flex align-items-center gap-8 radius-24"
-                                    data-bs-toggle="modal" data-bs-target="">
-                                    <input type="text" id="hcoutdate" placeholder="Respon Anak" class="input-field">
-                                    <span class="icon shrink-0">
-                                    </span>
-                                </label>
-                            </div>
-                            <!--Materi-->
-                            <div>
-                                <p class="pb-8">Materi</p>
-                                <label for="hcoutdate" class="w-100 d-flex align-items-center gap-8 radius-24"
-                                    data-bs-toggle="modal" data-bs-target="">
-                                    <input type="text" id="hcoutdate" placeholder="Materi" class="input-field">
-                                    <span class="icon shrink-0">
-                                    </span>
-                                </label>
-                            </div>
-                            <!--Kendala-->
-                            <div>
-                                <p class="pb-8">Kendala</p>
-                                <label for="hcoutdate" class="w-100 d-flex align-items-center gap-8 radius-24"
-                                    data-bs-toggle="modal" data-bs-target="">
-                                    <input type="text" id="hcoutdate" placeholder="Kendala" class="input-field">
-                                    <span class="icon shrink-0">
-                                    </span>
-                                </label>
-                            </div>
-                            <!--TTD-->
-                            <div>
-                                <p class="pb-8">Tanda Tangan</p>
-                                <div class="w-100 d-flex align-items-center gap-8 radius-24">
-                                    <select id="hcoutdate" class="input-field">
-                                        <option value="">Pilih Tanda Tangan</option>
-                                        <option value="tanda1">Tanda Tangan 1</option>
-                                        <option value="tanda2">Tanda Tangan 2</option>
-                                        <!-- Tambahkan opsi dropdown sesuai kebutuhan -->
-                                    </select>
-                                    <span class="icon shrink-0">
-                                        <!-- Tambahkan ikon atau elemen visual lainnya di sini jika diperlukan -->
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </section>
-                <!-- search end -->
-
-                <!-- pay-btn start -->
-                <div class="pay-btn mt-64">
-                    <a href="/home" class="btn-primary">Continue</a>
-                </div>
-            </div>
-        </main>
-
         <!-- service modal start -->
         {{-- <div class="modal fade serviceModal bottomModal modalBg" id="serviceModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">

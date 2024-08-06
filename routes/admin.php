@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
 
     // route bigData Materi
     Route::get('/bigData/deleteMateri/{materi}', [bigDataController::class, 'deleteMateri'])->name('materis.delete');
+    Route::post('/bigData/editMateri/{materi}', [bigDataController::class, 'editMateri'])->name('materis.edit');
 
     // Route jadwal admin
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
