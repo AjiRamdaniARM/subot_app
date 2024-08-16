@@ -20,16 +20,54 @@ class ScheduleController extends Controller
     public function index()
     {
 
+        // === ambil data dari tabel schedules === //
         $getDataSchedule = DB::table('schedules')
-            ->join('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
-            ->join('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
-            ->join('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
-            ->select('schedules.*', 'schedules.id as id_schedules', 'data_trainers.*', 'data_trainers.id as id_trainer', 'data_kelas.*','data_laporans.*')
+            ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
+            ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
+            ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
+            ->select('schedules.*', 'schedules.id as id_schedules', 'schedules.created_at as create', 'data_trainers.*', 'data_trainers.id as id_trainer', 'data_kelas.*', 'data_laporans.*', 'schedules.dj_akhir as deadline')
+            ->orderBy('create', 'DESC')
             ->paginate(10);
+
+        $currentTime = now();
+
+        foreach ($getDataSchedule as $schedule) {
+            try {
+                $startTime = new \DateTime($schedule->create);
+            } catch (\Exception $e) {
+                // Set to current time if start_time is not valid
+                $startTime = $currentTime;
+            }
+
+            $duration = $schedule->deadline * 3600; // konversi jam ke detik
+
+            // Hitung waktu yang tersisa
+            $elapsedTime = $currentTime->getTimestamp() - $startTime->getTimestamp();
+            $remainingTime = max(0, $duration - $elapsedTime);
+
+            $schedule->timer_duration = $remainingTime;
+        }
 
         $getDataTrainer = dataTrainer::orderBy('nama', 'asc')->get();
 
         return view('admin.build.pages.jadwal', compact('getDataSchedule', 'getDataTrainer'));
+    }
+
+    public function updateStatus($id_schedule)
+    {
+        try {
+            // Cari jadwal berdasarkan ID
+            $getSchedules = Schedules::findOrFail($id_schedule);
+
+            // Perbarui status menjadi 'Tidak Aktif'
+            $getSchedules->ket = 'Tidak Aktif';
+            $getSchedules->save();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            // Tangani error jika data tidak ditemukan
+            return response()->json(['success' => false, 'message' => 'Schedule not found.'], 404);
+        }
     }
 
     public function indexCreate()

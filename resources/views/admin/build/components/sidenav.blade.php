@@ -14,6 +14,7 @@
 
       <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
           <ul class="flex flex-col pl-0 mb-0">
+              {{-- === menu dashboard === --}}
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('dashboard') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
                       href="{{ route('dashboard') }}">
@@ -44,6 +45,7 @@
                   </a>
               </li>
 
+              {{-- === menu trainer === --}}
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('trainer.index') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
                       href="{{ route('trainer.index') }}">
@@ -74,6 +76,7 @@
                   </a>
               </li>
 
+              {{-- === menu bigData === --}}
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('index.kids') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
                       href="{{ route('index.kids') }}">
@@ -106,6 +109,7 @@
                   </a>
               </li>
 
+              {{-- === menu jadwal trainer === --}}
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('bigaData.index') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
                       href="{{ route('bigaData.index') }}">
@@ -142,30 +146,62 @@
                   </a>
               </li>
 
+              {{-- === menu Laporan Trainer === --}}
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('schedule.index') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
                       href="{{ route('schedule.index') }}">
                       <div
                           class="{{ request()->routeIs('schedule.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
+                          <svg width="12px" height="12px" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M4 10H20V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10Z"
+                                  stroke="{{ request()->routeIs('schedule.index') ? '#ffffff' : '#000000' }}"
+                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M5.77778 5H4V10H20V5H18.2222M11.1111 5H12.8889"
+                                  stroke="{{ request()->routeIs('schedule.index') ? '#ffffff' : '#000000' }}"
+                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <line x1="8" y1="4" x2="8" y2="6"
+                                  stroke="{{ request()->routeIs('schedule.index') ? '#ffffff' : '#000000' }}"
+                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <line x1="16" y1="4" x2="16" y2="6"
+                                  stroke="{{ request()->routeIs('schedule.index') ? '#ffffff' : '#000000' }}"
+                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M9.5 18V13L8 14.5"
+                                  stroke="{{ request()->routeIs('schedule.index') ? '#ffffff' : '#000000' }}"
+                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <rect x="12.5" y="13" width="3" height="5" rx="1.5"
+                                  stroke="{{ request()->routeIs('schedule.index') ? '#ffffff' : '#000000' }}"
+                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                          </svg>
+                      </div>
+                      <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Shedule Trainers</span>
+                  </a>
+              </li>
+
+              <li class="mt-0.5 w-full">
+                  <a class="{{ request()->routeIs('laporan.trainer') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
+                      href="{{ route('laporan.trainer') }}">
+                      <div
+                          class="{{ request()->routeIs('laporan.trainer') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
                           <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
                               xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                               <title>settings</title>
                               <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                   <g transform="translate(-2020.000000, -442.000000)"
-                                      fill="{{ request()->routeIs('schedule.index') ? '#ffffff' : '#000000' }}"
+                                      fill="{{ request()->routeIs('laporan.trainer') ? '#ffffff' : '#000000' }}"
                                       fill-rule="nonzero">
                                       <g transform="translate(1716.000000, 291.000000)">
                                           <g transform="translate(304.000000, 151.000000)">
                                               <polygon
-                                                  class="{{ request()->route('schedule.index') ? 'bg-white opacity-60' : 'bg-white' }}"
+                                                  class="{{ request()->route('laporan.trainer') ? 'bg-white opacity-60' : 'bg-white' }}"
                                                   points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667">
                                               </polygon>
                                               <path
-                                                  class="{{ request()->route('schedule.index') ? 'bg-white' : 'bg-white' }}"
+                                                  class="{{ request()->route('laporan.trainer') ? 'bg-white' : 'bg-white' }}"
                                                   d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z">
                                               </path>
                                               <path
-                                                  class="{{ request()->route('schedule.index') ? 'bg-white' : 'bg-white' }}"
+                                                  class="{{ request()->route('laporan.trainer') ? 'bg-white' : 'bg-white' }}"
                                                   d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z">
                                               </path>
                                           </g>
@@ -174,10 +210,11 @@
                               </g>
                           </svg>
                       </div>
-                      <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Shedule Trainers</span>
+                      <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Trainer Report</span>
                   </a>
               </li>
 
+              {{-- === menu super admin === --}}
               <li class="w-full mt-4">
                   <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Fitur Super Admin</h6>
               </li>
@@ -285,8 +322,8 @@
           </ul>
       </div>
 
+      {{-- === card and contact === --}}
       <div class="mx-4">
-          <!-- load phantom colors for card after: -->
           <p
               class="invisible hidden text-gray-800 text-red-500 text-red-600 after:bg-gradient-to-tl after:from-gray-900 after:to-slate-800 after:from-blue-600 after:to-cyan-400 after:from-red-500 after:to-yellow-400 after:from-green-600 after:to-lime-400 after:from-red-600 after:to-rose-400 after:from-slate-600 after:to-slate-300 text-lime-500 text-cyan-500 text-slate-400 text-fuchsia-500">
           </p>
@@ -314,5 +351,5 @@
               target="_blank" href="https://wa.link/1h1bsi">Contact
               Developer</a>
       </div>
+
   </aside>
-  <!-- end sidenav -->

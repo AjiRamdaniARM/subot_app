@@ -7,10 +7,8 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="">
-            @yield('children')
-        </div>
+    <div class="w-full">
+        @yield('children')
     </div>
 
 </body>

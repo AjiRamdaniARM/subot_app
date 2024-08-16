@@ -147,7 +147,7 @@
                                     for="grid-last-name">
                                     final attendance deadline
                                 </label>
-                                <input type="time" name="dj_akhir" value="{{ $getDataSchedule->dj_akhir }}" required
+                                <input type="number" value="{{ $getDataSchedule->dj_akhir }}" name="dj_akhir" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             </div>
                             <div class="w-full md:w-1/2 px-3">

@@ -25,7 +25,7 @@ class bigDataController extends Controller
         $getDataLevel = DataLevel::all()->count();
         $getDataKelas = DataKelas::all()->count();
         $getDataAlat = DataAlat::all()->count();
-        $getDataMateri = DataMateri::all()->count();
+        $getDataMateriCount = DataMateri::all()->count();
 
         // pemanggilan semua data
         $getSekolah = DataSekolah::orderBy('created_at', 'DESC')->paginate(6, ['*'], 'schools_page');
@@ -49,7 +49,7 @@ class bigDataController extends Controller
             ->orderBy('data_alats.created_at', 'DESC')
             ->paginate(6, ['*'], 'alat');
 
-        return view('admin.build.pages.bigData', compact('getDataSekolahCount', 'getDataTools', 'getDataClass', 'getDataLevels', 'getDataPrograms', 'activePercentage', 'getSekolah', 'getDataProgram', 'getDataLevel', 'getDataKelas', 'getDataAlat', 'getDataMateri'));
+        return view('admin.build.pages.bigData', compact('getDataSekolahCount', 'getDataTools', 'getDataClass', 'getDataLevels', 'getDataPrograms', 'activePercentage', 'getSekolah', 'getDataProgram', 'getDataLevel', 'getDataKelas', 'getDataAlat', 'getDataMateri', 'getDataMateriCount'));
     }
 
     public function storeProgram(Request $request)

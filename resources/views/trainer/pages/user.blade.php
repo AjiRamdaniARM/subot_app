@@ -346,10 +346,15 @@
                             <li class="mb-04">
                                 <button type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                             </li>
-                            <li>
-                                <button type="button" class="log-out" data-bs-dismiss="modal" aria-label="Close">Log
-                                    Out</button>
-                            </li>
+                            <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                                @csrf
+                                <li>
+                                    <button type="submit" class="log-out" data-bs-dismiss="modal"
+                                        aria-label="Close">Log
+                                        Out</button>
+                                </li>
+                            </form>
+
                         </ul>
                     </div>
                 </div>

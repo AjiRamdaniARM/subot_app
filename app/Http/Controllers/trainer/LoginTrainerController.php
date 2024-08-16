@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TrainerLoginRequest;
 use App\Models\dataTrainer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginTrainerController extends Controller
 {
@@ -37,6 +38,21 @@ class LoginTrainerController extends Controller
                 'password' => 'The provided credentials do not match our records.',
             ]);
         }
+    }
+
+    public function destroy(Request $request)
+    {
+          // Logout pengguna
+          Auth::guard('trainer')->logout();
+
+          // Hapus sesi
+          $request->session()->invalidate();
+
+          // Regenerasi token sesi
+          $request->session()->regenerateToken();
+
+          // Redirect setelah logout
+          return redirect('/LoginTrainer'); // Gantilah dengan rute yang diinginkan
     }
 
     public function jadwalhari()
@@ -112,5 +128,10 @@ class LoginTrainerController extends Controller
     public function historyabsen()
     {
         return view('trainer.pages.historyabsen');
+    }
+
+    public function riwayattrainer()
+    {
+        return view('trainer.pages.riwayattrainer');
     }
 }

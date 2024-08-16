@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DataTrainerController;
+use App\Http\Controllers\admin\LaporanTrainer;
 use App\Http\Controllers\bigDataController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\form\FormulirController;
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/datakids/loading/admin', [SistemKidsCoontroller::class, 'storeAdmin'])->name('admin.kids');
     // datakidsroute
     Route::get('/datakids/privateData/{nama_lengkap}', [SistemKidsCoontroller::class, 'privateData'])->name('private.kids');
+    Route::get('/datakids/allExport', [SistemKidsCoontroller::class, 'exportDataKids'])->name('excel.kids');
 
     // bigData Route
     Route::get('/bigData', [bigDataController::class, 'index'])->name('bigaData.index');
@@ -64,6 +66,7 @@ Route::middleware('auth')->group(function () {
 
     // Route jadwal admin
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+    Route::post('/update-status/{id_schedule}', [ScheduleController::class, 'updateStatus']);
     Route::get('/schedule/create', [ScheduleController::class, 'indexCreate'])->name('schedule.create');
     Route::get('/schedule/edit/{id_schedules}', [ScheduleController::class, 'editSchedule'])->name('schedule.edit');
     Route::post('/schedule/prosess/{id_schedules}', [ScheduleController::class, 'prossesEdit'])->name('schedule.prossesEdit');
@@ -79,6 +82,12 @@ Route::middleware('auth')->group(function () {
 
     // route profile admin
     Route::get('/profileAdmin', [profile::class, 'index'])->name('profileAdmin.index');
+
+    // route laporan trainer admin
+    Route::get('/laporanTrainer', [LaporanTrainer::class, 'index'])->name('laporan.trainer');
+    Route::get('/laporanTrainer/{id_schedules}', [LaporanTrainer::class, 'laporan'])->name('laporan.berkas');
+    //  route laporan excel
+    Route::get('/laporanTrainer/Excel/{id_schedules}', [LaporanTrainer::class, 'excel'])->name('laporan.excel');
 
     // privacyPin
     Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');

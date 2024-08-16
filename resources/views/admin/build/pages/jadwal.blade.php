@@ -1,5 +1,7 @@
 <x-app-layout>
     @include('admin.build.components.trainer.modalPrivacy')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.popUpTrainer')
@@ -25,51 +27,79 @@
                         <div
                             class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
                             <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
-                                <h6>Notifikasi Schedule</h6>
+                                <h6>Timer Schedule</h6>
                             </div>
                             <div class="flex-auto p-4">
                                 @foreach ($getDataSchedule as $jadwal)
-                                    @if ($jadwal->ab_trainer == 'Hadir')
-                                        <div
-                                            class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
-                                            <div
-                                                class="relative mb-4 mt-0 after:clear-both after:table after:content-['']">
-                                                <span
-                                                    class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                                    <i
-                                                        class="relative z-10 text-transparent ni leading-none ni-bell-55 leading-pro bg-gradient-to-tl from-green-600 to-lime-400 bg-clip-text fill-transparent"></i>
-                                                </span>
-                                                <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                                    <h6
-                                                        class="mb-0 font-semibold leading-normal text-sm text-slate-700">
-                                                        {{ $jadwal->nama }}</h6>
-                                                    <p
-                                                        class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">
-                                                        {{ $jadwal->tanggal_lp }} - {{ $jadwal->jam_lp }} </p>
-                                                </div>
+                                    <div
+                                        class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
+                                        <div class="relative mb-4 mt-0 after:clear-both after:table after:content-['']">
+                                            <span
+                                                class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
+                                                <i
+                                                    class="relative z-10 text-transparent ni leading-none ni-bell-55 leading-pro bg-gradient-to-tl from-green-600 to-lime-400 bg-clip-text fill-transparent"></i>
+                                            </span>
+                                            <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
+                                                <h6 class="mb-0 font-semibold leading-normal text-sm text-slate-700">
+                                                    {{ $jadwal->nama }}</h6>
+                                                <p class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400"
+                                                    id="timer-{{ $jadwal->id_schedules }}">
+                                                </p>
                                             </div>
                                         </div>
-                                    @elseif ($jadwal->ab_trainer == 'Tidak Hadir')
-                                        <div
-                                            class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
-                                            <div
-                                                class="relative mb-4 mt-0 after:clear-both after:table after:content-['']">
-                                                <span
-                                                    class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                                    <i
-                                                        class="relative z-10 text-transparent ni leading-none ni-bell-55 leading-pro bg-gradient-to-tl from-red-600 to-red-600 bg-clip-text fill-transparent"></i>
-                                                </span>
-                                                <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                                    <h6
-                                                        class="mb-0 font-semibold leading-normal text-sm text-slate-700">
-                                                        {{ $jadwal->nama }}</h6>
-                                                    <p
-                                                        class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">
-                                                        {{ $jadwal->tanggal_jd }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
+                                    </div>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            @foreach ($getDataSchedule as $schedule)
+                                                var countdownTime{{ $schedule->id_schedules }} = {{ $schedule->timer_duration }};
+                                                var display{{ $schedule->id_schedules }} = document.getElementById(
+                                                    'timer-{{ $schedule->id_schedules }}');
+
+                                                function startTimer{{ $schedule->id_schedules }}(duration, display) {
+                                                    var timer = duration,
+                                                        hours, minutes, seconds;
+                                                    var interval = setInterval(function() {
+                                                        hours = parseInt(timer / 3600, 10);
+                                                        minutes = parseInt((timer % 3600) / 60, 10);
+                                                        seconds = parseInt(timer % 60, 10);
+
+                                                        hours = hours < 10 ? "0" + hours : hours;
+                                                        minutes = minutes < 10 ? "0" + minutes : minutes;
+                                                        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                                                        display.textContent = hours + ":" + minutes + ":" + seconds;
+
+                                                        if (--timer < 0) {
+                                                            clearInterval(interval);
+                                                            display.textContent = "Waktu Habis";
+                                                            updateStatus({{ $schedule->id_schedules }}); // Kirim ID jadwal ke updateStatus
+                                                        }
+                                                    }, 1000);
+                                                }
+
+                                                function updateStatus(id_schedule) {
+                                                    var xhr = new XMLHttpRequest();
+                                                    xhr.open("POST", "/update-status/" + id_schedule, true);
+                                                    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                                                    xhr.setRequestHeader("X-CSRF-TOKEN", document.querySelector('meta[name="csrf-token"]')
+                                                        .getAttribute('content'));
+                                                    xhr.onreadystatechange = function() {
+                                                        if (xhr.readyState == 4) {
+                                                            if (xhr.status == 200) {
+
+                                                            } else {
+                                                                alert("Failed to update status: " + xhr.responseText);
+                                                            }
+                                                        }
+                                                    };
+                                                    xhr.send(); // Tidak perlu mengirim data dalam body jika hanya mengupdate status
+                                                }
+
+                                                startTimer{{ $schedule->id_schedules }}(countdownTime{{ $schedule->id_schedules }},
+                                                    display{{ $schedule->id_schedules }});
+                                            @endforeach
+                                        });
+                                    </script>
                                 @endforeach
 
 
@@ -176,69 +206,69 @@
 
                                                     </tr>
                                                 @else
-                                                @endif
-                                                <tr>
-                                                    <td
-                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                        <div class="flex px-2">
-                                                            <div>
-                                                                <img src="{{ asset('assets/img/alarm.png') }}"
-                                                                    class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 rounded-full ease-soft-in-out h-9 w-9"
-                                                                    alt="spotify" />
+                                                    <tr>
+                                                        <td
+                                                            class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                            <div class="flex px-2">
+                                                                <div>
+                                                                    <img src="{{ asset('assets/img/alarm.png') }}"
+                                                                        class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 rounded-full ease-soft-in-out h-9 w-9"
+                                                                        alt="spotify" />
+                                                                </div>
+                                                                <div class="my-auto">
+
+                                                                    @if ($schedule->ket == 'Tidak Aktif')
+                                                                        <h6 class="mb-0 text-sm leading-normal"
+                                                                            style="color: red">
+                                                                            {{ $schedule->nama }}</h6>
+                                                                    @else
+                                                                        <h6 class="mb-0 text-sm leading-normal">
+                                                                            {{ $schedule->nama }}</h6>
+                                                                    @endif
+
+                                                                </div>
                                                             </div>
-                                                            <div class="my-auto">
+                                                        </td>
+                                                        <td
+                                                            class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                            <p class="mb-0 text-sm font-semibold leading-normal">
+                                                                {{ date('H:i', strtotime($schedule->jm_awal)) }} -
+                                                                {{ date('H:i', strtotime($schedule->jm_akhir)) }}
+                                                            </p>
+                                                        </td>
+                                                        <td
+                                                            class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
 
-                                                                @if ($schedule->ket == 'Tidak Aktif')
-                                                                    <h6 class="mb-0 text-sm leading-normal"
-                                                                        style="color: red">
-                                                                        {{ $schedule->nama }}</h6>
-                                                                @else
-                                                                    <h6 class="mb-0 text-sm leading-normal">
-                                                                        {{ $schedule->nama }}</h6>
-                                                                @endif
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td
-                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                        <p class="mb-0 text-sm font-semibold leading-normal">
-                                                            {{ date('H:i', strtotime($schedule->jm_awal)) }} -
-                                                            {{ date('H:i', strtotime($schedule->jm_akhir)) }}
-                                                        </p>
-                                                    </td>
-                                                    <td
-                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-
-                                                        <span
-                                                            class="text-xs font-semibold leading-tight">{{ \Carbon\Carbon::parse($schedule->tanggal_jd)->translatedFormat('d F Y') }}</span>
-                                                    </td>
-                                                    <td
-                                                        class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                        <div class="flex items-center justify-center">
                                                             <span
-                                                                class="mr-2 text-xs font-semibold leading-tight">{{ $schedule->kelas }}</span>
+                                                                class="text-xs font-semibold leading-tight">{{ \Carbon\Carbon::parse($schedule->tanggal_jd)->translatedFormat('d F Y') }}</span>
+                                                        </td>
+                                                        <td
+                                                            class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                            <div class="flex items-center justify-center">
+                                                                <span
+                                                                    class="mr-2 text-xs font-semibold leading-tight">{{ $schedule->kelas }}</span>
 
-                                                        </div>
-                                                    </td>
-                                                    <td
-                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                            </div>
+                                                        </td>
+                                                        <td
+                                                            class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
 
-                                                        <button
-                                                            onclick="window.modalAll{{ $schedule->id_schedules }}.showModal()"
-                                                            class="inline-block px-6 py-3 mb-0 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400">
+                                                            <button
+                                                                onclick="window.modalAll{{ $schedule->id_schedules }}.showModal()"
+                                                                class="inline-block px-6 py-3 mb-0 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400">
 
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24"
-                                                                style="fill: rgb(99, 99, 99);transform: ;msFilter:;">
-                                                                <path
-                                                                    d="M7 11h7v2H7zm0-4h10.97v2H7zm0 8h13v2H7zM4 4h2v16H4z">
-                                                                </path>
-                                                            </svg>
-                                                        </button>
-                                                    </td>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24"
+                                                                    style="fill: rgb(99, 99, 99);transform: ;msFilter:;">
+                                                                    <path
+                                                                        d="M7 11h7v2H7zm0-4h10.97v2H7zm0 8h13v2H7zM4 4h2v16H4z">
+                                                                    </path>
+                                                                </svg>
+                                                            </button>
+                                                        </td>
 
-                                                </tr>
+                                                    </tr>
+                                                @endif
                                             @endforeach
 
                                         </tbody>

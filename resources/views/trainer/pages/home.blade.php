@@ -304,7 +304,7 @@
                                         @if ($jadwal->ket == 'Tidak Aktif')
                                             <h5 style="color: red">Jadwal Tidak Aktif</h5>
                                         @elseif ($jadwal->ab_trainer == 'Hadir')
-                                            <h5 style="color: red">Anda Sudah mengabsen</h5>
+                                            <h5 style="color: rgb(0, 128, 6)">Anda Sudah mengabsen</h5>
                                         @else
                                             <h5>{{ date('H:i', strtotime($jadwal->jm_awal)) }} -
                                                 {{ date('H:i', strtotime($jadwal->jm_akhir)) }}</h5>
@@ -319,6 +319,60 @@
                                         <span>{{ $jadwal->levels }} | {{ $jadwal->nama_alat }}</span>
                                     </p>
                                 </div>
+                                <style>
+                                    .content .price {
+                                        margin-right: 20px;
+                                        /* Menyelaraskan elemen price dengan margin kanan 20px */
+                                        margin-left: 32px;
+                                        align-self: flex-start;
+                                        /* Menyelaraskan elemen price ke atas */
+                                    }
+
+                                    .content {
+                                        padding: 15px;
+                                        /* Add padding to provide space around the content */
+                                        border-radius: 10px;
+                                        /* Optional: Adds rounded corners to the content */
+                                        background-color: #f8f9fa;
+                                        /* Optional: Adds a background color for contrast */
+                                    }
+
+                                    .content h4,
+                                    .content h5 {
+                                        margin: 0;
+                                        /* Remove default margin */
+                                        margin-bottom: 8px;
+                                        /* Adds spacing between headings */
+                                    }
+
+                                    .content p {
+                                        margin: 0;
+                                        /* Remove default margin */
+                                    }
+
+                                    .location {
+                                        margin-top: 8px;
+                                        /* Adds spacing above the location paragraph */
+                                    }
+
+                                    .price {
+                                        text-align: right;
+                                        /* Aligns the price information to the right */
+                                        margin-left: 20px;
+                                        /* Adds spacing between the content and price */
+                                    }
+
+                                    /* Optional: Additional styling for h4 and h5 */
+                                    .content h4 {
+                                        font-size: 16px;
+                                        font-weight: bold;
+                                    }
+
+                                    .content h5 {
+                                        font-size: 14px;
+                                    }
+                                </style>
+
                             </a>
                         </li>
                     @endforeach
@@ -382,6 +436,64 @@
                 </script>
             </section>
             <!-- budget end -->
+            <style>
+                /* Mengatur elemen dengan teks panjang */
+                .content h4,
+                .content h5,
+                .content p {
+                    overflow: hidden;
+                    /* Menghindari elemen meluap */
+                    text-overflow: ellipsis;
+                    /* Menambahkan elipsis (...) pada akhir teks yang terpotong */
+                    white-space: nowrap;
+                    /* Menghindari teks membungkus ke baris berikutnya */
+                }
+
+                .content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    /* Menambahkan jarak antar elemen */
+                }
+
+                .image {
+                    max-width: 100px;
+                    /* Menentukan lebar maksimum gambar */
+                    max-height: 100px;
+                    /* Menentukan tinggi maksimum gambar */
+                    overflow: hidden;
+                    /* Menghindari gambar meluap */
+                }
+
+                .price {
+                    text-align: right;
+                    /* Menyelaraskan teks ke sebelah kanan jika diperlukan */
+                }
+
+                .location {
+                    overflow: hidden;
+                    /* Menghindari elemen meluap */
+                    text-overflow: ellipsis;
+                    /* Menambahkan elipsis (...) pada akhir teks yang terpotong */
+                    white-space: nowrap;
+                    /* Menghindari teks membungkus ke baris berikutnya */
+                }
+
+                /* Jika Anda ingin memperbaiki container jika ada elemen lain yang meluap */
+                #schedule-list {
+                    list-style: none;
+                    /* Menghapus bullet points dari daftar */
+                    padding: 0;
+                    margin: 0;
+                }
+
+                #schedule-list li {
+                    margin-bottom: 10px;
+                    /* Menambahkan jarak antar item */
+                    border-bottom: 1px solid #ddd;
+                    /* Menambahkan garis pemisah antar item */
+                }
+            </style>
 
             <!-- Menu -->
             <section class="service py-12">
@@ -464,34 +576,96 @@
             <!-- Menu end -->
 
 
-
             <!-- visited start -->
             <section class="visited py-12 px-4">
                 <div class="title d-flex align-items-center justify-content-between">
-                    <h2 class="shrink-0">EVENT</h2>
+                    <h2 class="shrink-0">HISTORY</h2>
                 </div>
 
-                <div class="swiper visited-swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide place-card">
-                            <a href="#" onclick="showAlert(); return false;" class="text-decoration-none">
-                                <div class="image position-relative">
-                                    <img src="{{ asset('assets/img/cover.jpg') }}" alt="desert" class="rounded"
-                                        style="max-width: 100%; height: auto;">
-                                </div>
-                                <div class="content mt-2">
-                                    <h4>Src Competition</h4>
-                                    <p class="location d-flex align-items-center gap-2">
-                                        <img src="{{ asset('assets/trainerSvg/svg/map-marker.svg') }}" alt="icon"
-                                            class="me-1">
-                                        Sukabumi, Nusa Putra
-                                    </p>
-                                </div>
-                            </a>
+                <div class="tab-content" id="myTabContent">
+                    <div class="ticket-card radius-10" onclick="window.location.href='{{ url('/riwayattrainer') }}';">
+                        <!-- card-title -->
+                        <div class="card-title d-flex align-items-center justify-content-between">
+                            <p>12 Agustus 2024, Rabu</p>
                         </div>
-                        <!-- Add more slides as needed -->
+
+                        <!-- card-item -->
+                        <div class="card-item d-flex align-items-center gap-16 w-100">
+                            <div class="image shrink-0 overflow-hidden radius-10">
+                                <img src="{{ asset('assets/img/animasiRoboto.gif') }}" alt="Place"
+                                    class="img-fluid w-100 h-100 object-fit-cover">
+                            </div>
+
+                            <div class="content flex-grow">
+                                <a href="{{ url('/riwayattrainer') }}" class="text-decoration-none">
+                                    <h4>Sd Aisyiyah</h4>
+                                </a>
+
+                                <p class="d-flex align-items-center gap-04 location mt-04">
+                                    Sudah Mengabsen
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <style>
+                    .ticket-card {
+                        border-radius: 30px;
+                        overflow: hidden;
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                        cursor: pointer;
+                    }
+
+                    .ticket-card:hover {
+                        transform: scale(1.05);
+                        /* Zoom effect */
+                        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                        /* Shadow effect */
+                    }
+
+                    .ticket-card .card-title {
+                        padding: 15px;
+                        background-color: #f8f9fa;
+                        border-bottom: 1px solid #dee2e6;
+                    }
+
+                    .ticket-card .card-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 16px;
+                        padding: 15px;
+                    }
+
+                    .ticket-card .image img {
+                        border-radius: 10px;
+                        object-fit: cover;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    .ticket-card .content {
+                        flex-grow: 1;
+                    }
+
+                    .ticket-card .content a {
+                        text-decoration: none;
+                        color: #000;
+                    }
+
+                    .ticket-card .content a h4 {
+                        margin: 0;
+                        font-size: 13px;
+                        color: #007bff;
+                    }
+
+                    .ticket-card .content .location {
+                        margin-top: 0.5rem;
+                        color: #6c757d;
+                    }
+                </style>
+                </div>
+
+
 
                 <!-- Swiper JS -->
                 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -506,179 +680,6 @@
                     }
                 </script>
 
-                <!-- visited end -->
-
-
-
-                {{-- <div class="swiper-slide place-card">
-            <a href="vacation-details.html">
-              <div class="image position-relative">
-                <img src="../assets/images/home/item-2.png" alt="desert" class="img-fluid w-100 overflow-hidden radius-8">
-                <span class="d-flex align-items-center justify-content-center rounded-full">
-                  <img src="../assets/svg/heart-black.svg" alt="icon">
-                </span>
-              </div>
-              <div class="content">
-                <h4>Maintance</h4>
-                <p class="d-flex align-items-center gap-04 location">
-                  <img src="../assets/svg/map-marker.svg" alt="icon">
-                  South America
-                </p>
-
-              </div>
-            </a>
-          </div> --}}
-
-                {{-- <div class="swiper-slide place-card">
-            <a href="vacation-details.html">
-              <div class="image position-relative">
-                <img src="../assets/images/home/item-1.png" alt="desert" class="img-fluid w-100 overflow-hidden radius-8">
-                <span class="d-flex align-items-center justify-content-center rounded-full">
-                  <img src="../assets/svg/heart-red.svg" alt="icon">
-                </span>
-              </div>
-              <div class="content">
-                <h4>Maintance</h4>
-                <p class="d-flex align-items-center gap-04 location">
-                  <img src="../assets/svg/map-marker.svg" alt="icon">
-                  Polynesia, French
-                </p>
-
-              </div>
-            </a>
-          </div> --}}
-
-                {{-- <div class="swiper-slide place-card">
-            <a href="vacation-details.html">
-              <div class="image position-relative">
-                <img src="../assets/images/home/item-2.png" alt="desert" class="img-fluid w-100 overflow-hidden radius-8">
-                <span class="d-flex align-items-center justify-content-center rounded-full">
-                  <img src="../assets/svg/heart-black.svg" alt="icon">
-                </span>
-              </div>
-              <div class="content">
-                <h4>Maintance</h4>
-                <p class="d-flex align-items-center gap-04 location">
-                  <img src="../assets/svg/map-marker.svg" alt="icon">
-                  South America
-                </p>
-
-              </div>
-            </a>
-          </div> --}}
-
-                </div>
-                </div>
-            </section>
-            <!-- visited end -->
-
-            <!-- guide start -->
-            <!-- <section class="guide py-12">
-
-                                                                                                                                                                                                                                                                                                          <div class="title d-flex align-items-center justify-content-between">
-                                                                                                                                                                                                                                                                                                            <h2 class="shrink-0">Tour Guide</h2>
-                                                                                                                                                                                                                                                                                                            <a href="tour-guide.html" class="shrink-0 d-inline-block">See All</a>
-                                                                                                                                                                                                                                                                                                          </div>
-
-
-                                                                                                                                                                                                                                                                                                          <div class="d-flex gap-24 all-cards scrollbar-hidden">
-
-                                                                                                                                                                                                                                                                                                            <a href="profile/guide-profile.html" class="d-flex gap-16 item w-fit shrink-0">
-                                                                                                                                                                                                                                                                                                              <div class="image position-relative shrink-0">
-                                                                                                                                                                                                                                                                                                                <img src="../assets/images/home/guide-1.png" alt="guide" class="guide-img object-fit-cover img-fluid radius-12">
-                                                                                                                                                                                                                                                                                                                <div class="rating d-flex align-items-center gap-04 w-fit">
-                                                                                                                                                                                                                                                                                                                  <img src="../assets/svg/star-yellow.svg" alt="Star">
-                                                                                                                                                                                                                                                                                                                  <span class="d-inline-block">4.0</span>
-                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                              </div>
-
-                                                                                                                                                                                                                                                                                                              <div class="content">
-                                                                                                                                                                                                                                                                                                                <h4>Emilia Ricardo</h4>
-                                                                                                                                                                                                                                                                                                                <h5>$25 (1 Day)</h5>
-                                                                                                                                                                                                                                                                                                                <p class="d-flex align-items-center gap-8 location">
-                                                                                                                                                                                                                                                                                                                  <img src="../assets/svg/map-black.svg" alt="icon">
-                                                                                                                                                                                                                                                                                                                  Polynesia, French
-                                                                                                                                                                                                                                                                                                                </p>
-                                                                                                                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                                                                                                                            </a>
-
-
-                                                                                                                                                                                                                                                                                                            <a href="profile/guide-profile.html" class="d-flex gap-16 item w-fit shrink-0">
-                                                                                                                                                                                                                                                                                                              <div class="image position-relative shrink-0">
-                                                                                                                                                                                                                                                                                                                <img src="../assets/images/home/guide-2.png" alt="guide" class="guide-img object-fit-cover img-fluid radius-12">
-                                                                                                                                                                                                                                                                                                                <div class="rating d-flex align-items-center gap-04 w-fit">
-                                                                                                                                                                                                                                                                                                                  <img src="../assets/svg/star-yellow.svg" alt="Star">
-                                                                                                                                                                                                                                                                                                                  <span class="d-inline-block">4.0</span>
-                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                              </div>
-
-                                                                                                                                                                                                                                                                                                              <div class="content">
-                                                                                                                                                                                                                                                                                                                <h4>Jonsky Alexia</h4>
-                                                                                                                                                                                                                                                                                                                <h5>$30 (1 Day)</h5>
-                                                                                                                                                                                                                                                                                                                <p class="d-flex align-items-center gap-8 location">
-                                                                                                                                                                                                                                                                                                                  <img src="../assets/svg/map-black.svg" alt="icon">
-                                                                                                                                                                                                                                                                                                                  South America
-                                                                                                                                                                                                                                                                                                                </p>
-                                                                                                                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                                                                                                                            </a>
-
-                                                                                                                                                                                                                                                                                                          </div>
-                                                                                                                                                                                                                                                                                                        </section> -->
-            <!-- guide end -->
-
-            <!-- budget start -->
-            <!-- <section class="budget pt-12">
-
-                                                                                                                                                                                                                                                                                                          <div class="title d-flex align-items-center justify-content-between">
-                                                                                                                                                                                                                                                                                                            <h2 class="shrink-0">On Budget Tour</h2>
-                                                                                                                                                                                                                                                                                                            <a href="hotels.html" class="shrink-0 d-inline-block">See All</a>
-                                                                                                                                                                                                                                                                                                          </div>
-
-                                                                                                                                                                                                                                                                                                          <ul>
-
-                                                                                                                                                                                                                                                                                                            <li>
-                                                                                                                                                                                                                                                                                                              <a href="hotel-details.html" class="d-flex align-items-center gap-12">
-                                                                                                                                                                                                                                                                                                                <div class="image shrink-0 overflow-hidden radius-8">
-                                                                                                                                                                                                                                                                                                                  <img src="../assets/images/home/budget-1.png" alt="Place" class="img-fluid w-100 h-100 object-fit-cover">
-                                                                                                                                                                                                                                                                                                                </div>
-
-                                                                                                                                                                                                                                                                                                                <div class="content shrink-0 d-flex align-items-center gap-12 justify-content-between flex-grow">
-                                                                                                                                                                                                                                                                                                                  <div>
-                                                                                                                                                                                                                                                                                                                    <h4>Ledadu Beach</h4>
-                                                                                                                                                                                                                                                                                                                    <h5>3 days 2 nights</h5>
-                                                                                                                                                                                                                                                                                                                    <p class="d-flex align-items-center gap-8 location">
-                                                                                                                                                                                                                                                                                                                      <img src="../assets/svg/map-marker.svg" alt="icon">
-                                                                                                                                                                                                                                                                                                                      Australia
-                                                                                                                                                                                                                                                                                                                    </p>
-                                                                                                                                                                                                                                                                                                                  </div>
-                                                                                                                                                                                                                                                                                                                  <p class="price"><span>$20</span>/Person</p>
-                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                              </a>
-                                                                                                                                                                                                                                                                                                            </li>
-
-
-                                                                                                                                                                                                                                                                                                            <li>
-                                                                                                                                                                                                                                                                                                              <a href="hotel-details.html" class="d-flex align-items-center gap-12">
-                                                                                                                                                                                                                                                                                                                <div class="image shrink-0 overflow-hidden radius-8">
-                                                                                                                                                                                                                                                                                                                  <img src="../assets/images/home/budget-2.png" alt="Place" class="img-fluid w-100 h-100 object-fit-cover">
-                                                                                                                                                                                                                                                                                                                </div>
-
-                                                                                                                                                                                                                                                                                                                <div class="content shrink-0 d-flex align-items-center gap-12 justify-content-between flex-grow">
-                                                                                                                                                                                                                                                                                                                  <div>
-                                                                                                                                                                                                                                                                                                                    <h4>Endigada Beach</h4>
-                                                                                                                                                                                                                                                                                                                    <h5>5 days 4 nights</h5>
-                                                                                                                                                                                                                                                                                                                    <p class="d-flex align-items-center gap-8 location">
-                                                                                                                                                                                                                                                                                                                      <img src="../assets/svg/map-marker.svg" alt="icon">
-                                                                                                                                                                                                                                                                                                                      Australia
-                                                                                                                                                                                                                                                                                                                    </p>
-                                                                                                                                                                                                                                                                                                                  </div>
-                                                                                                                                                                                                                                                                                                                  <p class="price"><span>$25</span>/Person</p>
-                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                              </a>
-                                                                                                                                                                                                                                                                                                            </li>
-                                                                                                                                                                                                                                                                                                          </ul>
-                                                                                                                                                                                                                                                                                                        </section> -->
-            <!-- budget end -->
         </main>
 
         <!-- bottom navigation start -->

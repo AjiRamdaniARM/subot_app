@@ -51,6 +51,18 @@
                                                         <i class="fas fa-plus">
                                                         </i>&nbsp;&nbsp;Create
                                                         Data</button>
+                                                    &nbsp;
+                                                    <a href="{{ url('/datakids/allExport') }}"
+                                                        class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
+                                                        <i class="fas fa-plus">
+                                                        </i>&nbsp;&nbsp;Export
+                                                        Data</a>
+                                                    &nbsp;
+                                                    <a href="{{ route('formulir.index') }}"
+                                                        class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
+                                                        <i class="fas fa-plus">
+                                                        </i>&nbsp;&nbsp;Survei
+                                                        Data</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -90,6 +102,8 @@
                                                         name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
                                                         type="date" required placeholder="Date Of Birth" />
                                                 </div>
+
+
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <select
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
@@ -158,8 +172,8 @@
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="work_ortu" value="{{ old('work_ortu') }}" type="text"
-                                                        required placeholder="Parent's Occupation" />
+                                                        name="work_ortu" value="{{ old('work_ortu') }}"
+                                                        type="text" required placeholder="Parent's Occupation" />
                                                     @error('work_ortu')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red"
                                                             role="alert">
@@ -169,7 +183,29 @@
                                                 </div>
                                             </div>
 
+
                                             <div class="flex flex-wrap -mx-3">
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <select
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
+                                                        name="id_kelas" id="">
+                                                        <option value="">Select Class</option>
+                                                        @foreach ($getDataClass as $get)
+                                                            <option value="{{ $get->id }}">
+                                                                {{ $get->kelas }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    {{-- <input
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
+                                                        name="sekolah" value="{{ old('sekolah') }}" type="text"
+                                                        required placeholder="School" />
+                                                    @error('sekolah')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
+                                                            role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror --}}
+                                                </div>
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                                                     <input
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
@@ -182,11 +218,13 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
-                                                        name="file" type="file" required />
-                                                </div>
+                                                &nbsp;
+
+                                            </div>
+                                            <div class="max-w-full px-3 mb-6 md:mb-0  md:flex-none">
+                                                <input
+                                                    class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
+                                                    name="file" type="file" required />
                                             </div>
                                         </div>
                                     </form>

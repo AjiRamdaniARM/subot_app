@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::middleware('auth:trainer')->group(function () {
+Route::middleware('check.trainer.auth')->group(function () {
     Route::get('/home', [homeController::class, 'home'])->name('home');
     Route::get('/home/absen/{id_schedules}', [homeController::class, 'absen'])->name('absen');
     Route::get('/laporantrainer/{id_schedules}', [TrainerLaporanController::class, 'laporantrainer'])->name('laporantrainer');
@@ -36,11 +36,16 @@ Route::middleware('auth:trainer')->group(function () {
     Route::get('/event', [LoginTrainerController::class, 'event'])->name('event');
     Route::get('/useredit', [LoginTrainerController::class, 'useredit'])->name('useredit');
     Route::get('/historyabsen', [LoginTrainerController::class, 'historyabsen'])->name('historyabsen');
+    Route::get('/riwayattrainer', [LoginTrainerController::class, 'riwayattrainer'])->name('riwayattrainer');
+    Route::post('/laporantrainer/porsses/{id_schedules}', [Absensi::class, 'UpDrive']);
 
     // absensi siswa route
     Route::post('/absensiswa/prossess/{id}', [Absensi::class, 'absensi'])->name('absensiSiswa.update');
     // route post laporan
     Route::post('/laporantrainer/prossess/{id_schedules}', [TrainerLaporanController::class, 'postLaporan'])->name('absensiSiswa.update');
+
+    // route logout user trainer
+    Route::post('/logout', [LoginTrainerController::class, 'destroy'])->name('logout');
 });
 Route::get('/LoginTrainer', [LoginTrainerController::class, 'index'])->name('login.trainer');
 Route::post('/login-trainer/prosses', [LoginTrainerController::class, 'loginTrainer'])->name('login.prosses');

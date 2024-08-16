@@ -134,7 +134,7 @@
                         <div>
                             <p class="mb-0 font-sans text-sm font-semibold leading-normal">All Materis Data</p>
                             <h5 class="mb-0 font-bold">
-                                {{ $getDataMateri }}
+                                {{ $getDataMateriCount }}
                                 <span class="text-sm leading-normal font-weight-bolder text-lime-500">+100%</span>
                             </h5>
                         </div>

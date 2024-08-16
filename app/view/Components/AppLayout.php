@@ -12,6 +12,6 @@ class AppLayout extends Component
      */
     public function render(): View
     {
-        return view('admin.build.components.layout.app');
+        return view('admin.build.components.layout.AppLayout');
     }
 }

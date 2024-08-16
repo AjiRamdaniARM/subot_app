@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DataSiswaExport;
+use App\Models\DataKelas;
 use App\Models\DataSekolah;
 use App\Models\DataSiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SistemKidsCoontroller extends Controller
 {
@@ -14,12 +17,14 @@ class SistemKidsCoontroller extends Controller
         $getDataSchool = DataSekolah::orderBy('created_at', 'DESC')->paginate(10);
         $getSelect = DataSekolah::orderBy('created_at', 'DESC')->get();
 
+        $getDataClass = DataKelas::all();
+
         $getDataKids = DB::table('data_siswas')
             ->join('data_sekolahs', 'data_siswas.id_sekolah', '=', 'data_sekolahs.id_sekolah')
             ->select('data_siswas.*', 'data_sekolahs.*', 'data_siswas.alamat as alamat_anak')
             ->orderBy('data_siswas.nama_lengkap', 'asc')->paginate(10);
 
-        return view('admin.build.pages.dataKids', compact('getDataKids', 'getSelect', 'getDataSchool'));
+        return view('admin.build.pages.dataKids', compact('getDataKids', 'getSelect', 'getDataSchool', 'getDataClass'));
     }
 
     // validasi data anak dari form pendaftaran ( Hosting ) 19 / 07 / 2024
@@ -202,6 +207,7 @@ class SistemKidsCoontroller extends Controller
                 $dataFile->move(public_path('/assets/data/dataAnak/img'), $fileName);
 
                 $validateDataKids = new DataSiswa();
+                $validateDataKids->id_kelas = $request->id_kelas;
                 $validateDataKids->nama_lengkap = $request->nama_lengkap;
                 $validateDataKids->tl = $request->tl;
                 $validateDataKids->tanggal_lahir = $request->tanggal_lahir;
@@ -322,5 +328,10 @@ class SistemKidsCoontroller extends Controller
             ->first();
 
         return view('admin.build.pages.privateKids', compact('getSiswa'));
+    }
+
+    public function exportDataKids()
+    {
+        return Excel::download(new DataSiswaExport(), 'DataSiswa_'.'.xlsx');
     }
 }
