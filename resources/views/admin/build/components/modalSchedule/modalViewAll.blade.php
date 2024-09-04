@@ -1,4 +1,4 @@
-{{-- akhir edit data sekolah --}}
+{{-- === akhir edit data sekolah === --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <dialog id="modalAll{{ $schedule->id_schedules }}">
 
@@ -52,7 +52,7 @@
             {{ date('H:i', strtotime($schedule->jm_akhir)) }} | {{ $schedule->kelas }} <span></span></h6>
     </div>
 
-    <form action="{{ url('/schedule/replaceTrainer/' . $schedule->nama) }}" method="POST">
+    <form action="{{ url('/schedule/replaceTrainer/' . $schedule->id_schedules) }}" method="POST">
         @csrf
         <div class="voucher-code-container-admin">
             <h6 class="voucher-code-title-admin">Select Levels</h6>

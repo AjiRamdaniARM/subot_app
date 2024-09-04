@@ -8,6 +8,8 @@
             @include('admin.build.components.navbar')
 
             <div class="w-full px-6 py-6 mx-auto">
+                @include('admin.build.components.dataKids.cardAlldata')
+                <br />
 
                 {{-- alert validasi data anak input  --}}
                 @if (session('success'))
@@ -23,6 +25,8 @@
                     </div>
                 @endif
 
+
+
                 <!-- content -->
                 <div class="flex flex-wrap -mx-3">
                     <div class="max-w-full px-3 lg:w-full lg:flex-none">
@@ -30,8 +34,8 @@
                             <div class="max-w-full px-3 mb-4 lg:mb-0 lg:w-full lg:flex-none">
                                 <div
                                     class="relative flex flex-col min-w-0 mt-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-                                    <form action="{{ route('admin.kids') }}" method="POST" class="text-black"
-                                        enctype="multipart/form-data">
+                                    <form id="dataForm" action="{{ route('admin.kids') }}" method="POST"
+                                        class="text-black" enctype="multipart/form-data">
                                         @csrf
                                         <div
                                             class="p-4 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
@@ -46,7 +50,7 @@
                                                         Create Schools
                                                     </button>
                                                     &nbsp;
-                                                    <button type="submit"
+                                                    <button id="submit-button" type="submit"
                                                         class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
                                                         <i class="fas fa-plus">
                                                         </i>&nbsp;&nbsp;Create

@@ -3,23 +3,27 @@
 namespace App\Exports;
 
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class LaporanExport implements FromCollection, WithEvents
+class LaporanExport implements FromView, WithStyles, WithEvents
 {
     protected $id_schedules;
 
+    // Constructor untuk inisialisasi $id_schedules
     public function __construct($id_schedules)
     {
         $this->id_schedules = $id_schedules;
     }
 
-    public function collection()
+    public function view(): View
     {
-        return DB::table('schedules')
+        // Fetching the laporan data
+        $laporan = DB::table('schedules')
             ->where('schedules.id', $this->id_schedules)
             ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
             ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
@@ -39,51 +43,65 @@ class LaporanExport implements FromCollection, WithEvents
                 'data_kelas.id as id_kelas',
                 'data_alats.alat as nama_alat',
                 'data_alats.id as id_alat',
-                'data_programs.*',
+                'data_programs.program',
                 'data_programs.id as id_program',
-                'data_levels.*',
+                'data_levels.levels',
                 'data_levels.id as id_level',
-                'data_sekolahs.*',
+                'data_sekolahs.sekolah',
+                'data_sekolahs.id_sekolah as id_sekolah',
                 'data_laporans.*',
                 'data_laporans.tanggal_lp',
                 'data_laporans.jam_lp',
-                'data_materis.*'
+                'data_materis.materi',
+                'data_materis.id as id_materi'
             )
             ->get();
+
+        // === Initialize array to store data for students === //
+        $getDataStudent = collect();
+
+        // ===  Loop through each laporan item to fetch associated student data === //
+        foreach ($laporan as $item) {
+            $studentData = DB::table('big_data')
+                ->where('big_data.id_bigData', $item->id_bigData ?? 0) // === Use null coalescing operator to avoid errors === //
+                ->join('data_siswas', 'big_data.id_siswa', '=', 'data_siswas.id')
+                ->select('big_data.*', 'data_siswas.*')
+                ->get();
+
+            // === Merge student data into a collection for all records === //
+            $getDataStudent = $getDataStudent->merge($studentData);
+        }
+
+        return view('admin.build.exports.DataLaporanExport', [
+            'laporan' => $laporan,
+            'getDataStudent' => $getDataStudent,
+        ]);
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            1 => [
+                'font' => ['bold' => true, 'color' => ['argb' => 'FFFFFFFF'], 'size' => 12],
+                'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'color' => ['argb' => '4472C4']],
+            ],
+            'A1:N1000' => [
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    ],
+                ],
+            ],
+        ];
     }
 
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $sheet = $event->sheet->getDelegate();
-                $templatePath = public_path('assets/data/TemplateTrainer.xlsx');
-
-                // Muat template
-                $template = IOFactory::load($templatePath);
-                $templateSheet = $template->getActiveSheet();
-
-                // Copy template ke sheet yang aktif
-                foreach ($templateSheet->getRowIterator() as $row) {
-                    foreach ($row->getCellIterator() as $cell) {
-                        $sheet->setCellValue($cell->getCoordinate(), $cell->getValue());
-                    }
-                }
-
-                // Isi data dari collection ke sheet
-                $startRow = 7; // Misalnya data dimulai dari baris ke-2, setelah header
-                foreach ($this->collection() as $index => $data) {
-                    $sheet->setCellValue('C'.($startRow + $index), $data->trainer_name);
-                    $sheet->setCellValue('D'.($startRow + $index), $data->tanggal_lp);
-                    $sheet->setCellValue('E'.($startRow + $index), $data->jam_lp);
-                    $sheet->setCellValue('F'.($startRow + $index), $data->materi);
-                    $sheet->setCellValue('G'.($startRow + $index), $data->kelas_name);
-                    $sheet->setCellValue('H'.($startRow + $index), $data->nama_alat);
-                    $sheet->setCellValue('I'.($startRow + $index), $data->program);
-                    $sheet->setCellValue('J'.($startRow + $index), $data->levels);
-                    $sheet->setCellValue('K'.($startRow + $index), $data->sekolah);
-                    $sheet->setCellValue('L'.($startRow + $index), $data->catatan);
-                    // Tambahkan kolom lainnya sesuai dengan kebutuhan
+                $columns = range('A', 'T');
+                foreach ($columns as $column) {
+                    $event->sheet->getDelegate()->getColumnDimension($column)->setAutoSize(true);
                 }
             },
         ];

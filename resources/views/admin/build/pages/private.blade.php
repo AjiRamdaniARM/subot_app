@@ -19,11 +19,13 @@
                     class="relative flex flex-col flex-auto min-w-0 p-4 mx-6 -mt-16 overflow-hidden break-words border-0 shadow-blur rounded-2xl bg-white/80 bg-clip-border backdrop-blur-2xl backdrop-saturate-200">
                     <div class="flex flex-wrap -mx-3">
                         <div class="flex-none w-auto max-w-full px-3">
-                            <div
-                                class="text-base ease-soft-in-out h-18.5 w-18.5 relative inline-flex items-center justify-center rounded-xl text-white transition-all duration-200">
-                                <img src="{{ asset('assets/trainer_data/profile/' . $getTrainerData->profile) }}"
-                                    alt="profile_image" class="w-full shadow-soft-sm rounded-xl" />
-                            </div>
+                            <a href="{{ asset('assets/trainer_data/profile/' . $getTrainerData->profile) }}">
+                                <div
+                                    class="text-base ease-soft-in-out h-18.5 w-18.5 relative inline-flex items-center justify-center rounded-xl text-white transition-all duration-200">
+                                    <img src="{{ asset('assets/trainer_data/profile/' . $getTrainerData->profile) }}"
+                                        alt="profile_image" class="w-full shadow-soft-sm rounded-xl" />
+                                </div>
+                            </a>
                         </div>
                         <div class="flex-none w-auto max-w-full px-3 my-auto">
                             <div class="h-full">
@@ -165,16 +167,15 @@
                                         <strong class="text-slate-700">Mobile:</strong> &nbsp;
                                         {{ $getTrainerData->telephone }}
                                     </li>
+                                    @include('admin.build.components.trainer.modalPassTrainer')
                                     <li
                                         class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                        <strong class="text-slate-700">Id Card:</strong> &nbsp;
-                                        {{ $getTrainerData->password }}
+                                        <strong class="text-slate-700">Password:</strong> &nbsp;
+                                        {{ $getTrainerData->password }} <span><button
+                                                onclick="window.modalPass{{ $getTrainerData->id }}.showModal();"
+                                                class="text-red-500 font-bold ">Custom
+                                                Password</button></span>
                                     </li>
-                                    <li
-                                        class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                        <strong class="text-slate-700">Password:</strong> &nbsp; USA
-                                    </li>
-
                                 </ul>
                             </div>
                         </div>

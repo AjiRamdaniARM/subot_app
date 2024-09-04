@@ -1,5 +1,4 @@
 <x-app-layout>
-    @include('admin.build.components.trainer.modalPrivacy')
 
     <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.popUpTrainer')
@@ -15,7 +14,9 @@
                 <div class="form" style="padding-top:20px">
                     <form id="post" class="w-full max-w-lg" action="{{ route('schedule.post') }}" method="POST">
                         @csrf
+
                         <div class="flex flex-wrap -mx-3 mb-6">
+                            {{-- === input days ===  --}}
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-first-name">
@@ -34,6 +35,8 @@
                                 </select>
                                 {{-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> --}}
                             </div>
+
+                            {{-- === input trainer ===  --}}
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
@@ -48,8 +51,11 @@
                                 </select>
                             </div>
                         </div>
+
+
                         <div class="flex flex-wrap -mx-3 mb-6">
 
+                            {{-- === input class ===  --}}
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
@@ -63,6 +69,63 @@
                                     @endforeach
                                 </select>
                             </div>
+
+
+                            {{-- === input sekolah ===  --}}
+                            <div class="w-full md:w-1/2 px-3" style="display: none;">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    for="grid-last-name">
+                                    school
+                                </label>
+                                <select name="id_sekolah" id="school"
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="">Select School</option>
+                                    @foreach ($getDataSchool as $school)
+                                        <option value="{{ $school->id_sekolah }}">{{ $school->sekolah }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            {{-- === input program academy ===  --}}
+                            <div class="w-full md:w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    for="grid-last-name">
+                                    Program academy
+                                </label>
+                                <select name="id_program" id="program" required
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="">Select Program</option>
+                                    @foreach ($getDataProgram as $program)
+                                        <option value="{{ $program->id }}">{{ $program->program }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            {{-- === input level academy ===  --}}
+                            <div class="w-full md:w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    for="grid-last-name">
+                                    Level academy
+                                </label>
+                                <select name="id_level" id="level" required
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="">Select Level</option>
+                                    @foreach ($getDataLevel as $level)
+                                        <option value="{{ $level->id }}">{{ $level->levels }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            {{-- === input tools ===  --}}
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
@@ -76,26 +139,10 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                        <div class="flex flex-wrap -mx-3 mb-6">
-                            <div class="w-full md:w-1/2 px-3">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-last-name">
-                                    first hour teaching
-                                </label>
-                                <input type="time" name="jm_awal" required
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            </div>
-                            <div class="w-full md:w-1/2 px-3">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-last-name">
-                                    final hour of teaching
-                                </label>
-                                <input type="time" name="jm_akhir" required
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap -mx-3 mb-6">
+
+
+
+                            {{-- === input pjclub ===  --}}
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
@@ -110,29 +157,41 @@
                                 </select>
                             </div>
 
-                            {{-- fitur disabled --}}
-                            <div class="w-full md:w-1/2 px-3">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 "
-                                    for="grid-last-name" style="color: red">
-                                    early attendance deadline ( fitur disabled)
-                                </label>
-                                <input type="timestamp"
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    disabled>
-                            </div>
-                            {{-- fitur disabled --}}
 
                         </div>
-                        <div class="flex flex-wrap -mx-3 mb-6">
-                            <div class="w-full md:w-1/2 px-3">
 
+
+                        <div class="flex flex-wrap -mx-3 mb-6">
+
+                            {{-- === input first teaching ===  --}}
+                            <div class="w-full md:w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    for="grid-last-name">
+                                    first hour teaching
+                                </label>
+                                <input type="time" name="jm_awal" required
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            </div>
+
+
+
+                            {{-- === input final attendance deadline ===  --}}
+                            <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
                                     final attendance deadline
                                 </label>
-                                <input type="number" name="dj_akhir" required
+                                <input type="number" placeholder="cth: 2 ( jam )" name="dj_akhir" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             </div>
+
+                        </div>
+
+
+                        <div class="flex flex-wrap -mx-3 mb-6">
+
+
+                            {{-- === input  teaching schedule date ===  --}}
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
@@ -142,9 +201,35 @@
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             </div>
 
+                            {{-- === input early attendance deadline ===  --}}
+                            <div class="w-full md:w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 "
+                                    for="grid-last-name" style="color: red">
+                                    early attendance deadline ( fitur disabled)
+                                </label>
+                                <input type="timestamp"
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    disabled>
+                            </div>
+                            {{-- === fitur disabled === --}}
+
+
 
                         </div>
+
+
                         <div class="flex flex-wrap -mx-3 mb-6">
+                            {{-- === input final hour of teaching ===  --}}
+                            <div class="w-full md:w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    for="grid-last-name">
+                                    final hour of teaching
+                                </label>
+                                <input type="time" name="jm_akhir" required
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            </div>
+
+                            {{-- === input status schedule ===  --}}
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
@@ -158,63 +243,25 @@
                                 </select>
                             </div>
 
-                            <div class="w-full md:w-1/2 px-3">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-last-name" style="color: rgb(192, 109, 2)">
-                                    api google maps ( optional)
+                        </div>
+
+
+                        <div class="flex flex-wrap  px-3 -mx-3 mb-6">
+                            {{-- === input  api google maps ===  --}}
+                            <div class="w-full  >
+                                <label class="block uppercase
+                                tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name"
+                                style="color: rgb(192, 109, 2)">
+                                api google maps ( optional)
                                 </label>
                                 <input type="text" name="api_maps"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     placeholder="link google maps">
                             </div>
 
-
-                        </div>
-                        <div class="flex flex-wrap -mx-3 mb-6">
-                            <div class="w-full md:w-1/2 px-3">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-last-name">
-                                    Program academy
-                                </label>
-                                <select name="id_program" id="program" required
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select Program</option>
-                                    @foreach ($getDataProgram as $program)
-                                        <option value="{{ $program->id }}">{{ $program->program }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="w-full md:w-1/2 px-3">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-last-name">
-                                    Level academy
-                                </label>
-                                <select name="id_level" id="level" required
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select Level</option>
-                                    @foreach ($getDataLevel as $level)
-                                        <option value="{{ $level->id }}">{{ $level->levels }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                         </div>
 
-                        <div class="flex flex-wrap -mx-3 mb-6">
-                            <div class="w-full  px-3" style="display: none;">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-last-name">
-                                    school
-                                </label>
-                                <select name="id_sekolah" id="school"
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select School</option>
-                                    @foreach ($getDataSchool as $school)
-                                        <option value="{{ $school->id_sekolah }}">{{ $school->sekolah }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
+                        {{-- === input table siswa ===  --}}
                         <table class="w-full leading-normal">
                             <thead>
                                 <tr>
@@ -223,9 +270,10 @@
                                 </tr>
                             </thead>
                             <tbody id="siswa-table-body">
-                                <!-- Rows will be populated here based on selected school -->
+                                {{-- === isi table data siswa === --}}
                             </tbody>
                         </table>
+
                 </div>
 
                 <br>

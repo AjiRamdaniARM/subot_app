@@ -1,5 +1,5 @@
 <x-app-layout>
-    @include('admin.build.components.trainer.modalPrivacy')
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 

@@ -217,7 +217,7 @@
 
                     <!-- details-footer start -->
                     <section class="details-footer d-flex align-items-center justify-content-between gap-8 w-100">
-                        <p><span>{{ date('H:i', strtotime($getScheduleTrainer->dj_akhir)) }}</span></p>
+                        <p><span>{{ $getScheduleTrainer->dj_akhir }} Jam</span></p>
                         {{-- <a href="{{ url('/laporantrainer/' . $getScheduleTrainer->id_schedules) }}">Continue</a> --}}
                         @if ($getScheduleTrainer->dokumentasi == 'Ya')
                             <a href="{{ url('/laporantrainer/' . $getScheduleTrainer->id_schedules) }}">Continue</a>

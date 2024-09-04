@@ -142,20 +142,15 @@ class ScheduleController extends Controller
         return $uniqueId;
     }
 
-    public function replace(Request $request, $nama)
+    public function replace(Request $request, $id_schedules)
     {
 
-        if ($nama == null) {
+        if ($id_schedules == null) {
             return response()->json(['status' => 404]);
         }
 
-        $getDataTrainer = dataTrainer::where('nama', $nama)->first();
 
-        if (! $getDataTrainer) {
-            return response()->json(['status' => 404, 'message' => 'Trainer not found']);
-        }
-
-        $getData = Schedules::where('id_trainer', $getDataTrainer->id)->firstOrFail();
+        $getData = Schedules::where('id', $id_schedules)->firstOrFail();
 
         $getData->id_trainer = $request->input('id_trainer');
         $getData->save();

@@ -3,6 +3,7 @@
     <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.sidenav')
         @include('modalSekolah')
+
         <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
             <!-- Navbar -->
             @include('admin.build.components.navbar')
@@ -19,13 +20,18 @@
 
                                     {{-- === fitur filter data tanggal === --}}
                                     <form id="filter-form" class="mb-4">
-                                        <div class="flex items-center gap-4">
+                                        @include('admin.build.components.javascriptBlade.sistem')
+                                        <div class="flex flex-wrap  items-center gap-4" style="gap:10px">
+                                            <a href="{{ route('laporan.custom') }}" class="button-custom"
+                                                id="custom-laporan-btn"> Custom
+                                                Laporan</a>
+                                            @include('admin.build.components.javascriptBlade.sistem')
                                             <input type="date" id="start-date" name="start_date"
-                                                class="border rounded p-2" placeholder="Start Date">
+                                                class="border rounded p-2" placeholder="Start Date" required>
                                             <input type="date" id="end-date" name="end_date"
-                                                class="border rounded p-2" placeholder="End Date">
-                                            <button type="submit"
-                                                class="px-4 py-2 bg-blue-500 text-white rounded">Filter</button>
+                                                class="border rounded p-2" placeholder="End Date" required>
+                                            <button type="submit" id="filter-button"
+                                                class=" py-2 bg-blue-500 text-white rounded button-filter">Filter</button>
                                         </div>
                                     </form>
                                 </div>

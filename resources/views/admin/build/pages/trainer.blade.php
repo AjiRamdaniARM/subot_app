@@ -1,5 +1,4 @@
 <x-app-layout>
-    @include('admin.build.components.trainer.modalPrivacy')
 
     <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.popUpTrainer')
@@ -24,6 +23,32 @@
                                 <button onclick="window.location.href='#popup'" class="bt-trainer">
                                     <span>+ New Trainer</span>
                                 </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="exportBtn" onclick="exportExcel()" class="bt-export">
+                                    <span id="exportText">Export Excel</span>
+                                    <span id="loadingSpinner" style="display: none;">Loading...</span>
+                                </button>
+
+                                <script>
+                                    function exportExcel() {
+                                        // Mengubah tampilan button menjadi loading
+                                        var exportText = document.getElementById('exportText');
+                                        var loadingSpinner = document.getElementById('loadingSpinner');
+
+                                        exportText.style.display = 'none'; // Sembunyikan teks "Export Excel"
+                                        loadingSpinner.style.display = 'inline'; // Tampilkan teks "Loading..."
+
+                                        // Redirect ke URL download
+                                        window.location.href = '{{ route('trainer.export') }}';
+
+                                        // Reset tampilan button setelah beberapa waktu
+                                        setTimeout(function() {
+                                            exportText.style.display = 'inline';
+                                            loadingSpinner.style.display = 'none';
+                                        }, 3000); // Reset setelah 3 detik, atau sesuaikan dengan durasi download
+                                    }
+                                </script>
+
                             </div>
                             <div class="flex-auto px-0 pt-0 pb-2">
                                 <div class="p-0 overflow-x-auto">
@@ -73,14 +98,16 @@
                                                     </td>
                                                     <td
                                                         class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-
                                                         {{-- <button onclick="window.dialog.showModal();"> --}}
-                                                        <a
-                                                            href="{{ url('/dataTrainer/private/' . $trainerGet->nama) }}">
+                                                        {{-- <button
+                                                            href="{{ url('/dataTrainer/private/' . $trainerGet->nama) }}"> --}}
+                                                        @include('admin.build.components.trainer.modalPassword')
+                                                        <button
+                                                            onclick="window.modalPassword{{ $trainerGet->id }}.showModal();">
                                                             <span
                                                                 class="animasi-button bg-gradient-to-tl from-red-600 to-rose-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white ">Private
                                                                 Data</span>
-                                                        </a>
+                                                        </button>
 
                                                     </td>
                                                     <td
@@ -93,6 +120,7 @@
                                                             class="text-xs font-semibold leading-tight text-slate-400 animasi-delete-hover">
                                                             Delete </a>
                                                         @include('admin.build.components.trainer.popUpTrainerDelete')
+
                                                     </td>
                                                 </tr>
                                             @endforeach

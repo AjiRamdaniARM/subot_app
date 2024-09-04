@@ -1,24 +1,44 @@
-<dialog id="dialog">
-    <form id="formId" action="{{ url('/privacy') }}" method="POST">
+<dialog id="modalPassword{{ $trainerGet->id }}">
+    <h2 class="poppins-bold">{{ $trainerGet->nama }}</h2>
+    <form id="formPin{{ $trainerGet->id }}">
         @csrf
-        <h2 class="poppins-bold">This data is personal</h2>
-        <div class="voucher-container">
-            <h6 class="voucher-title">If you wish to access this data, please enter your PIN <span></span></h6>
+        <div class="voucher-code-container-admin">
+            <h6 class="voucher-code-title-admin">Insert PIN</h6>
+            <input type="text" id="pinInput" name="pin" class="voucher-input p-4" required>
         </div>
-        <div class="voucher-code-container">
-            <h6 class="voucher-code-title">Code Pin</h6>
-            <input type="password" name="pin" class="voucher-input" required>
-        </div>
-        <button type="submit" class="voucher-button">Access Now</button>
-        @if ($errors->has('pin'))
-            <div>{{ $errors->first('pin') }}</div>
-        @endif
+        <button type="submit" class="voucher-button-admin">Open</button>
     </form>
-
-    <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>
+    <button onclick="window.modalPassword{{ $trainerGet->id }}.close();" aria-label="close" class="x">❌</button>
 </dialog>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#formPin{{ $trainerGet->id }}').submit(function(e) {
+            e.preventDefault();
 
+            var formData = $(this).serialize();
+            const trainerId = "{{ $trainerGet->id }}"; // Mengambil ID dari Blade
 
+            $.ajax({
+                url: '/dataTrainer/verifyPin/' + trainerId,
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response.success) {
+                        window.location.href =
+                            "{{ url('/dataTrainer/private/' . $trainerGet->nama) }}";
+                    } else {
+                        alert('PIN salah, coba lagi!');
+                    }
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan, silakan coba lagi nanti.');
+                }
+            });
+        });
+    });
+</script>
 
 <style>
     .poppins-bold {
@@ -26,8 +46,8 @@
         font-weight: bold;
     }
 
-    .voucher-container {
-        border: 2px solid #ff8c00;
+    .voucher-container-admin {
+        border: 2px solid #ff6f00;
         background-color: #ffffff;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         border-radius: 1rem;
@@ -40,16 +60,16 @@
         text-align: left;
     }
 
-    .voucher-code-container {
+    .voucher-code-container-admin {
         padding: 1.25rem;
-        background-color: #fdcd93;
+        background-color: #FFAF00;
         border-radius: 1rem;
         position: relative;
         margin-top: 1rem;
     }
 
-    .voucher-code-title {
-        color: #8a4f1e;
+    .voucher-code-title-admin {
+        color: #904913;
         font-weight: bold;
     }
 
@@ -61,9 +81,9 @@
         position: relative;
     }
 
-    .voucher-button {
+    .voucher-button-admin {
         display: block;
-        background-color: #fac760;
+        background-color: #FFAF00;
         position: relative;
         margin-top: 1rem;
         border-radius: 0.75rem;
@@ -76,8 +96,8 @@
         transition: background-color 0.2s;
     }
 
-    .voucher-button:hover {
-        background-color: #fdcb93;
+    .voucher-button-admin:hover {
+        background-color: #c38705;
     }
 
     /*Dialog Styles*/
@@ -135,8 +155,6 @@
     }
 
     /*General Styles*/
-
-
     button.primary {
         display: inline-block;
         font-size: 0.8rem;
@@ -167,15 +185,3 @@
         }
     }
 </style>
-
-
-
-{{-- modal --}}
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        @if (session()->has('participants'))
-            document.getElementById('dialog').showModal();
-        @endif
-    });
-</script>

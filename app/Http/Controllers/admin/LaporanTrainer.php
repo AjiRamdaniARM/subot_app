@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\CustomLaporanExport;
 use App\Exports\LaporanExport;
 use App\Http\Controllers\Controller;
 use App\Models\BigData;
 use App\Models\DataMateri;
 use App\Models\DataSiswa;
+use App\Models\dataTrainer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -71,10 +73,6 @@ class LaporanTrainer extends Controller
             ->first();
 
         if ($schedules) {
-            // $getDataBig = BigData::where('id_bigData', $schedules->id_bigData)->pluck('id_siswa');
-
-            // Dapatkan data siswa berdasarkan id_siswa dari hasil sebelumnya
-            // $getDataStudent = DataSiswa::whereIn('id', $getDataBig)->get();
             $getDataStudent = DB::table('big_data')
                 ->where('big_data.id_bigData', $schedules->id_bigData)
                 ->join('data_siswas', 'big_data.id_siswa', '=', 'data_siswas.id')
@@ -114,4 +112,91 @@ class LaporanTrainer extends Controller
 
         return Excel::download(new LaporanExport($id_schedules), 'laporan_'.$id_schedules.'.xlsx');
     }
+
+    public function customLaporan(Request $request) {
+        // === get data trainer report === //
+            // Ambil input dari form
+        $trainerId = $request->input('trainer_id');
+        $startDate = Carbon::parse($request->query('start_date'))->format('Y-m-d');
+        $endDate = Carbon::parse($request->query('end_date'))->format('Y-m-d');
+
+        $schedules = DB::table('schedules')
+        ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
+        ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
+        ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
+        ->leftJoin('data_programs', 'schedules.id_program', '=', 'data_programs.id')
+        ->select(
+            'schedules.*',
+            'schedules.id as id_schedules',
+            'data_trainers.*',
+            'data_trainers.id as id_trainer',
+            'data_kelas.*',
+            'data_laporans.*',
+            'data_trainers.nama as nama_trainer',
+            'data_programs.*',
+            'data_programs.id as id_program'
+        )
+        ->where('data_trainers.id', $trainerId) // Filter berdasarkan trainer_id
+        ->whereBetween('schedules.tanggal_jd', [$startDate, $endDate]) // Filter berdasarkan rentang tanggal
+        ->get();
+
+
+        $query = DB::table('schedules')
+        ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
+        ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
+        ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
+        ->leftJoin('data_programs', 'schedules.id_program', '=', 'data_programs.id')
+        ->select(
+            'data_trainers.id as id_trainer',
+            'data_trainers.nama as nama_trainer',
+            DB::raw('COUNT(data_laporans.id) as total_laporan')  // Hitung total laporan
+        )
+        ->where('ab_trainer', 'Hadir')
+        ->groupBy('data_trainers.id', 'data_trainers.nama')  // Kelompokkan berdasarkan ID dan nama trainer saja
+        ->orderBy('nama_trainer', 'ASC')  // Urutkan berdasarkan nama trainer
+        ->get();
+
+
+
+
+        // === get trainer === //
+        $getTrainer = dataTrainer::orderBy('nama', 'asc')->get();
+
+
+
+        return view('admin.build.components.laporan.customLaporan', compact('query','getTrainer','schedules'));
+    }
+    public function exportCustom(Request $request)
+    {
+        $trainerId = $request->input('trainer_id');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $selectedFields = $request->input('fields');
+
+        $query = DB::table('schedules')
+            ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
+            ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
+            ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
+            ->leftJoin('data_programs', 'schedules.id_program', '=', 'data_programs.id')
+            ->leftJoin('data_levels', 'schedules.id_level', '=', 'data_levels.id')
+            ->leftJoin('data_alats', 'schedules.id_alat', '=', 'data_alats.id')
+            ->leftJoin('data_materis', 'data_laporans.id_materi', '=', 'data_materis.id')
+            ->leftJoin('big_data', 'schedules.id_bigData', '=', 'big_data.id_bigData')
+            ->select(array_merge(
+                ['schedules.id as id_schedules'],
+                $selectedFields,
+                ['big_data.absensi_anak'],
+            ))
+            ->where('schedules.id_trainer', $trainerId)
+            ->whereBetween('schedules.tanggal_jd', [$startDate, $endDate])
+            ->get();
+
+        // Proses data sesuai dengan format export yang diinginkan (Excel, CSV, dll.)
+        // Misalnya menggunakan Laravel Excel:
+        return Excel::download(new CustomLaporanExport($query), 'Custom_laporan.xlsx');
+    }
+
+
+
+
 }

@@ -36,10 +36,10 @@ class Absensi extends Controller
 
     public function UpDrive(Request $request, $id_schedules)
     {
+        // Mengambil data schedule berdasarkan ID
         $drive = Schedules::findOrFail($id_schedules);
-        if (! $drive) {
-            return redirect()->back()->with('error', 'Drive not found.');
-        }
+
+        // Mengambil data terkait schedule dari berbagai tabel
         $getDataSchedule = DB::table('schedules')
             ->where('schedules.id', $id_schedules)
             ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
@@ -62,18 +62,32 @@ class Absensi extends Controller
                 'data_levels.*',
                 'data_levels.id as id_level',
                 'data_sekolahs.*'
-                // tambahkan kolom lainnya sesuai kebutuhan
             )
             ->first();
 
-        $drive->dokumentasi = 'Ya';
-        $image = $request->file('file');
-        $imageName = $getDataSchedule->trainer_name.'_'.$getDataSchedule->tanggal_jd.$image->getClientOriginalExtension();
+        // Memeriksa apakah ada file yang diunggah
+        if (!$request->hasFile('file')) {
+            // Jika tidak ada file, update dokumentasi menjadi 'Tidak'
+            $drive->dokumentasi = 'Tidak';
+            $drive->save();
 
-        Storage::disk('google')->put($imageName, File::get($image));
+            return redirect('laporantrainer/'.$id_schedules)->with('success', 'No file uploaded, status updated successfully.');
+        } else {
+            // Jika ada file, simpan file ke Google Drive dan update dokumentasi menjadi 'Ya'
+            $drive->dokumentasi = 'Ya';
+            $image = $request->file('file');
 
-        $drive->save();
+            // Memperbaiki nama file dengan menambahkan titik (.) sebelum ekstensi file
+            $imageName = $getDataSchedule->trainer_name . '_' . $getDataSchedule->tanggal_jd . '.' . $image->getClientOriginalExtension();
 
-        return redirect('laporantrainer/'.$id_schedules)->with('success', 'File uploaded successfully.');
+            // Simpan file ke Google Drive
+            Storage::disk('google')->put($imageName, File::get($image));
+
+            // Update database
+            $drive->save();
+
+            return redirect('laporantrainer/'.$id_schedules)->with('success', 'File uploaded and status updated successfully.');
+        }
     }
+
 }

@@ -13,16 +13,25 @@ use App\Http\Controllers\superAdmin\StaffController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
-
     // role admin
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dataTrainer', [DataTrainerController::class, 'index'])->name('trainer.index');
-    Route::get('/dataTrainer/private/{nama}', [DataTrainerController::class, 'dataPrivate'])->name('trainer.dataPrivate');
+    Route::middleware(['auth', 'pin.verified'])->group(function () {
+        Route::get('/dataTrainer/private/{nama}', [DataTrainerController::class, 'dataPrivate'])->name('trainer.dataPrivate');
+    });
+
 
     // post trainer
     Route::post('/dataTrainer/add', [DataTrainerController::class, 'store'])->name('trainer.add');
     Route::post('/dataTrainer/edit/{nama}', [DataTrainerController::class, 'edited'])->name('trainer.edit');
     Route::get('/dataTrainer/delete/{nama}', [DataTrainerController::class, 'delete'])->name('trainer.delete');
+    // pin password trainer
+    Route::post('/dataTrainer/verifyPin/{id}', [DataTrainerController::class, 'verifyPIN'])->name('trainer.verifyPIN');
+    Route::post('dataTrainer/private/custom/{nama}', [DataTrainerController::class, 'custom'])->name('trainer.custom');
+
+    // export route data trainer
+    Route::get('dataTrainer/export', [DataTrainerController::class, 'export'])->name('trainer.export');
+
 
     Route::post('/daftar/prosses/', [SistemKidsCoontroller::class, 'addSchool'])->name('add.school');
     Route::get('/dataKids', [SistemKidsCoontroller::class, 'index'])->name('index.kids');
@@ -71,7 +80,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/schedule/edit/{id_schedules}', [ScheduleController::class, 'editSchedule'])->name('schedule.edit');
     Route::post('/schedule/prosess/{id_schedules}', [ScheduleController::class, 'prossesEdit'])->name('schedule.prossesEdit');
     Route::post('/schedule/create/prosses', [ScheduleController::class, 'post'])->name('schedule.post');
-    Route::post('/schedule/replaceTrainer/{nama}', [ScheduleController::class, 'replace'])->name('schedule.replace');
+    Route::post('/schedule/replaceTrainer/{id_schedules}', [ScheduleController::class, 'replace'])->name('schedule.replace');
     Route::post('/schedule/replaceStatus/{id_schedules}', [ScheduleController::class, 'status'])->name('schedule.status');
     Route::get('/schedule/deleteSchedule/{id_schedules}', [ScheduleController::class, 'delete'])->name('schedule.delete');
 
@@ -88,6 +97,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/laporanTrainer/{id_schedules}', [LaporanTrainer::class, 'laporan'])->name('laporan.berkas');
     //  route laporan excel
     Route::get('/laporanTrainer/Excel/{id_schedules}', [LaporanTrainer::class, 'excel'])->name('laporan.excel');
+
+    // route custom laporan
+    Route::get('customLaporan', [LaporanTrainer::class, 'customLaporan'])->name('laporan.custom');
+    Route::post('ExportLaporanCustom', [LaporanTrainer::class, 'exportCustom'])->name('export.custom');
 
     // privacyPin
     Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');

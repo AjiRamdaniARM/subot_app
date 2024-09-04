@@ -19,12 +19,16 @@ class SistemKidsCoontroller extends Controller
 
         $getDataClass = DataKelas::all();
 
+        $getDataCountAll = DataSiswa::count();
+        $getDataCountClub = DataSiswa::where('id_kelas', 1)->count();
+        $getDataCountPrivate = DataSiswa::where('id_kelas', 2)->count();
+
         $getDataKids = DB::table('data_siswas')
             ->join('data_sekolahs', 'data_siswas.id_sekolah', '=', 'data_sekolahs.id_sekolah')
             ->select('data_siswas.*', 'data_sekolahs.*', 'data_siswas.alamat as alamat_anak')
             ->orderBy('data_siswas.nama_lengkap', 'asc')->paginate(10);
 
-        return view('admin.build.pages.dataKids', compact('getDataKids', 'getSelect', 'getDataSchool', 'getDataClass'));
+        return view('admin.build.pages.dataKids', compact('getDataKids', 'getSelect', 'getDataSchool', 'getDataClass', 'getDataCountAll','getDataCountClub','getDataCountPrivate'));
     }
 
     // validasi data anak dari form pendaftaran ( Hosting ) 19 / 07 / 2024
@@ -314,7 +318,7 @@ class SistemKidsCoontroller extends Controller
         }
         $getRequest->delete();
 
-        return redirect()->back()->with('success', 'Trainer data has been deleted');
+        return redirect()->back()->with('success', 'Data Kids data has been deleted');
     }
 
     // private Halaman kids

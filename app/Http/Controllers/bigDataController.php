@@ -37,17 +37,17 @@ class bigDataController extends Controller
             ->paginate(6, ['*'], 'level');
 
         $getDataMateri = DB::table('data_materis')
-            ->join('data_levels', 'data_materis.id_level', '=', 'data_levels.id')
+            ->leftJoin('data_levels', 'data_materis.id_level', '=', 'data_levels.id')
             ->select('data_materis.*', 'data_materis.id as id_materi', 'data_levels.*', 'data_levels.levels as nama_level') // Pilih kolom yang ingin Anda ambil
             ->orderBy('data_materis.created_at', 'DESC')
             ->paginate(6, ['*'], 'materi');
 
         $getDataClass = DataKelas::orderBy('created_at', 'DESC')->paginate(6, ['*'], 'kelas');
         $getDataTools = DB::table('data_alats')
-            ->join('data_levels', 'data_alats.id_level', '=', 'data_levels.id')
+            ->leftJoin('data_levels', 'data_alats.id_level', '=', 'data_levels.id')
             ->select('data_alats.*', 'data_alats.id as id_alats', 'data_levels.*', 'data_levels.levels as nama_level') // Pilih kolom yang ingin Anda ambil
             ->orderBy('data_alats.created_at', 'DESC')
-            ->paginate(6, ['*'], 'alat');
+            ->paginate(9, ['*'], 'alat');
 
         return view('admin.build.pages.bigData', compact('getDataSekolahCount', 'getDataTools', 'getDataClass', 'getDataLevels', 'getDataPrograms', 'activePercentage', 'getSekolah', 'getDataProgram', 'getDataLevel', 'getDataKelas', 'getDataAlat', 'getDataMateri', 'getDataMateriCount'));
     }

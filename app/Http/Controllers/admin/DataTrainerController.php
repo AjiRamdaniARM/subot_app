@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\DataTrainerExport;
 use App\Http\Controllers\Controller;
 use App\Models\dataTrainer as ModelsDataTrainer;
+use Exception;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DataTrainerController extends Controller
 {
@@ -54,7 +57,7 @@ class DataTrainerController extends Controller
             'telephone' => $request->telephone,
             'profile' => $profileFileName,
             'ttd' => $ttdFileName,
-            'id_card' => $uniqueId,
+            'password' => $uniqueId,
         ]);
 
         return redirect()->back()->with('success', 'trainer data has been entered');
@@ -185,5 +188,38 @@ class DataTrainerController extends Controller
         $getRequest->delete();
 
         return redirect()->back()->with('success', 'Trainer data has been deleted');
+    }
+
+    public function verifyPIN(Request $request,$id) {
+        $correctPin = '2024';
+        if ($request->pin === $correctPin) {
+            session(['pin_verified' => true]);
+            return response()->json(['success' => true]);
+        }
+    }
+
+    public function custom(Request $request, $nama) {
+        try {
+            // Mencari Data Trainer berdasarkan nama
+            $putPass = ModelsDataTrainer::where('nama', $nama)->first();
+
+            if ($putPass) {
+                // Mengupdate password dengan data dari inputan
+                $putPass->password = $request->input('pass'); // Menggunakan bcrypt untuk keamanan
+                $putPass->save();
+
+                return response()->json(['success' => true]);
+            } else {
+                // Jika trainer tidak ditemukan, lempar pengecualian
+                throw new Exception("Trainer dengan nama $nama tidak ditemukan.");
+            }
+        } catch (Exception $e) {
+            // Menangkap pengecualian dan menanganinya, misalnya dengan mengembalikan pesan error
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    public function export()
+    {
+        return Excel::download(new DataTrainerExport(), 'DataTrainerAll'.'.xlsx');
     }
 }

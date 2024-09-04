@@ -1,5 +1,4 @@
 <x-app-layout>
-    @include('admin.build.components.trainer.modalPrivacy')
 
     <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.popUpTrainer')
@@ -80,8 +79,6 @@
                                 <th class="px-4 py-2">Date of Birth</th>
                             </tr>
                         </thead>
-
-
                         <tbody>
                             @foreach ($getDataStudent as $siswa)
                                 <input type="text" name="id_siswa[]" hidden value="{{ $siswa->id }}">

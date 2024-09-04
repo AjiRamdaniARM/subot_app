@@ -4274,9 +4274,16 @@ h6 {
     transition: all;
     color: rgb(0, 0, 0);
 }
-.bt-trainer:hover:focus {
-    transform: scale(1.05);
-    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.1);
+.bt-trainer:hover {
+    transform: scale(1.1);
+    background: gray !important;
+    transition: all;
+
+}
+.bt-trainer:focus {
+    transform: scale(1.1);
+    background: gray !important;
+    transition: all;
 
 }
 
@@ -4329,6 +4336,21 @@ h6 {
     border-radius: 10px;
     overflow: hidden;
   }
+
+  /* Media Query untuk perangkat dengan lebar layar maksimum 768px (tablet dan mobile) */
+@media (max-width: 768px) {
+    .popup__content {
+        width: 100%;
+      }
+}
+
+/* Media Query untuk perangkat dengan lebar layar maksimum 480px (mobile) */
+@media (max-width: 480px) {
+    .popup__content {
+        width: 100%;
+      }
+}
+
   .popup__text {
     font-size: 1.4rem;
     margin-bottom: 4rem;
