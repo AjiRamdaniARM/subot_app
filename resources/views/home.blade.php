@@ -15,9 +15,17 @@
                     </div>
                     <div class="w-full flex flex-col gap-2">
                         <label class="font-semibold text-xs text-gray-400 ">Role Admin</label>
-                        <button onclick="window.location.href='{{ route('loginAdmin') }}'"
-                            class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none border-gray-500 bg-gray-900 text-white hover:scale-105 hover:bg-blue-600 focus:scale-105 hover:font-bold transition-all">Login
-                            With Admin</button>
+                        @auth
+                            <button onclick="window.location.href='{{ route('dashboard') }}'"
+                                class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none border-gray-500 bg-gray-900 text-white hover:scale-105 hover:bg-blue-600 focus:scale-105 hover:font-bold transition-all">Login
+                                With Admin</button>
+                        @endauth
+                        @guest
+                            <button onclick="window.location.href='{{ route('loginAdmin') }}'"
+                                class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none border-gray-500 bg-gray-900 text-white hover:scale-105 hover:bg-blue-600 focus:scale-105 hover:font-bold transition-all">Login
+                                With Admin</button>
+                        @endguest
+
                     </div>
                 </div>
                 <div class="w-full flex flex-col gap-2">

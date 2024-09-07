@@ -20,7 +20,6 @@ class CustomLaporanExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        // Sesuaikan heading berdasarkan kolom yang dipilih
         return array_keys((array) $this->data->first());
     }
 }

@@ -17,17 +17,24 @@
                                 Or Login with e-mail
                             </div>
                         </div>
-                        <form action="{{ route('loginAdmin') }}" method="POST">
+                        <form action="{{ route('loginAdmin') }}" method="POST" id="formLogin">
                             @csrf
                             <div class="mx-auto max-w-xs">
                                 <input
                                     class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                                    type="email" placeholder="Email" name="email" />
-                                <input
-                                    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                                    type="password" placeholder="Password" name="password" />
-                                <button type="submit"
-                                    class="mt-5 tracking-wide font-semibold bg-[#058EB5] text-gray-100 w-full py-4 rounded-lg hover:bg-[#096882] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                                    type="email" placeholder="Email" name="email" required />
+                                <div class="relative w-full mt-5">
+                                    <input id="password"
+                                        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                                        type="password" placeholder="Password" name="password" required />
+                                    <span id="togglePassword"
+                                        class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+                                        <i class="fas fa-eye text-gray-600"></i>
+                                    </span>
+                                </div>
+
+                                <button type="submit" id="submitLogin"
+                                    class="mt-5 tracking-wide font-semibold bg-[#058EB5] text-gray-100 w-full py-4 rounded-lg hover:bg-[#777777]  transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                                     <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
@@ -38,6 +45,31 @@
                                         Login
                                     </span>
                                 </button>
+                                <script>
+                                    document.getElementById('formLogin').addEventListener('submit', function(event) {
+                                        var submitButton = document.getElementById('submitLogin');
+                                        var formData = new FormData(this);
+                                        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;Loading';
+                                        submitButton.disabled = true;
+                                        setTimeout(function() {
+                                            submitButton.innerHTML = 'Login';
+                                            submitButton.disabled = false;
+                                        }, 3000);
+                                    });
+
+                                    const togglePassword = document.querySelector('#togglePassword');
+                                    const password = document.querySelector('#password');
+
+                                    togglePassword.addEventListener('click', function() {
+                                        // Toggle the type attribute
+                                        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                                        password.setAttribute('type', type);
+
+                                        // Toggle the icon
+                                        this.querySelector('i').classList.toggle('fa-eye');
+                                        this.querySelector('i').classList.toggle('fa-eye-slash');
+                                    });
+                                </script>
                                 <p class="mt-6 text-xs text-gray-600 text-center">
                                     I agree to abide by templatana's
                                     <a href="#" class="border-b border-gray-500 border-dotted">
@@ -54,9 +86,9 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-1 bg-indigo-100 text-center hidden lg:flex">
-                <div class="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
-                    style="background-image: url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg');">
+            <div class="flex-1 bg-[#0190B7] text-center hidden lg:flex">
+                <div class="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"> <img
+                        src="{{ asset('assets/img/animasiLogin.gif') }}" alt="">
                 </div>
             </div>
         </div>

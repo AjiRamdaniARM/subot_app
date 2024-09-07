@@ -6,6 +6,7 @@
             <h6 class="voucher-code-title-admin">Select Trainer</h6>
             <select name="trainer_id" class="voucher-input px-4" required>
                 <option value="">Select Trainer</option>
+                <option value="all">All Trainer</option>
                 @foreach ($getTrainer as $trainer)
                     <option value="{{ $trainer->id }}">{{ $trainer->nama }}</option>
                 @endforeach
@@ -27,7 +28,7 @@
             <div class="px-4">
                 <input type="checkbox" name="fields[]" value="nama" checked> Nama Trainer <br>
                 <input type="checkbox" name="fields[]" value="hari" checked> Hari <br>
-                <input type="checkbox" name="fields[]" value="kelas" checked> Class <br>
+                <input type="checkbox" name="fields[]" value="data_kelas.kelas" checked> Class <br>
                 <input type="checkbox" name="fields[]" value="program" checked> Program <br>
                 <input type="checkbox" name="fields[]" value="levels" checked> Level <br>
                 <input type="checkbox" name="fields[]" value="alat" checked> Alat <br>

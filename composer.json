@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1",
         "pusher/pusher-php-server": "^7.2",
+        "twilio/sdk": "^8.3",
         "yaza/laravel-google-drive-storage": "^3.0"
     },
     "require-dev": {

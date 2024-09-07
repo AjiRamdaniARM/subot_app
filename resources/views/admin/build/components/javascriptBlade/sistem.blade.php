@@ -35,4 +35,6 @@
     });
 </script>
 
-</style>
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+</script>

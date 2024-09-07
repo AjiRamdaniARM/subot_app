@@ -6,6 +6,7 @@
             <h6 class="voucher-code-title-admin">Select Trainer</h6>
             <select name="trainer_id" class="voucher-input px-4" id="" required>
                 <option value="">Select Trainer</option>
+                <option value="all">All Trainer</option>
                 @foreach ($getTrainer as $trainer)
                     <option value="{{ $trainer->id }}">{{ $trainer->nama }}</option>
                 @endforeach

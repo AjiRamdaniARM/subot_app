@@ -5,6 +5,7 @@
 
     <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.laporan.modalFiturFilter')
+        @include('admin.build.components.laporan.modalTemplateExcel')
         @include('admin.build.components.laporan.exportModalFitur')
         @include('admin.build.components.popUpTrainer')
         {{-- sidenav --}}
@@ -57,18 +58,24 @@
                             class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                             <div
                                 class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                                <div class="flex items-center justify-start">
+                                <div class="flex flex-wrap items-center justify-start" style="gap:15px">
                                     <h6>Laporan Trainer Custom</h6>
                                     &nbsp;&nbsp;&nbsp;
                                     <button onclick="window.modalFilter.showModal();"
                                         class="bg-gradient-to-tl from-gray-900 to-slate-800 font-bold text-white px-4 py-2 rounded hover:scale-102"
                                         style="transition:all;">
                                         Super Filter
-                                    </button> &nbsp;&nbsp;&nbsp;
+                                    </button>
                                     <button onclick="window.modalExport.showModal();"
                                         class="bg-gradient-to-tl from-red-600 to-slate-800 font-bold text-white px-4 py-2 rounded hover:scale-102"
                                         style="transition:all;">
                                         Super Export
+                                    </button>
+
+                                    <button onclick="window.modalTemplateExcel.showModal();"
+                                        class="bg-gradient-to-tl from-green-600 to-slate-800 font-bold text-white px-4 py-2 rounded hover:scale-102"
+                                        style="transition:all;">
+                                        Template Excel
                                     </button>
                                 </div>
                             </div>

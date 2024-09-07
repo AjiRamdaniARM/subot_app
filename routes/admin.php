@@ -101,6 +101,7 @@ Route::middleware('auth')->group(function () {
     // route custom laporan
     Route::get('customLaporan', [LaporanTrainer::class, 'customLaporan'])->name('laporan.custom');
     Route::post('ExportLaporanCustom', [LaporanTrainer::class, 'exportCustom'])->name('export.custom');
+    Route::post('ImportTemplate', [LaporanTrainer::class, 'ImportExcel'])->name('import.excel');
 
     // privacyPin
     Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');
