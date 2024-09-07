@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ScheduleUpdated;
+use App\Mail\Jadwal;
 use App\Models\BigData;
 use App\Models\DataAlat;
 use App\Models\DataKelas;
@@ -14,6 +15,8 @@ use App\Models\dataTrainer;
 use App\Models\Schedules;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+
 
 class ScheduleController extends Controller
 {
@@ -93,7 +96,6 @@ class ScheduleController extends Controller
             return response()->json(['error' => 'Trainer tidak ditemukan'], 404);
         }
         $uniqueId = $this->generateUniqueId($getDataTrainer->nama);
-        // Hasil validasi masuk ke tabel schedule
         Schedules::create([
             'id_trainer' => $request->id_trainer,
             'id_alat' => $request->id_alat,
@@ -119,6 +121,25 @@ class ScheduleController extends Controller
                 'id_bigData' => $uniqueId,
                 'id_siswa' => $siswaId,
             ]);
+        }
+
+        // === send email schedule trainer == //
+        if($getDataTrainer->email == null) {
+            return response()->json(['success' => false, 'message' => 'Email tidak ada']);
+        } else {
+            $message = 'Assalamualaikum Kak, ada jadwal nihh 😁👌, untuk infomasi lebih lanjut silahkan cek pada aplikasi subot atau bisa juga melalu webiste https://app.sukarobot.com/';
+            $details = [
+                'name' => $getDataTrainer->nama,
+                'email' => $getDataTrainer->email,
+                'message' => $message,
+                'tanggal_jd' => $request->tanggal_jd,
+                'jm_awal' => $request->jm_awal,
+                'jm_akhir' => $request->jm_akhir,
+                'dj_akhir' => $request->dj_akhir,
+            ];
+
+            // Kirim email ke alamat trainer
+            Mail::to($getDataTrainer->email)->send(new Jadwal($details));
         }
 
         event(new ScheduleUpdated($request->all()));
