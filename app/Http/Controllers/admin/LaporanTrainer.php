@@ -74,7 +74,7 @@ class LaporanTrainer extends Controller
                 'data_sekolahs.*',
                 'data_laporans.*'
 
-                // tambahkan kolom lainnya sesuai kebutuhan
+                // ===  tambahkan kolom lainnya sesuai kebutuhan === //
             )
             ->first();
 
@@ -139,8 +139,8 @@ class LaporanTrainer extends Controller
             'data_programs.*',
             'data_programs.id as id_program'
         )
-        ->whereBetween('schedules.tanggal_jd', [$startDate, $endDate]) // Filter tanggal
-        // Cek apakah user memilih 'all' atau trainer tertentu
+        ->whereBetween('schedules.tanggal_jd', [$startDate, $endDate]) // === Filter tanggal === //
+        // === Cek apakah user memilih 'all' atau trainer tertentu === //
         ->when($trainerId != 'all', function ($query) use ($trainerId) {
             return $query->where('data_trainers.id', $trainerId);
         })

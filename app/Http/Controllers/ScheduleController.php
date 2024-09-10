@@ -122,12 +122,19 @@ class ScheduleController extends Controller
                 'id_siswa' => $siswaId,
             ]);
         }
+        $message = 'Assalamualaikum Kak, ada jadwal nihh 😁👌, untuk infomasi lebih lanjut silahkan cek pada aplikasi subot atau bisa juga melalu webiste https://app.sukarobot.com/';
+
+        if($getDataTrainer->telephone == null) {
+            return response()->json(['success' => false, 'message' => 'Telephone tidak ada']);
+        } else {
+          // === api whatsApp === //
+        $waApi = "https://api.whatsapp.com/send?phone={$getDataTrainer->telephone}&text={$message}";
+        }
 
         // === send email schedule trainer == //
         if($getDataTrainer->email == null) {
             return response()->json(['success' => false, 'message' => 'Email tidak ada']);
         } else {
-            $message = 'Assalamualaikum Kak, ada jadwal nihh 😁👌, untuk infomasi lebih lanjut silahkan cek pada aplikasi subot atau bisa juga melalu webiste https://app.sukarobot.com/';
             $details = [
                 'name' => $getDataTrainer->nama,
                 'email' => $getDataTrainer->email,
@@ -143,8 +150,9 @@ class ScheduleController extends Controller
         }
 
         event(new ScheduleUpdated($request->all()));
-
-        return redirect()->route('schedule.index')->with('message', 'You have successfully created a trainer schedule');
+        return redirect()->away($waApi);
+        // return redirect()->route('schedule.index')
+        // ->with('message', 'You have successfully created a trainer schedule');
     }
 
     private function generateUniqueId($nama)

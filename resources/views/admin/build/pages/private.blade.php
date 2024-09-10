@@ -176,6 +176,13 @@
                                                 class="text-red-500 font-bold ">Custom
                                                 Password</button></span>
                                     </li>
+                                    <li
+                                        class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
+                                        <strong class="text-slate-700">Email:</strong> &nbsp;
+                                        {{ $getTrainerData->email }} <span><button
+                                                onclick="window.modalPass{{ $getTrainerData->id }}.showModal();"
+                                                class="text-red-500 font-bold ">Add/Edit Email</button></span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

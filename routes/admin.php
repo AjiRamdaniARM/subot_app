@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\DataTrainerController;
 use App\Http\Controllers\admin\LaporanTrainer;
+use App\Http\Controllers\api\nodeWaApi;
 use App\Http\Controllers\bigDataController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\form\FormulirController;
@@ -20,11 +21,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/dataTrainer/private/{nama}', [DataTrainerController::class, 'dataPrivate'])->name('trainer.dataPrivate');
     });
 
+    // email add trainer
+    Route::post('/dataTrainer/private/email/{nama}', [DataTrainerController::class, 'emailAdd'])->name('emailAdd.code');
 
     // post trainer
     Route::post('/dataTrainer/add', [DataTrainerController::class, 'store'])->name('trainer.add');
     Route::post('/dataTrainer/edit/{nama}', [DataTrainerController::class, 'edited'])->name('trainer.edit');
     Route::get('/dataTrainer/delete/{nama}', [DataTrainerController::class, 'delete'])->name('trainer.delete');
+
     // pin password trainer
     Route::post('/dataTrainer/verifyPin/{id}', [DataTrainerController::class, 'verifyPIN'])->name('trainer.verifyPIN');
     Route::post('dataTrainer/private/custom/{nama}', [DataTrainerController::class, 'custom'])->name('trainer.custom');
@@ -32,13 +36,13 @@ Route::middleware('auth')->group(function () {
     // export route data trainer
     Route::get('dataTrainer/export', [DataTrainerController::class, 'export'])->name('trainer.export');
 
-
     Route::post('/daftar/prosses/', [SistemKidsCoontroller::class, 'addSchool'])->name('add.school');
     Route::get('/dataKids', [SistemKidsCoontroller::class, 'index'])->name('index.kids');
     Route::get('/datakids/delete/{nama_lengkap}', [SistemKidsCoontroller::class, 'delete'])->name('delete.kids');
     Route::post('/datakids/edit/{nama_lengkap}', [SistemKidsCoontroller::class, 'edit'])->name('edit.kids');
     Route::post('/datakids/loading', [SistemKidsCoontroller::class, 'store'])->name('input.kids');
     Route::post('/datakids/loading/admin', [SistemKidsCoontroller::class, 'storeAdmin'])->name('admin.kids');
+
     // datakidsroute
     Route::get('/datakids/privateData/{nama_lengkap}', [SistemKidsCoontroller::class, 'privateData'])->name('private.kids');
     Route::get('/datakids/allExport', [SistemKidsCoontroller::class, 'exportDataKids'])->name('excel.kids');
@@ -107,6 +111,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/privacy', [PrivacyController::class, 'show'])->name('privacy.show');
     Route::post('/privacy/{nama}', [PrivacyController::class, 'checkPin'])->name('privacy.checkPin');
     Route::get('/privacy-content', [PrivacyController::class, 'content'])->name('privacy.content')->middleware('check.pin');
+
+    // backend node js wa
+    Route::get('/qr-code', [nodeWaApi::class, 'getQrCode'])->name('qr-code');
+    Route::get('/waApi', [nodeWaApi::class, 'ViewWaApi'])->name('wa-api');
+    Route::post('/send-message', [nodeWaApi::class, 'sendMessage'])->name('sendMessage');
 
 });
 

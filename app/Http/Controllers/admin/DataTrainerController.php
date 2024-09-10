@@ -222,4 +222,20 @@ class DataTrainerController extends Controller
     {
         return Excel::download(new DataTrainerExport(), 'DataTrainerAll'.'.xlsx');
     }
+
+    // == email controller == //
+    public function emailAdd(Request $request, $nama) {
+        try {
+            $getDataTrainer = ModelsDataTrainer::where('nama', $nama)->first();
+            if($getDataTrainer) {
+                $getDataTrainer->email = $request->input('email');
+                $getDataTrainer->save();
+
+                return response()->json(array('success' => 'data Email Sudah Masuk'));
+            }
+        } catch (Exception $e) {
+            // Menangkap pengecualian dan menanganinya, misalnya dengan mengembalikan pesan error
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }
