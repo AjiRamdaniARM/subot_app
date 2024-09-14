@@ -22,7 +22,6 @@ class ScheduleController extends Controller
 {
     public function index()
     {
-
         // === ambil data dari tabel schedules === //
         $getDataSchedule = DB::table('schedules')
             ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
@@ -150,9 +149,9 @@ class ScheduleController extends Controller
         }
 
         event(new ScheduleUpdated($request->all()));
-        return redirect()->away($waApi);
-        // return redirect()->route('schedule.index')
-        // ->with('message', 'You have successfully created a trainer schedule');
+
+        return redirect()->route('schedule.index')
+        ->with('waApi',  $waApi);
     }
 
     private function generateUniqueId($nama)
@@ -178,13 +177,26 @@ class ScheduleController extends Controller
             return response()->json(['status' => 404]);
         }
 
+        $getDataTrainer = DataTrainer::where('id', $request->input('id_trainer'))->first();
+
+        if($getDataTrainer->telephone == null) {
+
+            return response()->json(['success' => false, 'message' => 'Telephone tidak ada']);
+
+        } else {
+
+            $message = 'Assalamualaikum Kak, ada pergantian jadwal nihh 😁👌, untuk infomasi lebih lanjut silahkan cek pada aplikasi subot atau bisa juga melalui website';
+            // API WhatsApp URL
+            $waApi = "https://wa.me/{$getDataTrainer->telephone}?text={$message}";
+
+        }
 
         $getData = Schedules::where('id', $id_schedules)->firstOrFail();
 
         $getData->id_trainer = $request->input('id_trainer');
         $getData->save();
 
-        return redirect()->back()->with('message', 'Trainer change has been successful');
+         return redirect()->back()->with('waApi', $waApi);
     }
 
     public function status(Request $request, $id_schedules)

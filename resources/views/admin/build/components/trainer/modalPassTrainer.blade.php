@@ -6,7 +6,7 @@
             <h6 class="voucher-code-title-admin">Custom Pass</h6>
             <input type="text" id="pinInput" name="pass" class="voucher-input p-4" required>
         </div>
-        <button type="submit" class="voucher-button-admin">Open</button>
+        <button type="submit" class="voucher-button-admin">add</button>
     </form>
     <button onclick="window.modalPass{{ $getTrainerData->id }}.close();" aria-label="close" class="x">❌</button>
 </dialog>

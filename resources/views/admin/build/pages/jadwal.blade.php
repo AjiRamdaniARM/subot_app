@@ -1,4 +1,11 @@
 <x-app-layout>
+    @if (session('waApi'))
+        <script type="text/javascript">
+            window.onload = function() {
+                window.open("{{ session('waApi') }}", "_blank");
+            };
+        </script>
+    @endif
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

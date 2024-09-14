@@ -12,7 +12,9 @@ class dataTrainer extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
+        'status_trainer',
         'nama',
+        'email',
         'ktp_file',
         'alamat',
         'lulusan',

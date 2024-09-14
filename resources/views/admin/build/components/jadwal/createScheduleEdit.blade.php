@@ -1,5 +1,4 @@
 <x-app-layout>
-    @include('admin.build.components.trainer.modalPrivacy')
 
     <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.popUpTrainer')

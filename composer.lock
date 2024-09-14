@@ -4,8 +4,66 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "747230ab7d9cbc2c35aa8a58b5ec2b2a",
+    "content-hash": "3ac265d2c46425277052db4bcd38309b",
     "packages": [
+        {
+            "name": "attrixtech/laravel-icons",
+            "version": "1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/attrixtech/laravel-icons.git",
+                "reference": "62d150cea04be9766baa41819815702e012d56a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/attrixtech/laravel-icons/zipball/62d150cea04be9766baa41819815702e012d56a6",
+                "reference": "62d150cea04be9766baa41819815702e012d56a6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Attrixtech\\LaravelIcons\\LaravelIconsServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelIcons": "Attrixtech\\LaravelIcons\\Facades\\LaravelIcons"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Attrixtech\\LaravelIcons\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vijay Goswami",
+                    "email": "vijaygoswami@attrixtech.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Icons is a easy to use SVG icons package that you will ever need in your laravel project.",
+            "homepage": "https://github.com/attrixtech/laravel-icons",
+            "keywords": [
+                "attrixtech",
+                "icons package",
+                "laravel-icons",
+                "svg icons"
+            ],
+            "support": {
+                "issues": "https://github.com/attrixtech/laravel-icons/issues",
+                "source": "https://github.com/attrixtech/laravel-icons/tree/1.2"
+            },
+            "time": "2023-06-27T20:44:04+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.12.1",
