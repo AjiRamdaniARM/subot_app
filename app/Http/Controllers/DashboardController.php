@@ -10,6 +10,7 @@ use App\Models\DataLevel;
 use App\Models\DataKelas;
 use App\Models\DataAlat;
 use App\Models\Schedules;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -31,7 +32,19 @@ class DashboardController extends Controller
         $getDataSchedules = Schedules::count();
 
         // === get data count for chart === //
+        $getSiswaMonth = DataSiswa::selectRaw('MONTH(created_at) as `month`, COUNT(*) as count')
+        ->whereYear('created_at', Carbon::now()->year)
+        ->groupBy('month')
+        ->pluck('count', 'month')->toArray();
 
-        return view('admin.build.index', compact('getDataTrainerCount','getDataSekolahActive','getDataSekolahNonActive','getDataSiswasActive','getDataLaporan','getDataProgram','getDataLevels','getDataKelas','getDataAlats','getDataSchedules','getDataTrainerCountNonActive','getDataSiswasNonActive'));
+        // === mengisi data bulan yang tidak menjadi 0 === //
+        $moths = range(1,12);
+        $siswaPerBulan =[];
+
+        foreach($moths as $month) {
+            $siswaPerBulan[] = $siswaPerBulan[$month] ?? 0;
+        }
+
+        return view('admin.build.index', compact('getDataTrainerCount','getDataSekolahActive','getDataSekolahNonActive','getDataSiswasActive','getDataLaporan','getDataProgram','getDataLevels','getDataKelas','getDataAlats','getDataSchedules','getDataTrainerCountNonActive','getDataSiswasNonActive','siswaPerBulan'));
     }
 }

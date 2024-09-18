@@ -1,7 +1,6 @@
 // chart 2
 
 var ctx2 = document.getElementById("chart-line").getContext("2d");
-
 var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
 
 gradientStroke1.addColorStop(1, "rgba(203,12,159,0.2)");
@@ -17,7 +16,7 @@ gradientStroke2.addColorStop(0, "rgba(20,23,39,0)"); //purple colors
 new Chart(ctx2, {
   type: "line",
   data: {
-    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
       {
         label: "Mobile apps",
@@ -28,7 +27,7 @@ new Chart(ctx2, {
         borderWidth: 3,
         backgroundColor: gradientStroke1,
         fill: true,
-        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+        data: siswaPerBulan,
         maxBarThickness: 6,
       },
       {

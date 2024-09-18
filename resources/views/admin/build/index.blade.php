@@ -200,6 +200,11 @@
                             <div class="flex-auto p-4">
                                 <div>
                                     <canvas id="chart-line" height="300"></canvas>
+                                    <script>
+                                        // Data siswa dari Laravel
+                                        var siswaPerBulan = @json($siswaPerBulan);
+                                        console.log(siswaPerBulan);
+                                    </script>
                                 </div>
                             </div>
                         </div>

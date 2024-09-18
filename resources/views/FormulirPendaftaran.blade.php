@@ -18,7 +18,6 @@
                                 <p class="text-sm text-gray-500 font-normal leading-relaxed">Yuk, daftarkan anak Anda di
                                     Sukarobot Academy!</p>
                             @endif
-
                         </div>
                     </div>
                     @include('components.loadingElement')
@@ -67,7 +66,6 @@
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
-
                                     </div>
                                 @enderror
 
@@ -83,10 +81,7 @@
                                                 </option>
                                             @endforeach
                                         </select>
-
                                     </div>
-
-
                                 </div>
 
                                 <div class="flex flex-col">
@@ -121,7 +116,6 @@
 
 
                                 </div>
-
 
 
                                 @error('sekolah')
