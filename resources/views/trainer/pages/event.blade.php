@@ -7,7 +7,6 @@
     <!-- banner start -->
     <section class="banner position-relative">
       <img src="{{ asset('assets/img/cover.jpg') }}" alt="Banner" class="w-100 img-fluid">
-      
       <!-- title -->
       <div class="page-title">
         <button type="button" onclick="window.location.href='{{ url('/explore') }}'" class="back-btn back-page-btn d-flex align-items-center justify-content-center rounded-full">
