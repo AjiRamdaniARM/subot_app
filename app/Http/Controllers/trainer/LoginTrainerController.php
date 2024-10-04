@@ -35,7 +35,7 @@ class LoginTrainerController extends Controller
             return redirect()->intended(route('home'));
         } else {
             return back()->withErrors([
-                'password' => 'The provided credentials do not match our records.',
+                'email' => 'Password yang anda masukan salah.',
             ]);
         }
     }

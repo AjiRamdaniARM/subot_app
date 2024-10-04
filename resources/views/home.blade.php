@@ -33,7 +33,7 @@
                 </div>
                 <div class="w-full flex flex-col gap-2">
                     <label class="font-semibold text-xs text-[#1E1E1EFF] poppins-regular ">Role Trainer</label>
-                    <button onclick="showLoading(this); window.location.href='{{ route('login.trainer') }}'"
+                    <button onclick="showLoading(this); window.location.href='{{ route('auth.trainer') }}'"
                         class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none border-gray-500 bg-gray-900 text-white hover:scale-105  focus:scale-105 hover:font-bold poppins-regular transition-all">Login
                         With Trainer</button>
                 </div>

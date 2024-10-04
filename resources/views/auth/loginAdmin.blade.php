@@ -3,14 +3,14 @@
     <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
         {{-- === notif === --}}
         <main x-data="app" class="min-w-screen grid min-h-screen place-items-center">
-            <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+            <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center items-center flex-1">
                 <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
                     <div>
                         <img src="{{ asset('assets/img/logo.png') }}" class="w-32 mx-auto" />
                     </div>
                     <div class="mt-12 flex flex-col items-center">
                         <h1 class="text-2xl xl:text-3xl poppins-bold  font-extrabold">
-                            Log'In Subot Mimin
+                           Masuk
                         </h1>
                         @error('email')
                             <div class="p-5 mt-4 bg-red-800 items-center text-indigo-100 leading-none rounded-full flex lg:inline-flex"
@@ -25,12 +25,12 @@
                                 </svg>
                             </div>
                         @enderror
-                        <div class="w-full flex-1 mt-8">
-                            <div class="my-12 border-b text-center">
-                                <div
+                        <div class="w-full flex-1 ">
+                            <div class="my-5 border-b text-center">
+                                {{-- <div
                                     class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide poppins-medium bg-white transform translate-y-1/2">
                                     Or Login with e-mail
-                                </div>
+                                </div> --}}
                             </div>
                             <form action="{{ route('loginAdmin') }}" method="POST" id="formLogin">
                                 @csrf
@@ -90,13 +90,13 @@
                                         });
                                     </script>
                                     <p class="mt-6 text-xs text-gray-600 text-center poppins-regular">
-                                        I agree to abide by templatana's
+                                        Saya setuju untuk mematuhi 
                                         <a href="#" class="border-b border-gray-500 border-dotted">
-                                            Terms of Service
+                                            Ketentuan Layanan subot app 
                                         </a>
-                                        and its
+                                       dan
                                         <a href="#" class="border-b border-gray-500 border-dotted">
-                                            Privacy Policy
+                                            Kebijakan Privasi
                                         </a>
                                     </p>
                                 </div>
@@ -111,7 +111,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center  lg:hidden">
+            <div class="text-center hidden  lg:hidden">
                 <div class="m-12 xl:m-16 "> <img src="{{ asset('assets/img/animasiLogin.png') }}" class="rounded-lg"
                         alt="">
                 </div>
