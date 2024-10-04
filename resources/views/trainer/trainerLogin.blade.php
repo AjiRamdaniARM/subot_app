@@ -245,19 +245,12 @@
                         <br>
 
                         <div>
-                            <label for="lemail1">Id Card</label>
+                            <label for="lemail1">Kata Sandi / ID Card</label>
                             <input type="text" id="id_card" name="password" placeholder="Enter your Id Card"
                                 class="input-field" required>
                         </div>
-
-                        <br>
-                        <div>
-                            <label>
-                                <input type="checkbox" name="remember"> &nbsp; Ingatlah aku.
-                            </label>
-                        </div>
-                        <button type="submit" id="submitBtn" class="btn-primary"
-                            style="background-color: #2196F3">Continue</button>
+                        <button type="submit" id="submitBtn" class="btn-primary button_custom_trainer"
+                            >Masuk</button>
                     </form>
                     <script>
                         document.getElementById('filterDataLaporan').addEventListener('submit', function() {

@@ -10,7 +10,6 @@
             @include('admin.build.components.navbar')
             <!-- end Navbar -->
             <div class="w-full px-6 py-6 mx-auto">
-                <!-- row 1 -->
                 @include('admin.build.components.card1')
                 <div class="flex flex-wrap mt-6 -mx-3">
                     <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-5/12 lg:flex-none">
@@ -186,15 +185,48 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- === chart diagram of child and school data === --}}
                     <div class="w-full max-w-full px-3 mt-0 lg:w-7/12 lg:flex-none">
                         <div
                             class="border-black/12.5 shadow-soft-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
                             <div
-                                class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
-                                <h6>Sales overview</h6>
+                                class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0 ">
+                                <h6>chart diagram of child and school data</h6>
                                 <p class="text-sm leading-normal">
-                                    <i class="fa fa-arrow-up text-lime-500"></i>
-                                    <span class="font-semibold">4% more</span> in 2021
+                                    <i class="fa fa-arrow-up text-lime-500"></i>&nbsp;&nbsp;
+                                        <select id="tahun">
+                                        </select>
+                                
+                                    <script>
+                                         function buatOpsiTahun(tahunAwal, tahunAkhir) {
+                                            const select = document.getElementById('tahun');
+                                            for (let tahun = tahunAwal; tahun <= tahunAkhir; tahun++) {
+                                                const option = document.createElement('option');
+                                                option.value = tahun;
+                                                option.text = tahun;
+                                                select.appendChild(option);
+                                            }
+                                        }
+                                        buatOpsiTahun(2020, new Date().getFullYear());
+
+
+                                        document.getElementById('tahun').addEventListener('change', function() {
+                                        var selectedYear = this.value;
+                                        fetchDataForYear(selectedYear);
+                                        });
+
+                                        function fetchDataForYear(tahun) {
+                                            fetch(`/dashboard/data-siswa?tahun=${tahun}`)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    updateChart(data);
+                                                    
+                                                })
+                                                .catch(error => console.error('Error:', error));
+                                         }
+                                    </script>
+
                                 </p>
                             </div>
                             <div class="flex-auto p-4">
@@ -202,14 +234,18 @@
                                     <canvas id="chart-line" height="300"></canvas>
                                     <script>
                                         // Data siswa dari Laravel
-                                        var siswaPerBulan = @json($siswaPerBulan);
+                                        var siswaPerBulan = @json($resultArray);
                                         console.log(siswaPerBulan);
+                                        // var sekolahPerbulan = @json($resultArraySekolah);
+                                        // console.log(sekolahPerbulan);
                                     </script>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {{-- === end chart diagram of child and school data === --}}
                 </div>
+
                 <!-- cards row 4 -->
                 <div class="flex flex-wrap my-6 -mx-3">
                     <!-- card 1 -->

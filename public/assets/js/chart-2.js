@@ -1,5 +1,10 @@
 // chart 2
 
+function updateChart(siswaData) {
+  chart.data.datasets[0].data = siswaData;
+  chart.update();
+}
+
 var ctx2 = document.getElementById("chart-line").getContext("2d");
 var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
 
@@ -13,35 +18,35 @@ gradientStroke2.addColorStop(1, "rgba(20,23,39,0.2)");
 gradientStroke2.addColorStop(0.2, "rgba(72,72,176,0.0)");
 gradientStroke2.addColorStop(0, "rgba(20,23,39,0)"); //purple colors
 
-new Chart(ctx2, {
+var chart = new Chart(ctx2, {
   type: "line",
   data: {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
       {
-        label: "Mobile apps",
+        label: "data Kids",
         tension: 0.4,
         borderWidth: 0,
         pointRadius: 0,
-        borderColor: "#cb0c9f",
+        borderColor: "#0062FFFF",
         borderWidth: 3,
         backgroundColor: gradientStroke1,
         fill: true,
         data: siswaPerBulan,
         maxBarThickness: 6,
       },
-      {
-        label: "Websites",
-        tension: 0.4,
-        borderWidth: 0,
-        pointRadius: 0,
-        borderColor: "#3A416F",
-        borderWidth: 3,
-        backgroundColor: gradientStroke2,
-        fill: true,
-        data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-        maxBarThickness: 6,
-      },
+      // {
+      //   label: "Websites",
+      //   tension: 0.4,
+      //   borderWidth: 0,
+      //   pointRadius: 0,
+      //   borderColor: "#3A416F",
+      //   borderWidth: 3,
+      //   backgroundColor: gradientStroke2,
+      //   fill: true,
+      //   data: sekolahPerbulan,
+      //   maxBarThickness: 6,
+      // },
     ],
   },
   options: {

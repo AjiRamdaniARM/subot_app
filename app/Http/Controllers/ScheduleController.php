@@ -13,6 +13,7 @@ use App\Models\DataSekolah;
 use App\Models\DataSiswa;
 use App\Models\dataTrainer;
 use App\Models\Schedules;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -204,6 +205,8 @@ class ScheduleController extends Controller
         try {
             $getDataSchedule = Schedules::where('id', $id_schedules)->firstOrFail();
             $getDataSchedule->ket = $request->input('status');
+            $getDataSchedule->created_at = Carbon::now();
+            $getDataSchedule->updated_at = Carbon::now();
             $getDataSchedule->save();
 
             return redirect()->back()->with('message', 'Status change has been successful');

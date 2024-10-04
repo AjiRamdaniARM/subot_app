@@ -67,4 +67,4 @@
 
       <!-- details -->
   <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/details.css') }}">
-    
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     // role admin
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/data-siswa', [DashboardController::class, 'getDataSiswaPerTahun']);
     Route::get('/dataTrainer', [DataTrainerController::class, 'index'])->name('trainer.index');
     Route::middleware(['auth', 'pin.verified'])->group(function () {
         Route::get('/dataTrainer/private/{nama}', [DataTrainerController::class, 'dataPrivate'])->name('trainer.dataPrivate');
@@ -124,4 +125,6 @@ Route::get('/daftar', [FormulirController::class, 'index'])->name('formulir.inde
 Route::get('/formulirPendaftaran/selesai', [FormulirController::class, 'done'])->name('formulir.done');
 
 Route::get('/trainerForm', [FormulirController::class, 'trainer'])->name('trainer.form');
-Route::post('/trainerForm/prosses', [FormulirController::class, 'postTrainerData'])->name('trainer.form');
+
+Route::get('/selesai', [FormulirController::class, 'trainerDone'])->name('done.form');
+Route::post('/trainerForm/prosses', [FormulirController::class, 'postTrainerData'])->name('trainer.post');

@@ -3,8 +3,18 @@
     @include('modalSekolah')
     @include('components.scriptCompoments')
     <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+        <!-- Loading Screen -->
+        <!-- Loading Screen -->
+        <div id="loadingScreen" class="hidden fixed inset-0 bg-white  flex items-center justify-center z-50">
+            <div class="relative">
+                <div class="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
+                <div class="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin">
+                </div>
+            </div>
+        </div>
+
         <div class="relative py-3 sm:max-w-xl sm:mx-auto">
-            <div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
+            <div class="relative px-4 py-10 bg-white  md:mx-0 shadow rounded-3xl sm:p-10">
                 <div class="max-w-md mx-auto">
                     <div class="flex flex-col items-center  gap-5">
                         <img src="{{ asset('assets/img/logo.png') }}" width="100" alt="">
@@ -19,10 +29,19 @@
                                     Trainer
                                     Sukarobot Academy!</p>
                             @endif
+                            <br>
+                            @if ($errors->has('nama'))
+                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                                    role="alert">
+                                    <strong class="font-bold">Terjadi Kesalahan!</strong>
+                                    <span class="block sm:inline">Nama sudah ada di database, tidak bisa diinput
+                                        lagi.</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     @include('components.loadingElement')
-                    <form method="POST" id="jsonForm" enctype="multipart/form-data">
+                    <form id="jsonForm" action="{{ route('trainer.post') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="divide-y divide-gray-200">
                             <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
@@ -31,8 +50,8 @@
                                             class="text-red-500">*</span></label>
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                        placeholder="Cth: Aziz Ramadhan" name="nama_lengkap"
-                                        value="{{ old('nama_lengkap') }}" required>
+                                        placeholder="Cth: Aziz Ramadhan" name="nama" value="{{ old('nama_lengkap') }}"
+                                        required>
                                     @error('nama_lengkap')
                                         <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                             role="alert">
@@ -46,18 +65,17 @@
                                             class="text-red-500">*</span></label>
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                        placeholder="Cth: sukarobotacademy@gmail.com " name="tl"
-                                        value="{{ old('tl') }}" required>
+                                        placeholder="Cth: sukarobotacademy@gmail.com " name="email"
+                                        value="{{ old('email') }}" required>
                                 </div>
-                                @error('tl')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
-                                        role="alert">
-                                        <strong class="font-bold">Kesalahan !! </strong>
-                                        <span class="block sm:inline">{{ $message }}</span>
-
-                                    </div>
-                                @enderror
-
+                                <div class="flex flex-col gap-3">
+                                    <label class="leading-loose text-[15px] poppins-regular">Lulusan SMK / S1 / D3 <span
+                                            class="text-red-500">*</span></label>
+                                    <input type="text"
+                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        placeholder="Cth: S1 Sukarobot Academy" name="lulusan" value="{{ old('email') }}"
+                                        required>
+                                </div>
                                 <div class="flex flex-col gap-3">
                                     <label class="leading-loose text-[15px] poppins-regular">Poto Ktp ( Jernih ) <span
                                             class="text-red-500">*</span></label>
@@ -102,7 +120,7 @@
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: Jl. A. Yani No.283, Kebonjati, Kec. Cikole, Kota Sukabumi, Jawa Barat 43111"
-                                        name="kelas" value="{{ old('kelas') }}" required>
+                                        name="alamat" value="{{ old('alamat') }}" required>
                                 </div>
                                 <div class="flex flex-col gap-3">
                                     <label class="leading-loose poppins-regular text-[15px]">Nomor Handphone ( Aktif
@@ -134,8 +152,8 @@
 
                                             <dotlottie-player
                                                 src="https://lottie.host/58165dc2-e662-4bda-8d1d-9ce53375a05a/766NCCvEm9.json"
-                                                background="transparent" speed="1" style="width: 300px; height: 300px;"
-                                                loop autoplay>
+                                                background="transparent" speed="1" style="width: 300px;" loop
+                                                autoplay>
                                             </dotlottie-player>
                                         </div>
 
@@ -209,7 +227,7 @@
                                         <span class="text-red-500">*</span></label>
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                        placeholder="Cth: aziz1010" name="file" id="fotoInput" required>
+                                        placeholder="Cth: aziz1010" name="password" id="fotoInput" required>
                                 </div>
                                 @error('file')
                                     <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
@@ -228,22 +246,22 @@
                                 <button
                                     class="button relative poppins-regular z-0 bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:scale-105 transition-all focus:scale-105"
                                     type="submit">Kirim
-                                    <div class="arrow-wrapper">
-                                        <div class="arrow"></div>
-
-                                    </div>
                                 </button>
                             </div>
                     </form>
+                    <script src="https://cdn.jsdelivr.net/npm/form-data-json@2.0.1/dist/form-data-json.min.js"></script>
                     <script>
                         document.getElementById('jsonForm').addEventListener('submit', function(e) {
                             e.preventDefault();
-                            const formElement = document.getElementById('jsonForm');
-                            const formData = new FormData(formElement);
-                            const formDataObj = Object.fromEntries(formData.entries());
-                            console.log(formDataObj);
+                            const loadingElement = document.getElementById('loadingScreen');
+                            loadingElement.classList.remove('hidden');
+                            loadingElement.classList.add('fixed');
+                            setTimeout(() => {
+                                this.submit();
+                            }, 500);
                         });
                     </script>
+
                 </div>
             </div>
         </div>

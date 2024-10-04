@@ -93,7 +93,7 @@ class SistemKidsCoontroller extends Controller
             return redirect()->back()->with('error', 'Data siswa dengan nama lengkap tersebut sudah ada.');
         } else {
             // validasi file ke public
-            if ($request->hasFile('file')) {
+       
                 $dataFile = $request->file('file');
                 $fileName = 'pasFoto_'.$request->nama_lengkap.'.'.$dataFile->getClientOriginalExtension();
                 $dataFile->move(public_path('/assets/data/dataAnak/img'), $fileName);
@@ -112,9 +112,7 @@ class SistemKidsCoontroller extends Controller
                 $validateDataKids->file = $fileName;
                 $validateDataKids->save();
 
-            } else {
-                return response()->json(['error' => 'Tidak ada data pas foto']);
-            }
+           
         }
 
         // jikah sudah masuk lempar ke halaman selanjutnya
