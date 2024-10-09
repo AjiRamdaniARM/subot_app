@@ -3,10 +3,13 @@
 use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\trainer\subotAcademy\auth;
+// Route::get('/', function () {
+//     return view('home');
+// });
 
-Route::get('/', function () {
-    return view('home');
-});
+// === auth login === //
+Route::get('/', [auth::class, 'index'])->name('auth.trainer');
 
 // register hidden
 Route::get('/registerPrivate', [RegisterController::class, 'index'])->name('registerprivate');

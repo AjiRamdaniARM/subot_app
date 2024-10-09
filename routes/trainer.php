@@ -4,7 +4,7 @@ use App\Http\Controllers\trainer\Absensi;
 use App\Http\Controllers\trainer\homeController;
 use App\Http\Controllers\trainer\LaporanController as TrainerLaporanController;
 use App\Http\Controllers\trainer\LoginTrainerController;
-use App\Http\Controllers\trainer\subotAcademy\auth;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,8 +50,7 @@ Route::middleware('check.trainer.auth')->group(function () {
 });
 
 
-// === auth login === //
-Route::get('/SubotAcademy', [auth::class, 'index'])->name('auth.trainer');
+
 
 Route::get('/LoginTrainer', [LoginTrainerController::class, 'index'])->name('login.trainer');
 Route::post('/login-trainer/prosses', [LoginTrainerController::class, 'loginTrainer'])->name('login.prosses');

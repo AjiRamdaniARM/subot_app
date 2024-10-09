@@ -112,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            <div class="a_left">
+            <div class="a_left p-3">
                 <img class="w-96 rounded-lg" src="{{asset('assets/trainerImages/img-auth/image_auth.jpg')}}" alt="">
             </div>
            </div>

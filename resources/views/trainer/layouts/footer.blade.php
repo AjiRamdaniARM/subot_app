@@ -31,3 +31,16 @@
 <!-- script -->
 <script src="{{ asset('assets/trainerJs/js/script.js') }}"></script>
 <script src="{{ asset('assets/trainerJs/js/bootstrap.bundle.min.js') }}"></script>
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileSidebar = document.getElementById('mobile-sidebar');
+
+  menuBtn.addEventListener('click', () => {
+      mobileSidebar.classList.toggle('-translate-x-full');
+  });
+</script>
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>

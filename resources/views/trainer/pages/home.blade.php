@@ -1,276 +1,223 @@
-<!DOCTYPE html>
-<html lang="zxx">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+@extends('trainer.layouts.main')
+@section('children')
+<section>
+    <div class="sidenav lg:px-0 px-4 md:px-0 flex justify-between items-center poppins-regular lg:text-2xl">
+        <span class="text-[#0E2C75] poppins-semibold">
+            Beranda
+        </span>
+        <span class="text-[#516AA9] fw-[500]">
+            @php
+            use Carbon\Carbon;
+            \Carbon\Carbon::setLocale('id');
+            $tanggalSekarang = Carbon::now()->translatedFormat('l, d F Y');
+        @endphp
+        <p>{{ $tanggalSekarang }}</p>
+        </span>
+    </div>
 
-	<link rel="icon" href="images/favicon.png">
-	<title>Edugo - Education Mobile Template</title>
+    {{-- === card total === --}}
+    <div class="container mx-auto py-10">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Card 1 -->
+            <div class="p-6 rounded-[24px] bg-[#FBDC5C] border-2 border-[#CE7100] text-center">
+                <div class="t_one text-lg font-semibold text-[#455068] text-[18px]">
+                    Total Penghasilan
+                </div>
+                <div class="t_two text-2xl font-bold mt-2 text-[#602400] text-[45px]">
+                   Rp.0
+                </div>
+                <div class="t_two text-sm mt-5  text-[18px] text-[#AB5200]">
+                    Pertemuan  
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#F64669]  text-center">
+                <div class="t_one text-lg font-semibold text-[#455068]">
+                    Total Jadwal
+                </div>
+                <div class="t_two text-2xl font-bold mt-2  text-[#A3072B] text-[45px]">
+                   255
+                </div>
+                <div class="t_two text-sm mt-1 mt-5  text-[18px] text-[#AB5200]">
+                    25% Jadwal  
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="p-6 rounded-[24px] border-2 border-[#798AA3] bg-[#D3DFE7] text-center">
+                <div class="t_one text-lg font-semibold text-[#455068] text-[18px]">
+                    Total Laporan
+                </div>
+                <div class="t_two text-2xl font-bold mt-2  text-[#2E3748] text-[45px]">
+                   100
+                </div>
+                <div class="t_two text-sm mt-1 mt-5  text-[18px] text-[#516AA9]">
+                    20% Laporan    
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<link rel="stylesheet" href="{{asset('assets/css_front_trainer/materialize.css')}}">
-	<link rel="stylesheet" href="{{asset('assets/css_front_trainer/loader.css')}}">
-	<link rel="stylesheet" href="{{asset('assets/css_front_trainer/fontawesome.min.css')}}">
-	<link rel="stylesheet" href="{{asset('assets/css_front_trainer/owl.carousel.min.css')}}">
-	<link rel="stylesheet" href="{{asset('assets/css_front_trainer/owl.theme.default.min.css')}}">
-	<link rel="stylesheet" href="{{asset('assets/css_front_trainer/style.css')}}">
+    {{-- == card jadwal == --}}
+    <div class="container mx-auto py-10">
+        <div class="box-card w-full rounded-[24px] border-2 text-start ">
+            <div class="body lg:px-10 md:px-10 px-5 py-10">
+                <div class="content ">
+                    <div class="card-1 flex flex-col gap-5">
+                        <h6 class="text-[#0E2C75] poppins-semibold text-[20px]">Jadwal Terbaru Trainer</h6>
+                        {{-- === card belum absen === --}}
+                        <div class="text-[#798AA3]">Memperbarui</div>
+                        <div class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#CEEEF0FF] border-2 border-[#0022CEFF] " onclick="showLoading(this)">
+                            <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
+                                <div class="k_right flex flex-col">
+                                    <span class="poppins-regular">
+                                        Basic 1 | Huna MRT 2
+                                    </span>
+                                    <span class="text-[#0B235E] poppins-semibold">
+                                        SDK BPK PENABUR
+                                    </span>
+                                    <span class="text-[#4A4A4AFF] poppins-regular">
+                                        07 October 2024 
+                                    </span>
+                                </div>
+                                <div class="k_left flex flex-col">
+                                    <span class="text-[#0B235E] lg:text-[20px] md:text-[20px] text-[15px] poppins-semibold">
+                                        08.00 - 14.00
+                                    </span>
+                                    <span class="text-[#004971FF]">
+                                        Absensi Trainer
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <!-- Skeleton Loading (Hidden secara default) -->
+                            <div class="loading hidden w-full">
+                                <div class="animate-pulse flex flex-col space-y-4 w-full">
+                                    <div class="h-4 bg-gray-300 rounded w-3/4"></div>
+                                    <div class="h-6 bg-gray-300 rounded w-full"></div>
+                                    <div class="h-4 bg-gray-300 rounded w-1/2"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            function showLoading(card) {
+                                // Sembunyikan konten asli
+                                const content = card.querySelector('.content');
+                                content.classList.add('hidden');
+                        
+                                // Tampilkan skeleton loading
+                                const loading = card.querySelector('.loading');
+                                loading.classList.remove('hidden');
+                        
+                                // Simulasikan proses loading selama 2 detik
+                                setTimeout(() => {
+                                    // Kembalikan konten asli
+                                    content.classList.remove('hidden');
+                                    loading.classList.add('hidden');
+                                }, 2000); // 2 detik
+                            }
+                        </script>
+                        {{-- === card belum absen === --}}
 
-</head>
-<body>
+                        {{-- === card sudah absen === --}}
+                        <div class="text-[#798AA3]">Sudah Absen</div>
+                        <div class="card-h p-6 hover:scale-105 transition-all rounded-[24px] bg-[#CEF0CEFF] border-2 border-[#0ACE00FF] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
+                            <div class="k_right flex flex-col">
+                                <span>
+                                    CS 162
+                                </span>
+                                <span class="text-[#0B235E] poppins-semibold">
+                                    SDK BPK PENABUR
+                                </span>
+                                <span class="text-[#0B235E] poppins-semibold">
+                                    SF 13
+                                </span>
+                            </div>
+                            <div class="k_left flex flex-col">
+                                <span class="text-[#0B235E] poppins-semibold lg:text-[20px] md:text-[20px] text-[15px]">
+                                    08.00 - 14.00
+                                </span>
+                                <span class="text-[#004971FF]">
+                                    Absensi Trainer
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#CEF0CEFF] border-2 border-[#0ACE00FF] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
+                            <div class="k_right flex flex-col">
+                                <span>
+                                    CS 162
+                                </span>
+                                <span class="text-[#0B235E] poppins-semibold">
+                                    SDK BPK PENABUR
+                                </span>
+                                <span class="text-[#0B235E] poppins-semibold">
+                                    SF 13
+                                </span>
+                            </div>
+                            <div class="k_left flex flex-col">
+                                <span class="text-[#0B235E] poppins-semibold lg:text-[20px] md:text-[20px] text-[15px]">
+                                    08.00 - 14.00
+                                </span>
+                                <span class="text-[#004971FF]">
+                                    Absensi Trainer
+                                </span>
+                            </div>
+                        </div>
+                        {{-- === card sudah absen === --}}
 
-	<!-- preloader -->
-	<div class="loader-wrapper">
-		<div class="loader-cube"></div>
-	</div>
-	<!-- end preloader -->
+                        {{-- === card tidak ada absen === --}}
+                        <div class="text-[#798AA3]"> Absen Tidak Aktif</div>
+                        <div class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#E8CEF0] border-2 border-[#D9ADE6] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
+                            <div class="k_right flex flex-col">
+                                <span>
+                                    CS 162
+                                </span>
+                                <span class="text-[#0B235E] poppins-semibold">
+                                    SDK BPK PENABUR
+                                </span>
+                                <span class="text-[#0B235E] poppins-semibold">
+                                    SF 13
+                                </span>
+                            </div>
+                            <div class="k_left flex flex-col">
+                                <span class="text-[#0B235E] poppins-semibold lg:text-[20px] md:text-[20px] text-[15px]">
+                                    08.00 - 14.00
+                                </span>
+                                <span class="text-[#004971FF]">
+                                    Absensi Trainer
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#E8CEF0] border-2 border-[#D9ADE6] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
+                            <div class="k_right flex flex-col">
+                                <span>
+                                    CS 162
+                                </span>
+                                <span class="text-[#0B235E] poppins-semibold">
+                                    SDK BPK PENABUR
+                                </span>
+                                <span class="text-[#0B235E] poppins-semibold">
+                                    SF 13
+                                </span>
+                            </div>
+                            <div class="k_left flex flex-col">
+                                <span class="text-[#0B235E] poppins-semibold lg:text-[20px] md:text-[20px] text-[15px]">
+                                    08.00 - 14.00
+                                </span>
+                                <span class="text-[#004971FF]">
+                                    Absensi Trainer
+                                </span>
+                            </div>
+                        </div>
+                        {{-- === card tidak ada absen === --}}
 
-	<!-- navbar -->
-	<div class="navbar">
-		<div class="container">
-			<div class="row">
-				<div class="col s6">
-					<div class="content-left">
-						<a href="index.html">
-							<h1>
-								<span class="color-indigo1">E</span><span class="color-indigo2">D</span><span class="color-indigo3">U</span><span class="color-indigo4">G</span><span class="color-indigo5">O</span>
-							</h1>
-						</a>
-					</div>
-				</div>
-				<div class="col s6">
-					<div class="content-right">
-						<a href="#slide-out" data-activates="slide-out" class="sidebar"><i class="fas fa-bars"></i></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end navbar -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  
+    
+</section>
 
-	<!-- sidebar left -->
-	<div class="sidebar-panel">
-		<ul id="slide-out" class="collapsible side-nav">
-			<li class="list-top">
-				<div class="user-view">
-					<img class="responsive-img" src="images/testimonial1.png" alt="">
-					<h4>Marchel Agata</h4>
-					<span>New York</span>
-				</div>
-			</li>
-			<li>
-				<div class="collapsible-header">
-					<i class="fas fa-home"></i>Home<span><i class="fas fa-angle-right right"></i></span>
-				</div>
-				<div class="collapsible-body">
-					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="index2.html">Home v2</a></li>
-					</ul>
-				</div>
-			</li>
-			<li><a href="course.html"><i class="fas fa-graduation-cap"></i>Course</a></li>
-			<li><a href="teacher.html"><i class="fas fa-user"></i>Teacher</a></li>
-			<li><a href="event.html"><i class="fas fa-calendar-alt"></i>Event</a></li>
-			<li>
-				<div class="collapsible-header">
-					<i class="fas fa-clone"></i>Blog<span><i class="fas fa-angle-right right"></i></span>
-				</div>
-				<div class="collapsible-body">
-					<ul>
-						<li><a href="blog.html">Blog</a></li>
-						<li><a href="blog-single.html">Blog Single</a></li>
-					</ul>
-				</div>
-			</li>
-			<li>
-				<div class="collapsible-header">
-					<i class="fas fa-clone"></i>Pages<span><i class="fas fa-angle-right right"></i></span>
-				</div>
-				<div class="collapsible-body">
-					<ul>
-						<li><a href="about.html">About</a></li>
-						<li><a href="features.html">Features</a></li>
-						<li><a href="services.html">Services</a></li>
-						<li><a href="gallery.html">Gallery</a></li>
-						<li><a href="page-not-found.html">Page Not Found</a></li>
-						<li><a href="pricing-table.html">Pricing</a></li>
-					</ul>
-				</div>
-			</li>
-			<li><a href="contact.html"><i class="fas fa-envelope"></i>Contact</a></li>
-			<li><a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a></li>
-			<li><a href="register.html"><i class="fas fa-user-plus"></i>Register</a></li>
-			<li><a href="index.html"><i class="fas fa-sign-out-alt"></i>Log Out</a></li>
-		</ul>
-	</div>
-	<!-- end sidebar left -->
-
-	<!-- slider -->
-	<div class="container">
-		<div class="slide">
-			<div class="slider-slide owl-carousel owl-theme">
-				<div class="content">
-					<div class="mask"></div>
-					<img src="images/slider1.jpg" alt="">
-					<div class="slider-caption">
-						<h2>WELCOME TO EDUGO</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elite. Neque, iusto.</p>
-					</div>
-				</div>
-				<div class="content">
-					<div class="mask"></div>
-					<img src="images/slider2.jpg" alt="">
-					<div class="slider-caption">
-						<h2>COMFORTABLE</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elite. Neque, iusto.</p>
-					</div>
-				</div>
-				<div class="content">
-					<div class="mask"></div>
-					<img src="images/slider3.jpg" alt="">
-					<div class="slider-caption">
-						<h2>LEARNING MORE FUN</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elite. Neque, iusto.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end slider -->
-	
-	<!-- features -->
-	<div class="features home2 segments">
-		<div class="container">
-			<div class="row">
-				<div class="col s6">
-					<div class="content">
-						<i class="fas fa-phone"></i>
-						<h5>Support</h5>
-					</div>
-				</div>
-				<div class="col s6">
-					<div class="content">
-						<i class="fas fa-globe-europe"></i>
-						<h5>Online</h5>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col s6">
-					<div class="content">
-						<i class="fas fa-check"></i>
-						<h5>Clean</h5>
-					</div>
-				</div>
-				<div class="col s6">
-					<div class="content">
-						<i class="fas fa-sync-alt"></i>
-						<h5>Update</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end features -->
-
-	<!-- popular course -->
-	<div class="popular-course segments">
-		<div class="section-title">
-			<h3>Popular Course <a href="course.html">view all <i class="fas fa-long-arrow-alt-right"></i></a></h3>
-		</div>
-		<div class="popular-slide owl-carousel owl-theme">
-			<div class="content">
-				<a href="course-single.html">
-					<img src="images/course1.jpg" alt="">
-					<div class="text">
-						<span>Computer</span>
-						<h4>Web Design | Beginner</h4>
-						<p>A wonderful serenity has taken possession of my entire soul, like these sweet adipisicing</p>
-					</div>
-				</a>
-			</div>
-			<div class="content">
-				<a href="course-single.html">
-					<img src="images/course2.jpg" alt="">
-					<div class="text">
-						<span>Science</span>
-						<h4>Science Technology</h4>
-						<p>A wonderful serenity has taken possession of my entire soul, like these sweet adipisicing</p>
-					</div>
-				</a>
-			</div>
-			<div class="content">
-				<a href="course-single.html">
-					<img src="images/course3.jpg" alt="">
-					<div class="text">
-						<span>computer</span>
-						<h4>Digital Photography</h4>
-						<p>A wonderful serenity has taken possession of my entire soul, like these sweet adipisicing</p>
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
-	<!-- end popular course -->
-
-	<!-- testimonial -->
-	<div class="testimonial home2 segments">
-		<div class="testimonial-slide owl-carousel owl-theme">
-			<div class="content">
-				<img src="images/testimonial1.png" alt="">
-				<div class="text">
-					<h5>Andrea Gustavo</h5>
-					<span>Teacher</span>
-					<p>Consectetur adipisicing elit. Assumenda reprehenderit placeat deserunt esse</p>
-				</div>
-			</div>
-			<div class="content">
-				<img src="images/testimonial2.png" alt="">
-				<div class="text">
-					<h5>Brave Balder</h5>
-					<span>Student</span>
-					<p>Consectetur adipisicing elit. Assumenda reprehenderit placeat deserunt esse</p>
-				</div>
-			</div>
-			<div class="content">
-				<img src="images/testimonial3.png" alt="">
-				<div class="text">
-					<h5>John Doe</h5>
-					<span>Teacher</span>
-					<p>Consectetur adipisicing elit. Assumenda reprehenderit placeat deserunt esse</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end testimonial -->
-
-	<!-- footer -->
-	<footer class="home2">
-		<div class="container">
-			<div class="wrap-logo">
-				<h3>EDUGO</h3>
-			</div>
-			<div class="wrap-desc">
-				<p>A wonderful serenity has taken possession of my entire soul, like these sweet</p>
-			</div>
-			<div class="wrap-social">
-				<ul>
-					<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-					<li><a href=""><i class="fab fa-instagram"></i></a></li>
-					<li><a href=""><i class="fab fa-google"></i></a></li>
-					<li><a href=""><i class="fab fa-youtube"></i></a></li>
-				</ul>
-			</div>
-			<div class="footer-text">
-				<p>Copyright © All Right Reserved</p>
-			</div>
-		</div>
-	</footer>
-	<!-- end footer -->
-
-	<script src="js/jquery.min.js"></script>
-	<script src="js/materialize.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/main.js"></script>
-
-</body>
-</html>
+@endsection
