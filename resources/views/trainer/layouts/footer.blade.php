@@ -44,3 +44,19 @@
 <script>
   AOS.init();
 </script>
+
+<script src="{{asset('assets/js_front_trainer/SistemController.js')}}"></script>
+{{-- === sistem button js button done === --}}
+<script>
+    function button_done() {
+        const ButtonDone = document.getElementById('button-done'); 
+        ButtonDone.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;Loading';
+        ButtonDone.disabled = true;
+        
+        // Perbaikan setTimeout function
+        setTimeout(function() {
+            ButtonDone.disabled = false;
+            ButtonDone.innerHTML = 'Selesai Absensi';
+        }, 3000); // 3000 ms = 3 detik (ubah sesuai kebutuhan)
+    }
+</script>

@@ -63,6 +63,9 @@ class homeController extends Controller
         return view('trainer.pages.home', compact('getScheduleTrainer'));
     }
 
+    
+  
+
     public function absen($id_schedules)
     {
         // Pastikan ada ID trainer
@@ -108,6 +111,10 @@ class homeController extends Controller
         }
 
         return view('trainer.pages.absen', compact('getScheduleTrainer', 'getDataStudent'));
+    }
+    
+    public function Test() {
+        return view('trainer.pages.absen');
     }
 
     public function absensiswa($id_schedules)
