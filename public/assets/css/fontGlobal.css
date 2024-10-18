@@ -13,6 +13,11 @@
     font-style: normal;
   }
 
+  .poppins {
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+  }
+
   .poppins-light {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
