@@ -24,6 +24,7 @@ Route::middleware('check.trainer.auth')->group(function () {
     // === route akun profile === //
     Route::get('/akun', [AkunController::class, 'index'])->name('akun');
     Route::get('/edit', [AkunController::class, 'edited'])->name('akun.edited');
+    Route::get('/edit/{idAccount}/post', UpdateAccout::class,)->name('akun.edit');
     Route::post('/edit/prossess', [AkunController::class, 'prosess'])->name('akun.post');
 
     // === route jadwal trainer === //

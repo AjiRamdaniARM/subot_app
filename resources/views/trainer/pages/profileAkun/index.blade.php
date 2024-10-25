@@ -19,14 +19,14 @@
             <img src="{{asset('assets/img/bg_profile.png')}}" alt="bannerProfile" class="w-full h-64 object-cover rounded-2xl">
             <div class="absolute inset-0 flex items-end justify-center">
                 <div class="circle_profile rounded-full overflow-hidden border-4 border-white w-32 h-32 -mb-16">
-                    <img src="{{asset('assets/data/dataAnak/img/pasFoto_Aji Ramdani.png')}}" alt="potoprofile" class="w-full h-full object-cover">
+                    <img src="{{asset('assets/trainer_data/profile/'. auth()->guard('trainer')->user()->profile )}}" alt="potoprofile" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
         <div class="d_pribadi w-full relative py-20">
             <div class="content poppins text-center">
-                <h1 class="text-[#0B235E] text-[20px] font-[500]">Aji Ramdani</h1>
-                <div class="text-[#798AA3] text-[16px] font-regular">@ajiramdani_04</div>
+                <h1 class="text-[#0B235E] text-[20px] font-[500]">{{ auth()->guard('trainer')->user()->nama }}</h1>
+                <div class="text-[#798AA3] text-[16px] font-regular">{{ auth()->guard('trainer')->user()->email }}</div>
                 <h3 class="font-[400] text-[18px] text-[#0B235E]">Trainer</h3>
             </div>
         </div>
@@ -36,7 +36,7 @@
                 <h2 class="text-[#798AA3]">Tahun Berjalan</h2>
             </div>
             <div class="sub-two text-center">
-                <h1 class=" text-[#0B235E] font-[500] lg:text-[24px]">AJI RAMDANI</h1>
+                <h1 class=" text-[#0B235E] font-[500] lg:text-[24px]">{{ auth()->guard('trainer')->user()->password }}</h1>
                 <h2 class="text-[#798AA3]">Password Akun</h2>
             </div>
         </div>
@@ -55,28 +55,28 @@
             <div class="by px-10 py-5 grid lg:grid-cols-2 md:grid-cols-2  grid-row-2 gap-5">
                 <div class="h_list grid">
                     <h1 class="text-[#798AA3] poppins font-[18px]">Alamat</h1>
-                    <p   class="text-[#0B235E] lg:text-[22px] font-[500] ">Jl. A. Yani No.283, Kebonjati, Kec. Cikole, Kota Sukabumi, Jawa Barat 43111</p>
+                    <p   class="text-[#0B235E] lg:text-[22px] font-[500] ">{{ auth()->guard('trainer')->user()->alamat }}</p>
                 </div>
                 <div class="h_list ">
                     <h1 class="text-[#798AA3] poppins font-[18px]">Lulusan</h1>
-                    <p  class="text-[#0B235E] lg:text-[22px] font-[500]">SMK Terpadu Ibadurrahmah</p>
+                    <p  class="text-[#0B235E] lg:text-[22px] font-[500]">{{ auth()->guard('trainer')->user()->lulusan }}</p>
                 </div>
                 <div class="h_list ">
                     <h1 class="text-[#798AA3] poppins font-[18px]">Telepone</h1>
-                    <p   class="text-[#0B235E] lg:text-[22px] font-[500]">+6289508742700</p>
+                    <p   class="text-[#0B235E] lg:text-[22px] font-[500]">{{ auth()->guard('trainer')->user()->telephone }}</p>
                 </div>
             </div>
         </div>
         <div class="d_p_tr mx-auto" data-aos="fade-down">
             <div class="flex justify-center py-28 gap-20 flex-wrap items-center space-x-4">
                 <div class="k_file hover:scale-105 transition-all">
-                    <a href="#">
-                        <img src="{{asset('assets/trainer_data/ktp/ktp_Aji Ramdani.jpg')}}" alt="" class="w-96 rounded-lg h-96 rounded-lg object-cover">
+                    <a href="{{asset('assets/trainer_data/ktp/'. auth()->guard('trainer')->user()->ktp_file )}}">
+                        <img src="{{asset('assets/trainer_data/ktp/'. auth()->guard('trainer')->user()->ktp_file )}}" alt="" class="w-96 rounded-lg h-96 rounded-lg object-cover">
                     </a>
                 </div>
                 <div class="ttd">
-                    <a href="#">
-                        <img src="{{asset('assets/trainer_data/ttd/Ttd_Aji Ramdani.jpeg')}}" alt="" class="w-96 rounded-lg h-96 rounded-lg object-cover">
+                    <a href="{{asset('assets/trainer_data/ttd/'. auth()->guard('trainer')->user()->ttd )}}">
+                        <img src="{{asset('assets/trainer_data/ttd/'. auth()->guard('trainer')->user()->ttd )}}" alt="" class="w-96 rounded-lg h-96 rounded-lg object-cover">
                     </a>
                 </div>
             </div>
