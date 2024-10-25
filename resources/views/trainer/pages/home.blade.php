@@ -16,7 +16,7 @@
     </div>
 
     {{-- === card total === --}}
-    <div class="container mx-auto py-10">
+    <div data-aos="fade-down" class="container mx-auto py-10">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <!-- Card 1 -->
             <div class="p-6 rounded-[24px] bg-[#FBDC5C] border-2 border-[#CE7100] text-center">
@@ -62,12 +62,12 @@
         <div class="box-card w-full rounded-[24px] border-2 text-start ">
             <div class="body lg:px-10 md:px-10 px-5 py-10">
                 <div class="content">
-                    <div class="card-1 flex flex-col gap-5">
+                    <div  class="card-1 flex flex-col gap-5">
                         <h6 class="text-[#0E2C75] poppins-semibold text-[20px]">Jadwal Terbaru Trainer</h6>
                         {{-- === card belum absen === --}}
                         <div class="text-[#798AA3]">Jadwal Baru</div>
-                        <a href="javascript:void(0);" onclick="showLoading(this, '{{ route('absenTest')}}')">
-                            <div class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#CEEEF0FF] border-2 border-[#0022CEFF] " onclick="showLoading(this)">
+                        <a data-aos="fade-down" href="javascript:void(0);" onclick="showLoading(this, '{{ route('absenTest')}}')">
+                            <div  class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#CEEEF0FF] border-2 border-[#0022CEFF] " onclick="showLoading(this)">
                                 <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
                                     <div class="k_right flex flex-col">
                                         <span class="poppins-regular">
@@ -118,7 +118,7 @@
 
                         {{-- === card sudah absen === --}}
                         <div class="text-[#798AA3]">Sudah Jadwal</div>
-                        <div class="card-h p-6 hover:scale-105 transition-all rounded-[24px] bg-[#CEF0CEFF] border-2 border-[#0ACE00FF] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
+                        <div data-aos="fade-down" class="card-h p-6 hover:scale-105 transition-all rounded-[24px] bg-[#CEF0CEFF] border-2 border-[#0ACE00FF] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
                             <div class="k_right flex flex-col">
                                 <span>
                                     CS 162
@@ -139,7 +139,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#CEF0CEFF] border-2 border-[#0ACE00FF] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
+                        <div data-aos="fade-down" class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#CEF0CEFF] border-2 border-[#0ACE00FF] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
                             <div class="k_right flex flex-col">
                                 <span>
                                     CS 162
@@ -164,7 +164,7 @@
 
                         {{-- === card tidak ada absen === --}}
                         <div class="text-[#798AA3]"> Jadwal Belum Aktif</div>
-                        <div class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#E8CEF0] border-2 border-[#D9ADE6] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
+                        <div data-aos="fade-down" class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#E8CEF0] border-2 border-[#D9ADE6] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
                             <div class="k_right flex flex-col">
                                 <span>
                                     CS 162
@@ -185,7 +185,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#E8CEF0] border-2 border-[#D9ADE6] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
+                        <div data-aos="fade-down" class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#E8CEF0] border-2 border-[#D9ADE6] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
                             <div class="k_right flex flex-col">
                                 <span>
                                     CS 162

@@ -10,9 +10,8 @@
 <!-- mixitup -->
 <script src="{{ asset('assets/trainerJs/js/mixitup.min.js') }}"></script>
 
-
-  <!-- gasp -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
+<!-- gasp -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
 
 <!-- draggable -->
 <script src="Draggable.min.js"></script>
@@ -27,8 +26,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCodvr4TmsTJdYPjs_5PWLPTNLA9uA4iq8&callback=initMap"
     type="text/javascript"></script>
 
-
-<!-- script -->
 <script src="{{ asset('assets/trainerJs/js/script.js') }}"></script>
 <script src="{{ asset('assets/trainerJs/js/bootstrap.bundle.min.js') }}"></script>
 <script>
@@ -60,3 +57,6 @@
         }, 3000); // 3000 ms = 3 detik (ubah sesuai kebutuhan)
     }
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{asset('storage/Nav_js/routerNav.js')}}"></script>    

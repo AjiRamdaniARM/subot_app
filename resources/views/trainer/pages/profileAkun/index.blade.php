@@ -29,41 +29,61 @@
                 <div class="text-[#798AA3] text-[16px] font-regular">@ajiramdani_04</div>
                 <h3 class="font-[400] text-[18px] text-[#0B235E]">Trainer</h3>
             </div>
-           
         </div>
-        <div data-aos="fade-down" data-aos-delay="50" data-aos-duration="200" class="sub_content_head px-10 flex justify-center items-center -mt-10 gap-44">
+        <div data-aos="fade-down" data-aos-delay="50" data-aos-duration="200" data-aos-easing="ease-in-out" class="sub_content_head px-10 flex  justify-center items-center -mt-10 gap-10 lg:gap-44">
             <div class="sub-one text-center poppins">
-                <h1 class="text-[#0B235E] text-[24px] font-[500]">3 Tahun</h1>
+                <h1 class="text-[#0B235E] lg:text-[24px] font-[500]">3 Tahun</h1>
                 <h2 class="text-[#798AA3]">Tahun Berjalan</h2>
             </div>
             <div class="sub-two text-center">
-                <h1 class=" text-[#0B235E] font-[500] text-[24px]">AJI RAMDANI</h1>
+                <h1 class=" text-[#0B235E] font-[500] lg:text-[24px]">AJI RAMDANI</h1>
                 <h2 class="text-[#798AA3]">Password Akun</h2>
             </div>
         </div>
     </div>
 
-    <div class="body-content-profile w-full p-10 w-full">
-        <div class="grid grid-rows-1 grid-cols-1 bg-white border-l-8 border-[#0B235E]">
-            <div class="p-card-on text-white text-start thead px-10 py-5 bg-[#E9F0F4] border-b-2 border-gray-500">
+    <div class="body-content-profile w-full  w-full">
+        <div class="grid grid-rows-1 grid-cols-1 bg-white border-l-8 border-[#0B235E]" data-aos="fade-down" data-aos-delay="50" data-aos-duration="500">
+            <div class="p-card-on text-white text-start thead px-10 py-5 bg-[#E9F0F4] border-b-2 border-gray-500 flex justify-between items-center">
             <h2 class="text-2xl text-[#0B235E] poppins">Informasi Pribadi</h2>
+                <div class="icon-edited">
+                    <a href="{{route('akun.edited')}}" class="text-gray-500 hover:scale-105 transition-all hover:text-blue-500">
+                        <svg class="h-8 w-8"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>
+                    </a>
+                </div>
             </div>
             <div class="by px-10 py-5 grid lg:grid-cols-2 md:grid-cols-2  grid-row-2 gap-5">
                 <div class="h_list grid">
                     <h1 class="text-[#798AA3] poppins font-[18px]">Alamat</h1>
-                    <p class="text-[#0B235E] lg:text-[22px] font-[500] ">Jl. A. Yani No.283, Kebonjati, Kec. Cikole, Kota Sukabumi, Jawa Barat 43111</p>  
-                </div> 
+                    <p   class="text-[#0B235E] lg:text-[22px] font-[500] ">Jl. A. Yani No.283, Kebonjati, Kec. Cikole, Kota Sukabumi, Jawa Barat 43111</p>
+                </div>
                 <div class="h_list ">
                     <h1 class="text-[#798AA3] poppins font-[18px]">Lulusan</h1>
-                    <p class="text-[#0B235E] lg:text-[22px] font-[500]">SMK Terpadu Ibadurrahmah</p>  
-                </div> 
+                    <p  class="text-[#0B235E] lg:text-[22px] font-[500]">SMK Terpadu Ibadurrahmah</p>
+                </div>
                 <div class="h_list ">
                     <h1 class="text-[#798AA3] poppins font-[18px]">Telepone</h1>
-                    <p class="text-[#0B235E] lg:text-[22px] font-[500]">+6289508742700</p>  
-                </div> 
+                    <p   class="text-[#0B235E] lg:text-[22px] font-[500]">+6289508742700</p>
+                </div>
             </div>
         </div>
+        <div class="d_p_tr mx-auto" data-aos="fade-down">
+            <div class="flex justify-center py-28 gap-20 flex-wrap items-center space-x-4">
+                <div class="k_file hover:scale-105 transition-all">
+                    <a href="#">
+                        <img src="{{asset('assets/trainer_data/ktp/ktp_Aji Ramdani.jpg')}}" alt="" class="w-96 rounded-lg h-96 rounded-lg object-cover">
+                    </a>
+                </div>
+                <div class="ttd">
+                    <a href="#">
+                        <img src="{{asset('assets/trainer_data/ttd/Ttd_Aji Ramdani.jpeg')}}" alt="" class="w-96 rounded-lg h-96 rounded-lg object-cover">
+                    </a>
+                </div>
+            </div>
+            
+            
+        </div>
     </div>
-    
+
 </section>
 @endsection
