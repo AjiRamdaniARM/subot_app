@@ -8,7 +8,7 @@ use App\Http\Controllers\trainer\homeController;
 use App\Http\Controllers\trainer\jadwalMenu\JadwalController;
 use App\Http\Controllers\trainer\LaporanController as TrainerLaporanController;
 use App\Http\Controllers\trainer\LoginTrainerController;
-
+use App\Livewire\UpdateAccount;
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,8 +24,7 @@ Route::middleware('check.trainer.auth')->group(function () {
     // === route akun profile === //
     Route::get('/akun', [AkunController::class, 'index'])->name('akun');
     Route::get('/edit', [AkunController::class, 'edited'])->name('akun.edited');
-    Route::get('/edit/{idAccount}/post', UpdateAccout::class,)->name('akun.edit');
-    Route::post('/edit/prossess', [AkunController::class, 'prosess'])->name('akun.post');
+    Route::put('/edit/prossess/{id}', [AkunController::class, 'prosess'])->name('akun.post');
 
     // === route jadwal trainer === //
     Route::get('/jadwalTrainer', [JadwalController::class, 'index'])->name('jadwal.menu');

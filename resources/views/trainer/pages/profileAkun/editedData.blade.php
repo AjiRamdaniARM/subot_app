@@ -1,5 +1,6 @@
 @extends('trainer.layouts.main')
 @section('children')
+
 <section class="edited-akun">
     <div class="sidenav lg:px-0 px-4 md:px-0 flex justify-between items-center poppins-regular lg:text-2xl">
         <span class="text-[#0E2C75] poppins-semibold">
@@ -14,10 +15,8 @@
         <p>{{ $tanggalSekarang }}</p>
         </span>
     </div>
-    <livewire:update-account :idAccount="auth()->guard('trainer')->user()->id" />
-
-
-    
+    @include('trainer.pages.profileAkun.submitForm.form')
     </div>
 </section>
 @endsection
+  
