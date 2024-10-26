@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Storage;
 
 class Absensi extends Controller
 {
+
+    public function test(){
+        return view('trainer.pages.absen_siswa.index');
+    }
     public function absensi(Request $request, $id)
     {
         $attendances = $request->input('attendance', []);

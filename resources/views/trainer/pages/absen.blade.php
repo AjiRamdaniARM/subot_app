@@ -1,234 +1,116 @@
 @extends('trainer.layouts.main')
 @section('children')
-
-    <body class="scrollbar-hidden">
-
-        <main class="details hotel-details">
-            <!-- banner start -->
-            <section class="banner position-relative">
-                <img src="{{ asset('assets/img/profilesekola.png') }}" alt="Banner" class="w-100 img-fluid">
-
-                <!-- title -->
-                <div class="page-title">
-                    <button type="button" onclick="window.location.href='{{ url('/home') }}'"
-                        class="back-btn back-page-btn d-flex align-items-center justify-content-center rounded-full">
-                        <img src="{{ asset('assets/trainerSvg/svg/arrow-left-black.svg') }}" alt="arrow">
-                    </button>
-                    @if ($getScheduleTrainer->kelas_name == 'Club')
-                        <h3 class="main-title">{{ $getScheduleTrainer->sekolah }}</h3>
-                    @else
-                        <h3 class="main-title">{{ $getScheduleTrainer->kelas_name }}</h3>
-                    @endif
-
+<section>
+    <div class="container">
+        <div class="banner">
+            <img class="rounded-lg lg:h-80  object-cover w-full" src="{{asset('assets/img/Coming.gif')}}" alt="image-banner" />
+        </div>
+            <div data-aos="fade-up" class="card-one py-10 grid grid-flow-dense lg:grid-cols-2 gap-4 lg:grid-rows-2 grid-cols-1 grid-rows-1">
+                <div class="detail-inform w-full bg-[#FBDC5C] rounded-lg border-2 border-[#FBBB5CFF] p-5 relative">
+                    <div class="mini-alert bg-[#EEAA17FF] text-[15px] p-1 text-white poppins-regular absolute top-3 right-3 w-20 rounded-[24px] text-center">
+                        24 Jam
+                    </div>
+                    <h1 class="poppins-bold lg:text-2xl text-[20px]">Informasi Jadwal</h1>
+                    <p class="poppins-regular text-gray-800 text-[15px]">Kamis, 20 Juni 2024, 15:30 - 17:00</p>
+                    <p class="poppins-semibold text-black">SDK BPK PENABUR </p>
+                    <p class="poppins-regular text-[15px] text-gray-800">Lego Wedo 2.0 , Robotik , Beginner 2 </p>
                 </div>
-            </section>
-            <!-- banner end -->
-
-            <!-- details-body start -->
-            <section class="details-body">
-                <!-- details-title -->
-                <section class="d-flex align-items-center gap-8 details-title">
-                    <div class="flex-grow">
-                        @if ($getScheduleTrainer->kelas_name == 'Club')
-                            <h3>{{ $getScheduleTrainer->sekolah }}</h3>
-                        @else
-                            <h3>{{ $getScheduleTrainer->kelas_name }}</h3>
-                        @endif
-                        <ul class="d-flex align-items-center gap-8">
-                            <li class="d-flex align-items-center gap-04">
-                                <img src="{{ asset('assets/trainerSvg/svg/map-marker.svg') }}" alt="icon">
-                                <p>{{ date('H:i', strtotime($getScheduleTrainer->jm_awal)) }} -
-                                    {{ date('H:i', strtotime($getScheduleTrainer->jm_akhir)) }}</p>
-                            </li>
-                            <li class="d-flex align-items-center gap-04">
-                                <p><span></span>{{ $getScheduleTrainer->kelas_name }}</p></span>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-                <section class="guide py-12">
-                    <div class="title d-flex align-items-center justify-content-between">
-                        <h2 class="shrink-0">Siswa</h2>
-                        @if ($getScheduleTrainer->absensi_anak == 'tutup')
-                            <a class="shrink-0 d-inline-block">Anda Sudah Absen </a>
-                        @else
-                            <a href="{{ url('/absensiswa/' . $getScheduleTrainer->id_schedules) }}"
-                                class="shrink-0 d-inline-block">See
-                                All</a>
-                        @endif
-
-                    </div>
-                    <div class="d-flex gap-24 all-cards scrollbar-hidden">
-                        @foreach ($getDataStudent as $student)
-                            <a class="d-flex gap-16 item w-fit shrink-0">
-                                <div class="image position-relative shrink-0">
-                                    <img src="{{ asset('assets/data/dataAnak/img/' . $student->file) }}" alt="guide"
-                                        class="guide-img object-fit-cover img-fluid radius-12">
-                                </div>
-
-                                <div class="content">
-                                    <h4>{{ $student->nama_lengkap }}</h4>
-                                    <h5>Kelas 3A</h5>
-                                    <p class="d-flex align-items-center gap-8 location">
-                                        Basic 1
-                                    </p>
-                                </div>
-                            </a>
-                        @endforeach
-
-
-
-
-                    </div>
-                </section>
-
-                <!-- reviews start -->
-                <form action="{{ url('/laporantrainer/porsses/' . $getScheduleTrainer->id_schedules) }}" method="POST"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <section class="reviews py-16">
-                        <!-- title -->
-                        <div class="title d-flex align-items-center justify-content-between">
-                            <h4 class="shrink-0">Dokumentasi</h4>
-                        </div>
-
-                        <div class="container mt-5">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div id="drop-area"
-                                        class="border rounded d-flex justify-content-center align-items-center"
-                                        style="height: 200px; cursor: pointer;">
-                                        <div class="text-center">
-                                            <i class="bi bi-cloud-arrow-up-fill text-primary" style="font-size: 48px;"></i>
-                                            <p class="mt-3" id="drop-text">Drag and drop your image here or click to
-                                                select a
-                                                file.</p>
-                                            <p id="file-info" class="file-info"></p>
-                                            <!-- Container untuk menampilkan keterangan file -->
-                                        </div>
-                                    </div>
-                                    <input type="file" name="file" id="fileElem" multiple accept="image/*"
-                                        class="d-none">
-                                </div>
-                            </div>
-                        </div>
-
-                        <style>
-                            .highlight {
-                                border-color: #007bff !important;
-                                /* Warna border saat highlight */
-                            }
-
-                            .file-info {
-                                color: #28a745;
-                                /* Warna teks untuk keterangan file */
-                                font-weight: bold;
-                                margin-top: 10px;
-                            }
-                        </style>
-
+                <div class="tab border rounded-lg border-gray-500">
+                    <div class="text-head px-5 mt-3 flex justify-between items-center">
+                        <h1 class="poppins-bold ">Daftar Siswa</h1>
+                        <button id="absensi" onclick="window.location.href='{{route('ab_siswa')}}'" class="bg-[#1A1A34] text-white rounded-[24px] px-3 py-1 hover:scale-105 transition-all bg-[#2E2E4BFF]">Absensi Siswa</button>
                         <script>
-                            let dropArea = document.getElementById("drop-area");
-                            let dropText = document.getElementById("drop-text");
-                            let fileInfo = document.getElementById("file-info");
-
-                            ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-                                dropArea.addEventListener(eventName, preventDefaults, false);
-                                document.body.addEventListener(eventName, preventDefaults, false);
-                            });
-
-                            ["dragenter", "dragover"].forEach((eventName) => {
-                                dropArea.addEventListener(eventName, highlight, false);
-                            });
-
-                            ["dragleave", "drop"].forEach((eventName) => {
-                                dropArea.addEventListener(eventName, unhighlight, false);
-                            });
-
-                            dropArea.addEventListener("drop", handleDrop, false);
-
-                            function preventDefaults(e) {
-                                e.preventDefault();
-                                e.stopPropagation();
-                            }
-
-                            function highlight(e) {
-                                dropArea.classList.add("highlight");
-                            }
-
-                            function unhighlight(e) {
-                                dropArea.classList.remove("highlight");
-                            }
-
-                            function handleDrop(e) {
-                                let dt = e.dataTransfer;
-                                let files = dt.files;
-                                handleFiles(files);
-                            }
-
-                            function handleFiles(files) {
-                                [...files].forEach(uploadFile);
-                            }
-
-                            function uploadFile(file) {
-                                console.log("Uploading", file.name);
-
-                                // Tampilkan nama file di area file-info
-                                fileInfo.textContent = `File selected: ${file.name}`;
-                                dropText.style.display = 'none'; // Sembunyikan teks drag and drop setelah file dipilih
-                            }
-
-                            dropArea.addEventListener("click", () => {
-                                fileElem.click();
-                            });
-
-                            let fileElem = document.getElementById("fileElem");
-                            fileElem.addEventListener("change", function(e) {
-                                handleFiles(this.files);
+                            document.getElementById('absensi').addEventListener('click', function() {
+                            var submitButtonAbsensi = document.getElementById('absensi'); // Mendapatkan tombol
+                            submitButtonAbsensi.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;Loading'; 
+                            submitButtonAbsensi.disabled = true; 
+                                setTimeout(function() {
+                                    submitButtonAbsensi.innerHTML = 'Absensi Siswa';
+                                    submitButtonAbsensi.disabled = false;
+                                }, 2000); 
                             });
                         </script>
-
-
-                        <!-- location start -->
-                        <section class="details-location pt-16">
-                            <!-- title -->
-                            <div class="title">
-                                <h4>Location</h4>
-                            </div>
-
-                            <!-- map -->
-                            <div class="overflow-hidden radius-16 map">
-                                @if ($getScheduleTrainer->api_maps == null)
-                                    <div style="background-color: white; padding:10px">
-                                        <h6>Mohon maaf atas ketidaknyamanannya. Untuk pertanyaan mengenai alamat atau
-                                            informasi
-                                            lainnya, silakan hubungi administrator kami.</h6>
+                    </div>
+                    <table class="table-auto  w-full border-collapse mt-6">
+                        <thead class="text-xs font-semibold uppercase text-gray-600 bg-gray-50">
+                            <tr>
+                                <th class="p-2">No</th>
+                                <th class="p-2">Nama</th>
+                                <th class="p-2">Kelas</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm divide-y divide-gray-100" >
+                            <tr>
+                                <td class="p-2  text-center">1</td>
+                                <td class="p-2 ">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 flex-shrink-0 mr-3">
+                                            <img class="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg" width="40" height="40" alt="Alex Shatov">
+                                        </div>
+                                        <div class="font-medium text-gray-800">Alex Shatov</div>
                                     </div>
-                                @else
-                                    <iframe src="{{ $getScheduleTrainer->api_maps }}" style="border:0;" allowfullscreen=""
-                                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                @endif
+                                </td>
+                                <td class="p-2  text-center">12 SMK</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="detail-inform w-full bg-[#FED2D9] rounded-lg border-2 border-[#FEAEAEFF] p-5 relative">
+                    <h1 class="poppins-bold">Unggah Dokumentasi ke Google Drive auto atau manual</h1>
+                    <button id="unggah" class="bg-[#FB9595FF] hover:scale-105 transtion-all hover:bg-[#F86B6BFF]  text-white px-5 py-2 text-center mt-4 rounded-[24px]">Dokumentasi</button>
+                    <script>
+                        document.getElementById('unggah').addEventListener('click', function() {
+                        var submitButtonUnggah = document.getElementById('unggah'); // Mendapatkan tombol
+                        submitButtonUnggah.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;Loading'; 
+                        submitButtonUnggah.disabled = true; 
+                            setTimeout(function() {
+                                submitButtonUnggah.innerHTML = 'Dokumentasi';
+                                submitButtonUnggah.disabled = false;
+                                window.location.href = "{{route('drive')}}"; 
+                            }, 2000); 
+                        });
+                    </script>
+                </div>
+               
+                <iframe class="w-full h-full rounded-lg"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12080.73732861526!2d-74.0059418!3d40.7127847!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM40zMDA2JzEwLjAiTiA3NMKwMjUnMzcuNyJX!5e0!3m2!1sen!2sus!4v1648482801994!5m2!1sen!2sus"
+                frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+                </iframe>
+            </div>  
 
-                            </div>
-                        </section>
-                        <!-- location end -->
-                    </section>
-                    <!-- details-body end -->
+            {{-- === formulir laporan === --}}
+            <form id="postLaporan" data-aos="fade-up">
+                {{-- === laporan fitur === --}}
+                <div class="container">
+                    <div class="input-laporan lg:flex-row md:flex-row flex flex-col  justify-between items-center space-y-4 md:space-y-0 md:space-x-4">
+                        <!-- Select 1 -->
+                        <div class="select-1 w-full md:w-1/2">
+                            <select name="materi1" id="materi1" class="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500">
+                                <option value="">Pilih Materi Anda</option>
+                                <!-- Add more options if needed -->
+                            </select>
+                        </div>
+                    
+                        <!-- Select 2 -->
+                        <div class="select-2 w-full md:w-1/2">
+                            <select name="materi2" id="materi2" class="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500">
+                                <option value="">Pilih Tanda Tangan Anda</option>
+                                <option value="coding">Coding</option>
+                                <!-- Add more options if needed -->
+                            </select>
+                        </div>
+                    </div>
 
-                    <!-- details-footer start -->
-                    <section class="details-footer d-flex align-items-center justify-content-between gap-8 w-100">
-                        <p><span>{{ $getScheduleTrainer->dj_akhir }} Jam</span></p>
-                        {{-- <a href="{{ url('/laporantrainer/' . $getScheduleTrainer->id_schedules) }}">Continue</a> --}}
-                        @if ($getScheduleTrainer->dokumentasi == 'Ya')
-                            <a href="{{ url('/laporantrainer/' . $getScheduleTrainer->id_schedules) }}">Continue</a>
-                        @else
-                            <button type="submit">Continue</button>
-                        @endif
-
-                    </section>
-                </form>
-                <!-- details-footer end -->
-        </main>
-
-    </body>
+                    <div class="box-area py-5">
+                        <textarea name="laporan" class="w-full  p-4 border border-gray-300 rounded-md " id="laporan" placeholder="Tulis laporan di sini..."></textarea>
+                    </div>
+                </div>
+                {{-- === button absen === --}}
+                <div class="container">
+                    <button id="prosses" class="bg-blue-500 text-white w-full text-center py-4 rounded-2xl hover:scale-105 transition-all hover:bg-gray-800">Selesai Absensi</button>
+                </div>
+            </form>
+          
+    </div>
+</section>
 @endsection

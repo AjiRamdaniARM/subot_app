@@ -47,6 +47,8 @@ class LaporanController extends Controller
         return view('trainer.pages.laporantrainer', compact('getScheduleTrainer', 'getDataTrainer', 'getDataMateri'));
     }
 
+    // ujicoba
+
     public function postLaporan(Request $request, $id_schedules)
     {
 

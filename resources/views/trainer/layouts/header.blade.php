@@ -1,70 +1,19 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="{{asset('assets/css/fontGlobal.css')}}">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- favicon -->
-<link rel="shortcut icon" href="{{ asset('assets/css/nucleo-icons.css') }}" type="image/x-icon">
-
-<!-- bootstrap -->
-<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/bootstrap.min.css') }}">
-
-<!-- swiper -->
-<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/swiper-bundle.min.css') }}">
-
-<!-- datepicker -->
-<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/datetimepicker.css') }}">
-
-<!-- jquery ui -->
-<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/jquery-ui.min.css') }}">
-
-<!-- common -->
-<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/common.css') }}">
-
-<!-- animations -->
-<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/animations.css') }}">
-
-<!-- welcome -->
-<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/welcome.css') }}">
-
-<!-- auth -->
-<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/auth.css') }}">
-
-<!-- home -->
-<link rel="stylesheet" href="{{ asset('assets/trainerCss/css/home.css') }}">
-
-  <!-- details -->
-  <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/details.css') }}">
-
-  <!-- booking -->
-  <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/booking.css') }}">
-
-  <!-- details -->
-  <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/home.css') }}">
-
-  <!-- notification -->
-  <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/notification.css') }}">
-
-  <!-- profile -->
-  <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/profile.css') }}">
-
-  <!-- home -->
-  <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/explore.css') }}">
-
-   <!-- chat -->
-   <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/chat.css') }}">
-
-   <!-- ticket -->
-  <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/ticket.css') }}">
-
-    <!-- home -->
-    <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/home.css') }}">
-
-      <!-- profile -->
-  <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/profile.css') }}">
-
-    <!-- profile -->
-    <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/profile.css') }}]">
-
-      <!-- details -->
-  <link rel="stylesheet" href="{{ asset('assets/trainerCss/css/details.css') }}">
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+></script>
+<script src="https://cdn.jsdelivr.net/npm/tailgrids@2.1.0/plugin.min.js"></script>
+<link
+  href="https://cdn.jsdelivr.net/npm/tailgrids@2.1.0/assets/css/tailwind.min.css"
+  rel="stylesheet"
+/>
+<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css')</style>

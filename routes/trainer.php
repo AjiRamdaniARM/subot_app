@@ -1,25 +1,37 @@
 <?php
 
 use App\Http\Controllers\trainer\Absensi;
+use App\Http\Controllers\trainer\akun\AkunController;
+use App\Http\Controllers\trainer\laporan\laporanController;
+use App\Http\Controllers\trainer\drive\uploadDriveController;
 use App\Http\Controllers\trainer\homeController;
+use App\Http\Controllers\trainer\jadwalMenu\JadwalController;
 use App\Http\Controllers\trainer\LaporanController as TrainerLaporanController;
 use App\Http\Controllers\trainer\LoginTrainerController;
-use App\Http\Controllers\trainer\subotAcademy\auth;
+use App\Livewire\UpdateAccount;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 Route::middleware('check.trainer.auth')->group(function () {
     Route::get('/home', [homeController::class, 'home'])->name('home');
+    
+    // === route absen === //
     Route::get('/home/absen/{id_schedules}', [homeController::class, 'absen'])->name('absen');
+    Route::get('/home/absen/', [homeController::class, 'test'])->name('absenTest');
+    Route::get('/drive', [uploadDriveController::class, 'index'])->name('drive');
+    Route::get('/absenSiswa', [Absensi::class, 'test'])->name('ab_siswa');
+
+    // === route akun profile === //
+    Route::get('/akun', [AkunController::class, 'index'])->name('akun');
+    Route::get('/edit', [AkunController::class, 'edited'])->name('akun.edited');
+    Route::put('/edit/prossess/{id}', [AkunController::class, 'prosess'])->name('akun.post');
+
+    // === route jadwal trainer === //
+    Route::get('/jadwalTrainer', [JadwalController::class, 'index'])->name('jadwal.menu');
+
+    // === route laporan trainer === //
+    Route::get('/laporanTrainer', [laporanController::class, 'index'])->name('laporan.menu');
+
     Route::get('/laporantrainer/{id_schedules}', [TrainerLaporanController::class, 'laporantrainer'])->name('laporantrainer');
     Route::get('/jadwalhari', [LoginTrainerController::class, 'jadwalhari'])->name('jadwalhari');
     Route::get('/notifications', [LoginTrainerController::class, 'notifications'])->name('notifications');
@@ -50,8 +62,7 @@ Route::middleware('check.trainer.auth')->group(function () {
 });
 
 
-// === auth login === //
-Route::get('/SubotAcademy', [auth::class, 'index'])->name('auth.trainer');
+
 
 Route::get('/LoginTrainer', [LoginTrainerController::class, 'index'])->name('login.trainer');
 Route::post('/login-trainer/prosses', [LoginTrainerController::class, 'loginTrainer'])->name('login.prosses');

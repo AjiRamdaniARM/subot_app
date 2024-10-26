@@ -74,7 +74,6 @@
                                                 submitButton.disabled = false;
                                             }, 3000);
                                         });
-
                                         const togglePassword = document.querySelector('#togglePassword');
                                         const password = document.querySelector('#id_card');    
 
