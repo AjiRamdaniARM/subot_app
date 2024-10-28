@@ -1,4 +1,4 @@
-<form data-aos="fade-down" @submit.prevent="submitForm" x-data="userForm" method="POST" class="mx-auto p-6 rounded-lg">
+<form data-aos="fade-down" @submit.prevent="submitForm" x-data="userForm" method="POST" class="mx-auto p-6 rounded-lg" enctype="multipart/form-data">
     @csrf
     <div class="content-profile-edit lg:py-10 py-4">
         <div class=" w-full ">
@@ -8,7 +8,7 @@
                     <img id="previewProfile" class="w-28 h-28 object-cover rounded-full" src="{{ asset('assets/trainer_data/ktp/ktp_Aji Ramdani.jpeg') }}" alt="Profile Picture" id="profile">
                 </div>
                 <div class="p_right">
-                    <input type="file" hidden id="inputProfile">
+                    <input type="file" x-model='inputDataProfile' hidden id="inputProfile">
                     <button class="border border-gray-500 rounded-lg px-5 py-3 bg-gray-100 hover:bg-gray-200 transition duration-200 hover:scale-105 transition-all" type="button" id="profileButton">Unggah Gambar Baru</button>
                     <p class="text-sm text-gray-600 mt-2">Rekomendasi ukuran gambar 1080 x 1080. Format file JPG, PNG, atau GIF.</p>
                 </div>
@@ -56,6 +56,19 @@
     </div>
 </form>
 
+
+<style>
+    .animate-fade-in {
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('userForm', () => ({
@@ -65,6 +78,7 @@
             alamat: '',
             lulusan: '',
             telephone: '',
+            inputDataProfile:'',
             errors: {
                 'password': '',
                 'telephone': ''
@@ -89,6 +103,18 @@
                 if (this.submitting) return;
                 this.submitting = true;
 
+                const formData = new FormData();
+                formData.append('nama', this.nama);
+                formData.append('email', this.email);
+                formData.append('password', this.password);
+                formData.append('alamat', this.alamat);
+                formData.append('lulusan', this.lulusan);
+                formData.append('telephone', this.telephone);
+
+                if (this.inputDataProfile) {
+                formData.append('profile', this.inputDataProfile);
+                }
+
                 try {
                     const response = await fetch("{{ route('akun.post',$UserAccount->id) }}", {
                         method: "POST",
@@ -96,19 +122,21 @@
                             "Content-Type": "application/json",
                             "X-CSRF-Token": "{{ csrf_token() }}"
                         },
-                        body: JSON.stringify({
-                            nama: this.nama,
-                            email: this.email,
-                            password: this.password,
-                            alamat: this.alamat,
-                            lulusan: this.lulusan,
-                            telephone: this.telephone,
-                            _method: "PUT"
-                        })
+                        body: formData
+                        // body: JSON.stringify({
+                        //     nama: this.nama,
+                        //     email: this.email,
+                        //     password: this.password,
+                        //     alamat: this.alamat,
+                        //     lulusan: this.lulusan,
+                        //     telephone: this.telephone,
+                        //     profile: this.inputProfile,
+                        //     _method: "PUT"
+                        // })
                     });
 
                     if (response.ok) {
-                        window.location.href = "{{ route('akun')}}";
+                        // window.location.href = "{{ route('akun')}}";
                         console.log('berhasil');
                     } else {
                         alert("Gagal mengupdate data");
@@ -128,14 +156,33 @@
 
     inputButton.addEventListener('click', function() {
         fileInput.click();
+        if (fileInput.checked) {
+            inputButton.innerHTML = 'berhasil';
+        }
     })
 
     fileInput.addEventListener('change', event => {
         if (event.target.files.length > 0) {
+            inputButton.innerHTML = `
+            <span id="animatedContent" class="flex items-center gap-5"><svg class="h-5 w-5 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+                Berhasil</span>
+                
+            `;
+
             previewImage.src = URL.createObjectURL(event.target.files[0],);
         } else {
             fileInput.value = null;
         }
     })
+
+    const animatedContent = document.getElementById('animatedContent');
+    setTimeout(() => {
+        animatedContent.classList.add("show");
+    }, 2000);
+
 </script>
+
 

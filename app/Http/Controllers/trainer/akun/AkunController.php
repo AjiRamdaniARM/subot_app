@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\dataTrainer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AkunController extends Controller
 {
@@ -30,10 +31,24 @@ class AkunController extends Controller
             'alamat' => 'required|string',
             'lulusan' => 'required|string|max:255',
             'telephone' => 'required|string|max:255|min:5',
+            'profile' => 'required|string|max:255|min:5',
         ]);
+
     
-        $userAccount->update($request->only('nama', 'email','password','alamat','lulusan','telephone'));
-    
+        if ($request->hasFile('profile')) {
+            $profileFile = $request->file('profile');
+            $profileFileName = 'Profile_'.$request->nama.'.'.$profileFile->getClientOriginalExtension();
+            $profileFile->move(public_path('/assets/trainer_data/profile'), $profileFileName);
+        
+            $userAccount->update(array_merge(
+                $request->only('nama', 'email', 'password', 'alamat', 'lulusan', 'telephone'), 
+                ['profile' => $profileFileName]
+            ));
+
+        } else {
+             $userAccount->update($request->only('nama', 'email', 'password', 'alamat', 'lulusan', 'telephone'));
+        }
+
         return response()->json(['message' => 'User updated successfully']);
     }
 }
