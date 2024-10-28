@@ -26,9 +26,13 @@ class AkunController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'password' => 'required|string|max:255|min:4',
+            'alamat' => 'required|string',
+            'lulusan' => 'required|string|max:255',
+            'telephone' => 'required|string|max:255|min:5',
         ]);
     
-        $userAccount->update($request->only('nama', 'email'));
+        $userAccount->update($request->only('nama', 'email','password','alamat','lulusan','telephone'));
     
         return response()->json(['message' => 'User updated successfully']);
     }

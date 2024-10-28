@@ -1,14 +1,15 @@
-<form @submit.prevent="submitForm" x-data="userForm" method="POST" class="mx-auto p-6 rounded-lg">
+<form data-aos="fade-down" @submit.prevent="submitForm" x-data="userForm" method="POST" class="mx-auto p-6 rounded-lg">
     @csrf
-    <div class="content-profile-edit py-10">
-        <div class="container w-full p-6">
+    <div class="content-profile-edit lg:py-10 py-4">
+        <div class=" w-full ">
             <h1 class="text-xl font-semibold mb-4">Avatar</h1>
             <div data-aos="fade-right" class="flex flex-wrap justify-start items-center gap-5">
                 <div class="profile">
-                    <img class="w-28 h-28 object-cover rounded-full" src="{{ asset('assets/trainer_data/ktp/ktp_Aji Ramdani.jpeg') }}" alt="Profile Picture" id="profile">
+                    <img id="previewProfile" class="w-28 h-28 object-cover rounded-full" src="{{ asset('assets/trainer_data/ktp/ktp_Aji Ramdani.jpeg') }}" alt="Profile Picture" id="profile">
                 </div>
                 <div class="p_right">
-                    <button class="border border-gray-500 rounded-lg px-5 py-3 bg-gray-100 hover:bg-gray-200 transition duration-200">Unggah Gambar Baru</button>
+                    <input type="file" hidden id="inputProfile">
+                    <button class="border border-gray-500 rounded-lg px-5 py-3 bg-gray-100 hover:bg-gray-200 transition duration-200 hover:scale-105 transition-all" type="button" id="profileButton">Unggah Gambar Baru</button>
                     <p class="text-sm text-gray-600 mt-2">Rekomendasi ukuran gambar 1080 x 1080. Format file JPG, PNG, atau GIF.</p>
                 </div>
             </div>
@@ -31,7 +32,8 @@
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password Akun</label>
-                    <input type="password" id="password" name="password" x-model="password" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Password Akun" required>
+                    <input type="password" id="password" name="password" x-model="password"   class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Password Akun" required>
+                    <span x-show="errors.password" class="text-red-500 text-sm" x-text="errors.password"></span>
                 </div>
                 <div>
                     <label for="alamat" class="block text-sm font-medium text-gray-700 mb-2">Alamat</label>
@@ -44,10 +46,11 @@
                 <div>
                     <label for="telephone" class="block text-sm font-medium text-gray-700 mb-2">Telepone</label>
                     <input type="text" id="telephone" name="telephone" x-model="telephone" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Telepone" required>
+                    <span x-show="errors.telephone" class="text-red-500 text-sm relative mt-3" x-text="errors.telephone"></span>
                 </div>
             </div>
 
-            <button type="submit"   :disabled="submitting"   class="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Submit</button>
+            <button type="submit" :disabled="submitting"   class="w-full relative mt-4 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Submit</button>
 
         </fieldset>
     </div>
@@ -62,10 +65,30 @@
             alamat: '',
             lulusan: '',
             telephone: '',
-            
+            errors: {
+                'password': '',
+                'telephone': ''
+            },
+            submitting: false,
+
             async submitForm() {
+             
+            if (this.password.length < 4) {
+                this.errors.password = "Password harus memiliki minimal 4 karakter";
+                return;
+            } else {
+                this.errors.password = "";
+            }
+                var numbersOnly = /^[0-9]+$/;
+                if (!this.telephone.match(numbersOnly)) {
+                    this.errors.telephone = "Nomor telepon harus berupa angka";
+                    return;
+                } else {
+                    this.errors.telephone = "";
+                }
                 if (this.submitting) return;
                 this.submitting = true;
+
                 try {
                     const response = await fetch("{{ route('akun.post',$UserAccount->id) }}", {
                         method: "POST",
@@ -85,8 +108,8 @@
                     });
 
                     if (response.ok) {
-                        window.location.href = "{{ route('akun')}}"
-                        console.log('berhasil')
+                        window.location.href = "{{ route('akun')}}";
+                        console.log('berhasil');
                     } else {
                         alert("Gagal mengupdate data");
                     }
@@ -98,4 +121,21 @@
             }
         }));
     });
+
+    const fileInput = document.getElementById('inputProfile');
+    const previewImage = document.getElementById('previewProfile');
+    const inputButton = document.getElementById('profileButton');
+
+    inputButton.addEventListener('click', function() {
+        fileInput.click();
+    })
+
+    fileInput.addEventListener('change', event => {
+        if (event.target.files.length > 0) {
+            previewImage.src = URL.createObjectURL(event.target.files[0],);
+        } else {
+            fileInput.value = null;
+        }
+    })
 </script>
+
