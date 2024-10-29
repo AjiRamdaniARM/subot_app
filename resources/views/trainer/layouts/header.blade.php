@@ -16,4 +16,5 @@
   href="https://cdn.jsdelivr.net/npm/tailgrids@2.1.0/assets/css/tailwind.min.css"
   rel="stylesheet"
 />
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css')</style>

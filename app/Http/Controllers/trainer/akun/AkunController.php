@@ -31,24 +31,24 @@ class AkunController extends Controller
             'alamat' => 'required|string',
             'lulusan' => 'required|string|max:255',
             'telephone' => 'required|string|max:255|min:5',
-            'profile' => 'required|string|max:255|min:5',
         ]);
 
-    
         if ($request->hasFile('profile')) {
             $profileFile = $request->file('profile');
             $profileFileName = 'Profile_'.$request->nama.'.'.$profileFile->getClientOriginalExtension();
             $profileFile->move(public_path('/assets/trainer_data/profile'), $profileFileName);
-        
-            $userAccount->update(array_merge(
-                $request->only('nama', 'email', 'password', 'alamat', 'lulusan', 'telephone'), 
-                ['profile' => $profileFileName]
-            ));
-
+            $userAccount->update([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'password' => $request->password, 
+                'alamat' => $request->alamat,
+                'lulusan' => $request->lulusan,
+                'telephone' => $request->telephone,
+                'profile' => $profileFileName,
+            ]);
         } else {
-             $userAccount->update($request->only('nama', 'email', 'password', 'alamat', 'lulusan', 'telephone'));
+            $userAccount->update($request->only('nama', 'email', 'password', 'alamat', 'lulusan', 'telephone','profileFile'));
         }
-
         return response()->json(['message' => 'User updated successfully']);
     }
 }

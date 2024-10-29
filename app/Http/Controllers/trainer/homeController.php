@@ -47,8 +47,6 @@ class homeController extends Controller
                 'data_levels.*',
                 'data_levels.id as id_level',
                 'data_sekolahs.*'
-
-                // tambahkan kolom lainnya sesuai kebutuhan
             )
             ->orderBy('created_at_jd', 'DESC')
             ->get();
@@ -119,14 +117,18 @@ class homeController extends Controller
 
     public function absensiswa($id_schedules)
     {
+        if (is_null($id_schedules)) {
+            return redirect()->route('home');
+        }
 
-        $getDataSchedules = Schedules::where('id', $id_schedules)->first();
-
+        $getDataSchedules = Schedules::where('id', $id_schedules)->first();  
+        if (!$getDataSchedules) {
+            return redirect()->route('home')->with('error', 'Data jadwal tidak ditemukan.');
+        }
         $getDataBig = BigData::where('id_bigData', $getDataSchedules->id_bigData)->pluck('id_siswa');
 
         // Dapatkan data siswa berdasarkan id_siswa dari hasil sebelumnya
         $getDataStudent = DataSiswa::whereIn('id', $getDataBig)->get();
-
-        return view('trainer.pages.absensiswa', compact('getDataStudent', 'getDataSchedules'));
+        return view('trainer.pages.absen_siswa.index', compact('getDataStudent', 'getDataSchedules'));
     }
 }

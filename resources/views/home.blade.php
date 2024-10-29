@@ -27,7 +27,8 @@
                         @guest
                             <button id="submitBtn" onclick="showLoading(this); window.location.href='{{ route('loginAdmin') }}'"
                                 class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none border-gray-500 bg-gray-900 text-white hover:scale-105 poppins-regular focus:scale-105 hover:font-bold transition-all">Login
-                                With Admin</button>
+                                With Admin
+                            </button>
                         @endguest
                     </div>
                 </div>

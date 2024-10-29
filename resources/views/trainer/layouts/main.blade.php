@@ -71,7 +71,7 @@
             </ul>
         </div>
     </aside>
-    <div class="flex-1 md:ml-64 lg:ml-64 ml-0 p-4 ">
+    <div class="flex-1 md:ml-64 lg:ml-64 ml-0 lg:p-4 md:p-4 p-1 ">
         <header class="flex justify-between  items-center p-4 text-white" style="border-bottom: 1px solid #798AA3">
             <!-- Hamburger Button -->
             <button id="openSidebar" class="text-black relative hover:scale-105 transition-all z-40 ">

@@ -58,39 +58,20 @@
     </div>
 
     {{-- == card jadwal == --}}
-    <div class="container mx-auto py-10">
-        <div class="box-card w-full rounded-[24px] border-2 text-start ">
-            <div class="body lg:px-10 md:px-10 px-5 py-10">
+    <div class="container mx-auto py-5 lg:py-10">
+        <div class="box-card w-full rounded-[24px] text-start ">
+            <div class="body  py-10">
                 <div class="content">
                     <div  class="card-1 flex flex-col gap-5">
                         <h6 class="text-[#0E2C75] poppins-semibold text-[20px]">Jadwal Terbaru Trainer</h6>
                         {{-- === card belum absen === --}}
                         <div class="text-[#798AA3]">Jadwal Baru</div>
-                        <a data-aos="fade-down" href="javascript:void(0);" onclick="showLoading(this, '{{ route('absenTest')}}')">
-                            <div  class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#CEEEF0FF] border-2 border-[#0022CEFF] " onclick="showLoading(this)">
+                        @if ($getScheduleTrainer === null || $getScheduleTrainer->isEmpty()) 
+                            <div class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#83DCFFFF] border-2 border-[#10678DFF] ">
                                 <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
-                                    <div class="k_right flex flex-col">
-                                        <span class="poppins-regular">
-                                            Basic 1 | Huna MRT 2
-                                        </span>
-                                        <span class="text-[#0B235E] poppins-semibold">
-                                            SDK BPK PENABUR
-                                        </span>
-                                        <span class="text-[#4A4A4AFF] poppins-regular">
-                                            07 October 2024 
-                                        </span>
-                                    </div>
-                                    <div class="k_left flex flex-col">
-                                        <span class="text-[#0B235E] lg:text-[20px] md:text-[20px] text-[15px] poppins-semibold">
-                                            08.00 - 14.00
-                                        </span>
-                                        <span class="text-[#004971FF]">
-                                            Absensi Trainer
-                                        </span>
-                                    </div>
+                                    <h1 class="text-black">Belum Ada Jadwal Terbaru Nih 😵😵</h1>
                                 </div>
-                                
-                                <!-- Skeleton Loading (Hidden secara default) -->
+                        
                                 <div class="loading hidden w-full">
                                     <div class="animate-pulse flex flex-col space-y-4 w-full">
                                         <div class="h-4 bg-gray-300 rounded w-3/4"></div>
@@ -99,7 +80,54 @@
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        @else
+                            @foreach ($getScheduleTrainer as $jadwal)
+                                @if($jadwal->ket === 'Aktif')
+                                    <a data-aos="fade-down" href="javascript:void(0);" onclick="showLoading(this, '{{  url('/home/absen/' . $jadwal->id_schedules)}}')">
+                                        <div  class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#CEEEF0FF] border-2 border-[#0022CEFF] " onclick="showLoading(this)">
+                                            <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
+                                                <div class="k_right flex flex-col">
+                                                    <span class="poppins-regular">
+                                                        {{ $jadwal->levels }} | {{ $jadwal->nama_alat }}
+                                                    </span>
+                                                    @if ($jadwal->kelas_name == 'Club')
+                                                        <span class="text-[#0B235E] poppins-semibold">
+                                                        {{$jadwal->sekolah}}
+                                                        </span>
+                                                    @else
+                                                        <span class="text-[#0B235E] poppins-semibold">
+                                                            {{ $jadwal->kelas_name }}
+                                                        </span>
+                                                    @endif
+                                                
+                                                    <span class="text-[#4A4A4AFF] poppins-regular">
+                                                        {{ \Carbon\Carbon::parse($jadwal->tanggal_jd)->translatedFormat('d F Y') }}
+                                                    </span>
+                                                </div>
+                                                <div class="k_left flex flex-col">
+                                                    <span class="text-[#0B235E] lg:text-[20px] md:text-[20px] text-[15px] poppins-semibold">
+                                                        {{ date('H:i', strtotime($jadwal->jm_awal)) }} - {{ date('H:i', strtotime($jadwal->jm_akhir)) }}
+                                                    </span>
+                                                    <span class="text-[#004971FF]">
+                                                        Absensi Trainer
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Skeleton Loading (Hidden secara default) -->
+                                            <div class="loading hidden w-full">
+                                                <div class="animate-pulse flex flex-col space-y-4 w-full">
+                                                    <div class="h-4 bg-gray-300 rounded w-3/4"></div>
+                                                    <div class="h-6 bg-gray-300 rounded w-full"></div>
+                                                    <div class="h-4 bg-gray-300 rounded w-1/2"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a> 
+                                @endif
+                            @endforeach
+                        @endif
+                       
                         <script>
                            function showLoading(card, nextPageUrl) {
                             const content = card.querySelector('.content');
@@ -117,7 +145,7 @@
                         {{-- === card belum absen === --}}
 
                         {{-- === card sudah absen === --}}
-                        <div class="text-[#798AA3]">Sudah Jadwal</div>
+                        <div class="text-[#798AA3]">Sudah Absen</div>
                         <div data-aos="fade-down" class="card-h p-6 hover:scale-105 transition-all rounded-[24px] bg-[#CEF0CEFF] border-2 border-[#0ACE00FF] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
                             <div class="k_right flex flex-col">
                                 <span>
@@ -163,7 +191,7 @@
                         {{-- === card sudah absen === --}}
 
                         {{-- === card tidak ada absen === --}}
-                        <div class="text-[#798AA3]"> Jadwal Belum Aktif</div>
+                        <div class="text-[#798AA3]"> Jadwal tidak aktif</div>
                         <div data-aos="fade-down" class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#E8CEF0] border-2 border-[#D9ADE6] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
                             <div class="k_right flex flex-col">
                                 <span>

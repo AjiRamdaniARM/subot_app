@@ -5,10 +5,13 @@
             <h1 class="text-xl font-semibold mb-4">Avatar</h1>
             <div data-aos="fade-right" class="flex flex-wrap justify-start items-center gap-5">
                 <div class="profile">
-                    <img id="previewProfile" class="w-28 h-28 object-cover rounded-full" src="{{ asset('assets/trainer_data/ktp/ktp_Aji Ramdani.jpeg') }}" alt="Profile Picture" id="profile">
+                    <a href="{{asset('assets/trainer_data/profile/'. auth()->guard('trainer')->user()->profile )}}">
+                        <img id="previewProfile" class="w-28 h-28 object-cover rounded-full" src="{{asset('assets/trainer_data/profile/'. auth()->guard('trainer')->user()->profile )}}" alt="Profile Picture" id="profile">
+                    </a>
+                   
                 </div>
                 <div class="p_right">
-                    <input type="file" x-model='inputDataProfile' hidden id="inputProfile">
+                    <input type="file" x-on:change="files = Object.values($event.target.files)" x-model='inputDataProfile' name="inputDataProfile" hidden id="inputProfile">
                     <button class="border border-gray-500 rounded-lg px-5 py-3 bg-gray-100 hover:bg-gray-200 transition duration-200 hover:scale-105 transition-all" type="button" id="profileButton">Unggah Gambar Baru</button>
                     <p class="text-sm text-gray-600 mt-2">Rekomendasi ukuran gambar 1080 x 1080. Format file JPG, PNG, atau GIF.</p>
                 </div>
@@ -22,30 +25,30 @@
 
             <div class="mb-4">
                 <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
-                <input type="text" id="nama" name="nama" x-model="nama" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Nama Lengkap" required>
+                <input type="text" id="nama" name="nama" x-model="nama" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Nama Lengkap" x-init="$el.value = '{{ auth()->guard('trainer')->user()->nama }}'; nama = $el.value"  required>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Akun</label>
-                    <input type="email" id="email" name="email" x-model="email" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Email Akun" required>
+                    <input type="email" x-init="$el.value = '{{ auth()->guard('trainer')->user()->email }}'; email = $el.value" id="email" name="email" x-model="email" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"   required>
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password Akun</label>
-                    <input type="password" id="password" name="password" x-model="password"   class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Password Akun" required>
+                    <input type="password" x-init="$el.value = '{{ auth()->guard('trainer')->user()->password }}'; password = $el.value" id="password" name="password" x-model="password"   class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Password Akun" required>
                     <span x-show="errors.password" class="text-red-500 text-sm" x-text="errors.password"></span>
                 </div>
                 <div>
                     <label for="alamat" class="block text-sm font-medium text-gray-700 mb-2">Alamat</label>
-                    <input type="text" id="alamat" name="alamat" x-model="alamat" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Alamat" required>
+                    <input type="text" x-init="$el.value = '{{ auth()->guard('trainer')->user()->alamat }}'; alamat = $el.value" id="alamat" name="alamat" x-model="alamat" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Alamat" required>
                 </div>
                 <div>
                     <label for="lulusan" class="block text-sm font-medium text-gray-700 mb-2">Lulusan</label>
-                    <input type="text" id="lulusan" name="lulusan" x-model="lulusan" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Lulusan" required>
+                    <input type="text" x-init="$el.value = '{{ auth()->guard('trainer')->user()->lulusan }}'; lulusan = $el.value" id="lulusan" name="lulusan" x-model="lulusan" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Lulusan" required>
                 </div>
                 <div>
                     <label for="telephone" class="block text-sm font-medium text-gray-700 mb-2">Telepone</label>
-                    <input type="text" id="telephone" name="telephone" x-model="telephone" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Telepone" required>
+                    <input type="text" x-init="$el.value = '{{ auth()->guard('trainer')->user()->telephone }}'; telephone = $el.value" id="telephone" name="telephone" x-model="telephone" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Telepone" required>
                     <span x-show="errors.telephone" class="text-red-500 text-sm relative mt-3" x-text="errors.telephone"></span>
                 </div>
             </div>
@@ -78,7 +81,7 @@
             alamat: '',
             lulusan: '',
             telephone: '',
-            inputDataProfile:'',
+            inputDataProfile: null, 
             errors: {
                 'password': '',
                 'telephone': ''
@@ -103,16 +106,16 @@
                 if (this.submitting) return;
                 this.submitting = true;
 
-                const formData = new FormData();
-                formData.append('nama', this.nama);
-                formData.append('email', this.email);
-                formData.append('password', this.password);
-                formData.append('alamat', this.alamat);
-                formData.append('lulusan', this.lulusan);
-                formData.append('telephone', this.telephone);
+                const dataInput = new FormData();
+                dataInput.append('nama', this.nama);
+                dataInput.append('email', this.email);
+                dataInput.append('password', this.password);
+                dataInput.append('alamat', this.alamat);
+                dataInput.append('lulusan', this.lulusan);
+                dataInput.append('telephone', this.telephone);
 
                 if (this.inputDataProfile) {
-                formData.append('profile', this.inputDataProfile);
+                dataInput.append('profile', this.inputDataProfile);
                 }
 
                 try {
@@ -122,22 +125,13 @@
                             "Content-Type": "application/json",
                             "X-CSRF-Token": "{{ csrf_token() }}"
                         },
-                        body: formData
-                        // body: JSON.stringify({
-                        //     nama: this.nama,
-                        //     email: this.email,
-                        //     password: this.password,
-                        //     alamat: this.alamat,
-                        //     lulusan: this.lulusan,
-                        //     telephone: this.telephone,
-                        //     profile: this.inputProfile,
-                        //     _method: "PUT"
-                        // })
+                        
+                        body: dataInput
                     });
-
                     if (response.ok) {
                         // window.location.href = "{{ route('akun')}}";
                         console.log('berhasil');
+                        console.log(this.inputDataProfile);
                     } else {
                         alert("Gagal mengupdate data");
                     }
@@ -147,6 +141,7 @@
                     this.submitting = false;
                 }
             }
+            
         }));
     });
 
@@ -171,7 +166,6 @@
                 Berhasil</span>
                 
             `;
-
             previewImage.src = URL.createObjectURL(event.target.files[0],);
         } else {
             fileInput.value = null;

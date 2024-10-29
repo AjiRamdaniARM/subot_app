@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class Absensi extends Controller
 {
 
-    public function test(){
+    public function absensiSiswa(){
         return view('trainer.pages.absen_siswa.index');
     }
     public function absensi(Request $request, $id)
