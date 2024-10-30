@@ -92,7 +92,7 @@
                             setTimeout(function() {
                                 submitButtonUnggah.innerHTML = 'Dokumentasi';
                                 submitButtonUnggah.disabled = false;
-                                window.location.href = "{{route('drive')}}"; 
+                                window.location.href = "{{route('drive',['id' => $getScheduleTrainer->id_schedules])}}"; 
                             }, 2000); 
                         });
                     </script>

@@ -18,7 +18,7 @@ Route::middleware('check.trainer.auth')->group(function () {
     // === route absen === //
     Route::get('/home/absen/{id_schedules}', [homeController::class, 'absen'])->name('absen');
     Route::get('/home/absen/', [homeController::class, 'test'])->name('absenTest');
-    Route::get('/drive', [uploadDriveController::class, 'index'])->name('drive');
+    Route::get('/drive/{id}', [uploadDriveController::class, 'index'])->name('drive');
     Route::get('/absenSiswa', [Absensi::class, 'absensiSiswa'])->name('ab_siswa');
 
     // === route akun profile === //

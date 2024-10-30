@@ -2,6 +2,7 @@
 @section('children')
 <section class="main-gg-drive">
     <div data-aos="fade-down" class="bg-white py-10">
+      <form action="" method="POST" enctype="multipart/form-data">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             <div>
@@ -11,7 +12,6 @@
               <button class="bg-[#4F46E5] hover:scale-105 transition-all flex items-center gap-3 text-white px-4 py-3 relative mt-5 rounded-[24px]"><span><img class="w-6" src="{{asset('assets/trainerImages/google-drive-icons-free-png.webp')}}" alt=""></span> Unggah Sekarang</button>
             </div>
             <dl class="col-span-2 grid grid-cols-1">
-              
                 <div class="w-full relative py-9 bg-gray-50 rounded-2xl border border-gray-300 gap-3 grid border-dashed">
                     <div class="grid gap-1">
                     <svg class="mx-auto" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,12 +77,10 @@
                             }
                         });
                     </script>
-                    
-                    
-              
             </dl>
           </div>
         </div>
+      </form>
     </div>
 </section>
 @endsection
