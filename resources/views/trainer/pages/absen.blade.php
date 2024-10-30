@@ -51,6 +51,7 @@
                                     <th class="p-2 w-24 text-center">Poto</th>
                                     <th class="p-2 w-1/2 text-left">Nama</th>
                                     <th class="p-2 w-1/4 text-center">Kelas</th>
+                                    <th class="p-2 w-1/4 text-center">Status</th>
                                 </tr>
                             </thead>
                             <tbody class="text-sm divide-y divide-gray-100">
@@ -70,6 +71,7 @@
                                             </div>
                                         </td>
                                         <td class="p-2 text-center">{{ $student->kelas }}</td>
+                                        <td class="p-2 text-center">{{ $student->absensi_anak}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

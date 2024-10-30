@@ -59,5 +59,6 @@
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="{{asset('storage/Nav_js/routerNav.js')}}"></script>    
+<script src="{{asset('storage/Nav_js/routerNav.js')}}"></script>      
+<script src="{{asset('storage/s_js/s_ab.js')}}"></script>      
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"></script>

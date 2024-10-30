@@ -56,22 +56,14 @@ class homeController extends Controller
             return redirect()->route('trainer.home')->with('info', 'No schedule found for this trainer.');
         }
 
-        // Kembalikan view dengan data jadwal trainer
-
         return view('trainer.pages.home', compact('getScheduleTrainer'));
     }
 
-    
-  
-
     public function absen($id_schedules)
     {
-        // Pastikan ada ID trainer
         if (! $id_schedules) {
-            // Tangani jika trainer tidak terautentikasi
             return redirect()->route('trainer.login')->with('error', 'Please log in first.');
         }
-
         $getScheduleTrainer = DB::table('schedules')
             ->where('schedules.id', $id_schedules)
             ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
@@ -94,20 +86,21 @@ class homeController extends Controller
                 'data_levels.*',
                 'data_levels.id as id_level',
                 'data_sekolahs.*'
-                // tambahkan kolom lainnya sesuai kebutuhan
             )
             ->first();
 
         $getDataBig = BigData::where('id_bigData', $getScheduleTrainer->id_bigData)->pluck('id_siswa');
+        // $getDataStudent = DataSiswa::whereIn('id', $getDataBig)->get();
 
-        // Dapatkan data siswa berdasarkan id_siswa dari hasil sebelumnya
-        $getDataStudent = DataSiswa::whereIn('id', $getDataBig)->get();
+        $getDataStudent = DB::table('data_siswas')
+        ->whereIn('data_siswas.id', $getDataBig)
+        ->join('big_data', 'data_siswas.id', '=', 'big_data.id_siswa')
+        ->select('data_siswas.*','big_data.*')
+        ->get();
 
-        // Periksa jika jadwal ditemukan
-        if (! $getScheduleTrainer) {
+        if (!$getScheduleTrainer) {
             return redirect()->route('trainer.home')->with('info', 'No schedule found for this trainer.');
         }
-
         return view('trainer.pages.absen', compact('getScheduleTrainer', 'getDataStudent'));
     }
     
