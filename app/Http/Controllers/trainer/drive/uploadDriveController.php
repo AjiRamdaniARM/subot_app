@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\trainer\drive;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Schedules;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class uploadDriveController extends Controller
 {
-    public function index($id) {
-        return view('trainer.pages.google_drive.index',compact('id'));
+    public function index($id)
+    {
+        return view('trainer.pages.google_drive.index', compact('id'));
     }
+
     public function DriveUploaded(Request $request, $id)
     {
         $drive = Schedules::findOrFail($id);
@@ -43,25 +45,47 @@ class uploadDriveController extends Controller
             )
             ->first();
 
-         if (!$request->hasFile('file')) {
-             $drive->dokumentasi = 'Tidak';
-             $drive->save();
-             return redirect('laporantrainer/'.$id)->with('success', 'No file uploaded, status updated successfully.');
-         } else {
+        if (! $request->hasFile('file')) {
+            $drive->dokumentasi = 'Tidak';
+            $drive->save();
+
+            return redirect('laporantrainer/'.$id)->with('success', 'No file uploaded, status updated successfully.');
+        } else {
             foreach ($request->file('file') as $key => $image) {
+
                 $drive->dokumentasi = 'Ya';
-                $imageName = $getDataSchedule->trainer_name . '_' . $getDataSchedule->tanggal_jd . '_' . $key . '.' . $image->getClientOriginalExtension();
-                $localPath = storage_path('app/public/file_s/' . $imageName);
-                $image->move(storage_path('app/public/file_s/'), $imageName);
-                ImageOptimizer::optimize($localPath);
-                Storage::disk('google')->put($imageName, File::get($localPath));  
-                File::delete($localPath);
+
+                $imageName = $this->generateImageName($getDataSchedule, $key, $image);
+
+                $localPath = $this->getLocalPath($imageName);
+
+                $this->storeAndOptimizeImage($image, $localPath, $imageName);
+                
+                $this->uploadToGoogleDrive($imageName, $localPath);
             }
-            
-            
-           
-             return redirect()->back()->with('success', 'uploaded image successfully');
-         }
+
+            return redirect('/home/absen/'.$id)->with('success', 'Upload Gambar ke Google Drive Berhasil 👌');
+        }
     }
 
+    private function generateImageName($schedule, $key, $image)
+    {
+        return $schedule->trainer_name.'_'.$schedule->tanggal_jd.'_'.$key.'.'.$image->getClientOriginalExtension();
+    }
+        private function getLocalPath($imageName)
+    {
+        return storage_path('app/public/file_s/' . $imageName);
+    }
+
+        private function storeAndOptimizeImage($image, $localPath,$imageName)
+    {
+        $image->move(storage_path('app/public/file_s/'), $imageName);
+
+        ImageOptimizer::optimize($localPath);
+    }
+        private function uploadToGoogleDrive($imageName, $localPath)
+    {
+        Storage::disk('google')->put($imageName, File::get($localPath));
+        File::delete($localPath);
+    }
 }
