@@ -2,7 +2,8 @@
 @section('children')
 <section class="main-gg-drive">
     <div data-aos="fade-down" class="bg-white py-10">
-      <form action="" method="POST" enctype="multipart/form-data">
+      <form action="{{route('drive.upload', ['id' => $id])}}" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             <div>
@@ -25,7 +26,7 @@
                     <h4 class="text-center text-gray-900 text-sm font-medium leading-snug">Drag and Drop your file here or</h4>
                     <div class="flex items-center justify-center">
                     <label>
-                      <input type="file" name="files[]" id="file-input" multiple accept="image/*" hidden />
+                      <input type="file" name="file[]" id="file-input" multiple accept="image/*" hidden required />
                       <div class="flex w-28 h-9 px-2 flex-col bg-indigo-600 rounded-full shadow text-white text-xs font-semibold leading-4 items-center justify-center cursor-pointer focus:outline-none">Choose File</div>
                     </label>
                     </div>
@@ -37,7 +38,7 @@
                         document.getElementById('file-input').addEventListener('change', function(event) {
                             var files = event.target.files;
                             var previewContainer = document.getElementById('preview-container');
-                            previewContainer.innerHTML = ''; // Kosongkan container untuk gambar baru
+                            previewContainer.innerHTML = ''; 
                     
                             if (files.length > 0) {
                                 for (var i = 0; i < files.length; i++) {
@@ -65,6 +66,7 @@
                     
                                         // Menambahkan card ke dalam preview container
                                         previewContainer.appendChild(card);
+                                        console.log(file);
                     
                                         // Simulasi loading (hilangkan loading setelah 2 detik)
                                         setTimeout(function() {
