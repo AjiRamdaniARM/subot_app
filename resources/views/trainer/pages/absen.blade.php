@@ -103,7 +103,7 @@
                             setTimeout(function() {
                                 submitButtonUnggah.innerHTML = 'Dokumentasi';
                                 submitButtonUnggah.disabled = false;
-                                window.location.href = "{{route('drive',['id' => $getScheduleTrainer->id_schedules])}}"; 
+                                window.location.href = "{{ route('drive',['id' => $getScheduleTrainer->id_schedules])}}"; 
                             }, 2000); 
                         });
                     </script>
@@ -116,36 +116,54 @@
             </div>  
 
             {{-- === formulir laporan === --}}
-            <form id="postLaporan" data-aos="fade-up">
+            <form id="postLaporan" action="{{ '/laporantrainer/prossess/' . $getScheduleTrainer->id_schedules }}" method="POST" data-aos="fade-up">
+                @csrf
                 {{-- === laporan fitur === --}}
                 <div class="content-form">
                     <div class="input-laporan lg:flex-row md:flex-row flex flex-col  justify-between items-center space-y-4 md:space-y-0 md:space-x-4">
                         <!-- Select 1 -->
                         <div class="select-1 w-full md:w-1/2">
-                            <select name="materi1" id="materi1" class="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500">
+                            <select name="materi" id="materi1" class="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500">
                                 <option value="">Pilih Materi Anda</option>
-                                <!-- Add more options if needed -->
+                                @foreach ($getDataMateri as $materi )
+                                <option value="{{$materi->id}}">{{$materi->materi}}</option>
+                                @endforeach
                             </select>
                         </div>
                     
                         <!-- Select 2 -->
                         <div class="select-2 w-full md:w-1/2">
-                            <select name="materi2" id="materi2" class="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500">
-                                <option value="">Pilih Tanda Tangan Anda</option>
-                                <option value="coding">Coding</option>
+                            <select name="id_ttd" id="materi2" class="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500">
+                                    <option value="">Pilih Tanda Tangan Anda</option>
+                               @foreach ($getDataTrainer as $trainer )
+                                    <option value="{{ $trainer->ttd }}">{{ $trainer->nama }}</option>
+                               @endforeach
                                 <!-- Add more options if needed -->
                             </select>
                         </div>
                     </div>
 
                     <div class="box-area py-5">
-                        <textarea name="laporan" class="w-full  p-4 border border-gray-300 rounded-md " id="laporan" placeholder="Tulis laporan di sini..."></textarea>
+                        <textarea id="catatan" name="catatan" class="w-full  p-4 border border-gray-300 rounded-md " id="laporan" placeholder="Tulis laporan di sini... (Respone anak , Kendala yang dihadapi dan lainnya)"></textarea>
                     </div>
                 </div>
                 {{-- === button absen === --}}
                 <div class="content-button">
-                    <button id="prosses" class="bg-[#FBDC5C] text-[#5B4A07] w-full text-center py-4 rounded-2xl hover:scale-105 transition-all hover:bg-gray-800">Selesai Absensi</button>
+                    <button id="prossesSubmit" type="submit" class="bg-[#FBDC5C] text-[#5B4A07] w-full text-center py-4 rounded-2xl hover:scale-105 transition-all ">Selesai Absensi</button>
                 </div>
+                <script>
+                    document.getElementById('postLaporan').addEventListener('submit', function() {
+                        event.preventDefault();
+                        const buttonSubmitL = document.getElementById('prossesSubmit');
+                        buttonSubmitL.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;Loading'; 
+                        buttonSubmitL.disabled = true; 
+                        setTimeout(function() {
+                                buttonSubmitL.innerHTML = 'Selesai Absensi';
+                                buttonSubmitL.disabled = false;
+                                document.getElementById('postLaporan').submit();
+                            }, 2000); 
+                    });
+                </script>
             </form>
           
     </div>

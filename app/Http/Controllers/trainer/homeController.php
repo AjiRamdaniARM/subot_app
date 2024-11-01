@@ -4,7 +4,9 @@ namespace App\Http\Controllers\trainer;
 
 use App\Http\Controllers\Controller;
 use App\Models\BigData;
+use App\Models\DataMateri;
 use App\Models\DataSiswa;
+use App\Models\dataTrainer;
 use App\Models\Schedules;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -64,6 +66,8 @@ class homeController extends Controller
         if (! $id_schedules) {
             return redirect()->route('trainer.login')->with('error', 'Please log in first.');
         }
+        $getDataMateri = DataMateri::all();
+        $getDataTrainer = dataTrainer::all();
         $getScheduleTrainer = DB::table('schedules')
             ->where('schedules.id', $id_schedules)
             ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
@@ -77,6 +81,7 @@ class homeController extends Controller
                 'schedules.id as id_schedules',
                 'data_trainers.nama as trainer_name',
                 'data_trainers.id as id_trainer',
+                'data_trainers.ttd as tanda',
                 'data_kelas.kelas as kelas_name',
                 'data_kelas.id as id_kelas',
                 'data_alats.alat as nama_alat',
@@ -101,7 +106,7 @@ class homeController extends Controller
         if (!$getScheduleTrainer) {
             return redirect()->route('trainer.home')->with('info', 'No schedule found for this trainer.');
         }
-        return view('trainer.pages.absen', compact('getScheduleTrainer', 'getDataStudent'));
+        return view('trainer.pages.absen', compact('getScheduleTrainer', 'getDataStudent','getDataMateri','getDataTrainer'));
     }
     
     public function Test() {

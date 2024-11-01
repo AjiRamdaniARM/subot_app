@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
+use Spatie\ImageOptimizer\OptimizerChain;
+use Spatie\ImageOptimizer\Optimizers\Jpegoptim;
+use Spatie\ImageOptimizer\Optimizers\Pngquant;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class uploadDriveController extends Controller
 {
@@ -80,9 +83,18 @@ class uploadDriveController extends Controller
         private function storeAndOptimizeImage($image, $localPath,$imageName)
     {
         $image->move(storage_path('app/public/file_s/'), $imageName);
+        $optimizerChain = (new OptimizerChain())
+        ->addOptimizer(new Jpegoptim([
+            '--max=50',       
+            '--strip-all',     
+        ]))
+        ->addOptimizer(new Pngquant([
+            '--quality=50-70', 
+            '--speed=1',       
+        ]));
 
-        ImageOptimizer::optimize($localPath);
-    }
+        $optimizerChain->optimize($localPath);
+        }
         private function uploadToGoogleDrive($imageName, $localPath)
     {
         Storage::disk('google')->put($imageName, File::get($localPath));

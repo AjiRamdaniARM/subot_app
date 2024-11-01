@@ -1,7 +1,7 @@
 @extends('trainer.layouts.main')
 @section('children')
 <section>
-    <div class="sidenav lg:px-0 px-4 md:px-0 flex justify-between items-center poppins-regular lg:text-2xl">
+    <div class="sidenav px-[16px]  flex justify-between items-center poppins-regular lg:text-2xl">
         <span class="text-[#0E2C75] poppins-semibold">
             Beranda
         </span>
@@ -58,7 +58,7 @@
     </div>
 
     {{-- == card jadwal == --}}
-    <div class="container mx-auto py-5 lg:py-10">
+    <div class="container mx-auto py-5 lg:py-1">
         <div class="box-card w-full rounded-[24px] text-start ">
             <div class="body  py-10">
                 <div class="content">
@@ -66,18 +66,17 @@
                         <h6 class="text-[#0E2C75] poppins-semibold text-[20px]">Jadwal Terbaru Trainer</h6>
                         {{-- === card belum absen === --}}
                         <div class="text-[#798AA3]">Jadwal Baru</div>
-                        @if ($getScheduleTrainer === null || $getScheduleTrainer->isEmpty()) 
-                            <div class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#83DCFFFF] border-2 border-[#10678DFF] ">
+                        @php
+                            $showCard = DB::table('schedules')
+                                ->where('ket', 'Aktif')
+                                ->where('ab_trainer', '!=', null)
+                                ->where('ab_trainer', '!=', 'Tidak Hadir')
+                                ->exists();
+                        @endphp
+                       @if ($getScheduleTrainer !== null && !$getScheduleTrainer->isEmpty() && $showCard)
+                            <div data-aos="fade-down" class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#83DCFFFF] border-2 border-[#10678DFF] ">
                                 <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
-                                    <h1 class="text-black">Belum Ada Jadwal Terbaru Nih 😵😵</h1>
-                                </div>
-                        
-                                <div class="loading hidden w-full">
-                                    <div class="animate-pulse flex flex-col space-y-4 w-full">
-                                        <div class="h-4 bg-gray-300 rounded w-3/4"></div>
-                                        <div class="h-6 bg-gray-300 rounded w-full"></div>
-                                        <div class="h-4 bg-gray-300 rounded w-1/2"></div>
-                                    </div>
+                                    <h1 class="text-[#313E5E] poppins">Belum Ada Jadwal Terbaru Nih 😵😵</h1>
                                 </div>
                             </div>
                         @else
@@ -146,94 +145,119 @@
 
                         {{-- === card sudah absen === --}}
                         <div class="text-[#798AA3]">Sudah Absen</div>
-                        <div data-aos="fade-down" class="card-h p-6 hover:scale-105 transition-all rounded-[24px] bg-[#CEF0CEFF] border-2 border-[#0ACE00FF] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
-                            <div class="k_right flex flex-col">
-                                <span>
-                                    CS 162
-                                </span>
-                                <span class="text-[#0B235E] poppins-semibold">
-                                    SDK BPK PENABUR
-                                </span>
-                                <span class="text-[#0B235E] poppins-semibold">
-                                    SF 13
-                                </span>
+                        @php
+                            $showCardHadir = DB::table('schedules')
+                                ->where('ket', 'Aktif')
+                                    ->where('ab_trainer', '!=', 'Hadir')
+                                    ->where('ket', '!=', 'Tidak Aktif')
+                                ->exists();
+                        @endphp
+                       @if ($getScheduleTrainer !== null && !$getScheduleTrainer->isEmpty() && $showCardHadir) 
+                            <div data-aos="fade-down" class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#83FF98FF] border-2 border-[#1A8D10FF] ">
+                                <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
+                                    <h1 class="text-[#313E5E] poppins">Belum Ada Jadwal Yang Sudah Di Isi Nih 🙏🙏</h1>
+                                </div>
                             </div>
-                            <div class="k_left flex flex-col">
-                                <span class="text-[#0B235E] poppins-semibold lg:text-[20px] md:text-[20px] text-[15px]">
-                                    08.00 - 14.00
-                                </span>
-                                <span class="text-[#004971FF]">
-                                    Absensi Trainer
-                                </span>
-                            </div>
-                        </div>
-                        <div data-aos="fade-down" class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#CEF0CEFF] border-2 border-[#0ACE00FF] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
-                            <div class="k_right flex flex-col">
-                                <span>
-                                    CS 162
-                                </span>
-                                <span class="text-[#0B235E] poppins-semibold">
-                                    SDK BPK PENABUR
-                                </span>
-                                <span class="text-[#0B235E] poppins-semibold">
-                                    SF 13
-                                </span>
-                            </div>
-                            <div class="k_left flex flex-col">
-                                <span class="text-[#0B235E] poppins-semibold lg:text-[20px] md:text-[20px] text-[15px]">
-                                    08.00 - 14.00
-                                </span>
-                                <span class="text-[#004971FF]">
-                                    Absensi Trainer
-                                </span>
-                            </div>
-                        </div>
+                        @else
+                            @foreach ($getScheduleTrainer as $jadwal)
+                                @if($jadwal->ab_trainer === 'Hadir')
+                                    <div data-aos="fade-down"  class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#D0F8CBFF] border-2 border-[#00CE07FF]">
+                                        <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
+                                            <div class="k_right flex flex-col">
+                                                <span class="poppins-regular">
+                                                    {{ $jadwal->levels }} | {{ $jadwal->nama_alat }}
+                                                </span>
+                                                @if ($jadwal->kelas_name == 'Club')
+                                                    <span class="text-[#0B235E] poppins-semibold">
+                                                    {{$jadwal->sekolah}}
+                                                    </span>
+                                                @else
+                                                    <span class="text-[#0B235E] poppins-semibold">
+                                                        {{ $jadwal->kelas_name }}
+                                                    </span>
+                                                @endif
+                                            
+                                                <span class="text-[#4A4A4AFF] poppins-regular">
+                                                    {{ \Carbon\Carbon::parse($jadwal->tanggal_jd)->translatedFormat('d F Y') }}
+                                                </span>
+                                            </div>
+                                            <div class="k_left flex flex-col">
+                                                <span class="text-[#0B235E] lg:text-[20px] md:text-[20px] text-[15px] poppins-semibold">
+                                                    {{ date('H:i', strtotime($jadwal->jm_awal)) }} - {{ date('H:i', strtotime($jadwal->jm_akhir)) }}
+                                                </span>
+                                                <span class="text-[#004971FF]">
+                                                    Sudah Absensi
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Skeleton Loading (Hidden secara default) -->
+                                        <div class="loading hidden w-full">
+                                            <div class="animate-pulse flex flex-col space-y-4 w-full">
+                                                <div class="h-4 bg-gray-300 rounded w-3/4"></div>
+                                                <div class="h-6 bg-gray-300 rounded w-full"></div>
+                                                <div class="h-4 bg-gray-300 rounded w-1/2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
+                       
                         {{-- === card sudah absen === --}}
 
                         {{-- === card tidak ada absen === --}}
                         <div class="text-[#798AA3]"> Jadwal tidak aktif</div>
-                        <div data-aos="fade-down" class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#E8CEF0] border-2 border-[#D9ADE6] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
-                            <div class="k_right flex flex-col">
-                                <span>
-                                    CS 162
-                                </span>
-                                <span class="text-[#0B235E] poppins-semibold">
-                                    SDK BPK PENABUR
-                                </span>
-                                <span class="text-[#0B235E] poppins-semibold">
-                                    SF 13
-                                </span>
+                        @php
+                        $showCardHadir = DB::table('schedules')
+                            ->where('ket', 'Tidak Aktif')
+                                ->where('ab_trainer', '!=', 'Tidak Hadir')
+                                ->where('ab_trainer', '!=', null)
+                                ->where('ket', '!=', 'Aktif')
+                            ->exists();
+                        @endphp
+                        @if ($getScheduleTrainer !== null && !$getScheduleTrainer->isEmpty() && $showCardHadir) 
+                            <div data-aos="fade-down" class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#A3072B] ">
+                                <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
+                                    <h1 class="text-[#313E5E] poppins">Belum Ada Jadwal Yang Tidak Aktif / Belum Aktif 😎😎</h1>
+                                </div>
                             </div>
-                            <div class="k_left flex flex-col">
-                                <span class="text-[#0B235E] poppins-semibold lg:text-[20px] md:text-[20px] text-[15px]">
-                                    08.00 - 14.00
-                                </span>
-                                <span class="text-[#004971FF]">
-                                    Absensi Trainer
-                                </span>
-                            </div>
-                        </div>
-                        <div data-aos="fade-down" class="card-h p-6 rounded-[24px] hover:scale-105 transition-all bg-[#E8CEF0] border-2 border-[#D9ADE6] flex flex-wrap justify-between lg:gap-0 md:gap-0 gap-2">
-                            <div class="k_right flex flex-col">
-                                <span>
-                                    CS 162
-                                </span>
-                                <span class="text-[#0B235E] poppins-semibold">
-                                    SDK BPK PENABUR
-                                </span>
-                                <span class="text-[#0B235E] poppins-semibold">
-                                    SF 13
-                                </span>
-                            </div>
-                            <div class="k_left flex flex-col">
-                                <span class="text-[#0B235E] poppins-semibold lg:text-[20px] md:text-[20px] text-[15px]">
-                                    08.00 - 14.00
-                                </span>
-                                <span class="text-[#004971FF]">
-                                    Absensi Trainer
-                                </span>
-                            </div>
-                        </div>
+                        @else
+                            @foreach ($getScheduleTrainer as $jadwal)
+                                @if($jadwal->ket == 'Tidak Aktif')
+                                    <div data-aos="fade-down"  class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#A3072B]">
+                                        <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
+                                            <div class="k_right flex flex-col">
+                                                <span class="poppins-regular">
+                                                    {{ $jadwal->levels }} | {{ $jadwal->nama_alat }}
+                                                </span>
+                                                @if ($jadwal->kelas_name == 'Club')
+                                                    <span class="text-[#0B235E] poppins-semibold">
+                                                    {{$jadwal->sekolah}}
+                                                    </span>
+                                                @else
+                                                    <span class="text-[#0B235E] poppins-semibold">
+                                                        {{ $jadwal->kelas_name }}
+                                                    </span>
+                                                @endif
+                                            
+                                                <span class="text-[#4A4A4AFF] poppins-regular">
+                                                    {{ \Carbon\Carbon::parse($jadwal->tanggal_jd)->translatedFormat('d F Y') }}
+                                                </span>
+                                            </div>
+                                            <div class="k_left flex flex-col">
+                                                <span class="text-[#0B235E] lg:text-[20px] md:text-[20px] text-[15px] poppins-semibold">
+                                                    {{ date('H:i', strtotime($jadwal->jm_awal)) }} - {{ date('H:i', strtotime($jadwal->jm_akhir)) }}
+                                                </span>
+                                                <span class="text-[#004971FF]">
+                                                     Belum Aktif / Tidak Aktif
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
                         {{-- === card tidak ada absen === --}}
 
                     </div>

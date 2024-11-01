@@ -40,15 +40,10 @@ class LaporanController extends Controller
                 'data_levels.*',
                 'data_levels.id as id_level',
                 'data_sekolahs.*'
-                // tambahkan kolom lainnya sesuai kebutuhan
             )
             ->first();
-
-        return view('trainer.pages.laporantrainer', compact('getScheduleTrainer', 'getDataTrainer', 'getDataMateri'));
+            return view('trainer.pages.laporantrainer', compact('getScheduleTrainer', 'getDataTrainer', 'getDataMateri'));
     }
-
-    // ujicoba
-
     public function postLaporan(Request $request, $id_schedules)
     {
 
