@@ -22,33 +22,73 @@ class AkunController extends Controller
 
     // === post edited === //
     public function prosess (Request $request, $id) {
-        $userAccount = dataTrainer::findOrFail($id);
+       // === Validate incoming request data === //
+       $request->validate([
+        'nama' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'password' => 'required|string|min:4',
+        'alamat' => 'nullable|string',
+        'lulusan' => 'nullable|string',
+        'telephone' => 'required|numeric',
+    ]);
 
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'password' => 'required|string|max:255|min:4',
-            'alamat' => 'required|string',
-            'lulusan' => 'required|string|max:255',
-            'telephone' => 'required|string|max:255|min:5',
-        ]);
+    try {
+        $user = dataTrainer::findOrFail($id);
+        $user->nama = $request->nama;
+        $user->email = $request->email;
+        $user->password = $request->password; 
+        $user->alamat = $request->alamat;
+        $user->lulusan = $request->lulusan;
+        $user->telephone = $request->telephone;
 
-        if ($request->hasFile('profile')) {
-            $profileFile = $request->file('profile');
-            $profileFileName = 'Profile_'.$request->nama.'.'.$profileFile->getClientOriginalExtension();
-            $profileFile->move(public_path('/assets/trainer_data/profile'), $profileFileName);
-            $userAccount->update([
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'password' => $request->password, 
-                'alamat' => $request->alamat,
-                'lulusan' => $request->lulusan,
-                'telephone' => $request->telephone,
-                'profile' => $profileFileName,
-            ]);
-        } else {
-            $userAccount->update($request->only('nama', 'email', 'password', 'alamat', 'lulusan', 'telephone','profileFile'));
-        }
-        return response()->json(['message' => 'User updated successfully']);
+        $user->save();
+
+        return response()->json(['message' => 'Data berhasil diperbarui'], 200);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Gagal memperbarui data', 'error' => $e->getMessage()], 500);
     }
+
+    }
+
+
+    public function uploadProfile(Request $request, $id)
+    {
+        try {
+            $user = dataTrainer::findOrFail($id);
+    
+            if ($request->hasFile('inputProfile')) {
+                // Ambil file baru dari request
+                $profileFile = $request->file('inputProfile');
+    
+                // Buat nama file baru
+                $profileFileName = 'Profile_' . $user->nama . '.' . $profileFile->getClientOriginalExtension();
+    
+                // Tentukan path untuk file
+                $profileFilePath = public_path('assets/trainer_data/profile');
+    
+                // Buat direktori jika belum ada
+                if (!file_exists($profileFilePath)) {
+                    mkdir($profileFilePath, 0777, true);
+                }
+    
+                // Hapus file lama jika ada
+                if ($user->profile && file_exists($profileFilePath . '/' . $user->profile)) {
+                    unlink($profileFilePath . '/' . $user->profile);
+                }
+    
+                // Pindahkan file baru ke direktori yang ditentukan
+                $profileFile->move($profileFilePath, $profileFileName);
+    
+                // Update nama file di database
+                $user->profile = $profileFileName;
+                $user->save(); // Simpan perubahan ke database
+            }
+    
+            return response()->json(['success' => true, 'message' => $request->inputProfile]);
+            
+        } catch (\Exception $e) {   
+            return response()->json(['success' => false, 'message' => 'Failed to upload profile.', 'error' => $e->getMessage()]);
+        }
+    }
+    
 }

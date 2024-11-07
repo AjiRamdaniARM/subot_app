@@ -7,10 +7,10 @@
         </span>
         <span class="text-[#516AA9] fw-[500]">
             @php
-            use Carbon\Carbon;
-            \Carbon\Carbon::setLocale('id');
-            $tanggalSekarang = Carbon::now()->translatedFormat('l, d F Y');
-        @endphp
+                use Carbon\Carbon;
+                \Carbon\Carbon::setLocale('id');
+                $tanggalSekarang = Carbon::now()->translatedFormat('l, d F Y');
+            @endphp
         <p>{{ $tanggalSekarang }}</p>
         </span>
     </div>
@@ -18,40 +18,40 @@
     {{-- === card total === --}}
     <div data-aos="fade-down" class="container mx-auto py-10">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <!-- Card 1 -->
+            {{-- === card 1 === --}}
             <div class="p-6 rounded-[24px] bg-[#FBDC5C] border-2 border-[#CE7100] text-center">
                 <div class="t_one text-lg font-semibold text-[#455068] text-[18px]">
                     Total Penghasilan
                 </div>
-                <div class="t_two text-2xl font-bold mt-2 text-[#602400] text-[45px]">
-                   Rp.0
+                <div class="t_two  font-bold mt-2 text-[#602400] text-[30px]">
+                   Rp.{{ number_format($penghasilan, 0, ',', '.') }}
                 </div>
                 <div class="t_two text-sm mt-5  text-[18px] text-[#AB5200]">
-                    Pertemuan  
+                    Bulan  {{Carbon::now()->format('F');}}  Masih tahap pengembangan  
                 </div>
             </div>
-            <!-- Card 2 -->
+            {{-- === card 2 === --}}
             <div class="p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#F64669]  text-center">
                 <div class="t_one text-lg font-semibold text-[#455068]">
                     Total Jadwal
                 </div>
                 <div class="t_two text-2xl font-bold mt-2  text-[#A3072B] text-[45px]">
-                   255
+                   {{$dataCountData}}
                 </div>
                 <div class="t_two text-sm mt-1 mt-5  text-[18px] text-[#AB5200]">
-                    25% Jadwal  
+                    Bulan  {{Carbon::now()->format('F');}}  
                 </div>
             </div>
-            <!-- Card 3 -->
+            {{-- === card 3 === --}}
             <div class="p-6 rounded-[24px] border-2 border-[#798AA3] bg-[#D3DFE7] text-center">
                 <div class="t_one text-lg font-semibold text-[#455068] text-[18px]">
                     Total Laporan
                 </div>
                 <div class="t_two text-2xl font-bold mt-2  text-[#2E3748] text-[45px]">
-                   100
+                  {{$dataCount}}
                 </div>
                 <div class="t_two text-sm mt-1 mt-5  text-[18px] text-[#516AA9]">
-                    20% Laporan    
+                  Bulan  {{Carbon::now()->format('F');}}   
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                         <h6 class="text-[#0E2C75] poppins-semibold text-[20px]">Jadwal Terbaru Trainer</h6>
 
                         {{-- === card belum absen === --}}
-                        <div class="text-[#798AA3]">Jadwal Baru</div>
+                        <div class="text-[#798AA3] flex justify-between w-full"> <span>Jadwal Baru</span> <a href="{{ route('jadwal.menu') }}" class="text-blue-500">Lihat Lainnya</a> </div>
                             @php
                             $jdHadir = DB::table('schedules')
                                 ->where('ket', 'Aktif')
@@ -143,72 +143,18 @@
                         {{-- === card belum absen === --}}
 
                         {{-- === card sudah absen === --}}
-                        <div class="text-[#798AA3]">Sudah Absen</div>
+                        <div data-aos="fade-down"  class="text-[#798AA3] flex justify-between"><span>Sudah Absen</span> <a href="{{ route('laporan.menu') }}" class="text-blue-500">Lihat Lainnya</a> </div>
                         @php
                         $jdSudahAbsen = DB::table('schedules')
                             ->where('ket', 'Aktif')
                                 ->where('ab_trainer', '=', 'Hadir')
                             ->exists();
                         @endphp
-                       @if ($getScheduleTrainer !== null && !$getScheduleTrainer->isEmpty() && $jdSudahAbsen) 
-                            @foreach ($getScheduleTrainer as $jadwal)
-                                @if($jadwal->ab_trainer === 'Hadir')
-                                    <div data-aos="fade-down"  class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#D0F8CBFF] border-2 border-[#00CE07FF]">
-                                        <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
-                                            <div class="k_right flex flex-col">
-                                                <span class="poppins-regular">
-                                                    {{ $jadwal->levels }} | {{ $jadwal->nama_alat }}
-                                                </span>
-                                                @if ($jadwal->kelas_name == 'Club')
-                                                    <span class="text-[#0B235E] poppins-semibold">
-                                                    {{$jadwal->sekolah}}
-                                                    </span>
-                                                @else
-                                                    <span class="text-[#0B235E] poppins-semibold">
-                                                        {{ $jadwal->kelas_name }}
-                                                    </span>
-                                                @endif
-                                            
-                                                <span class="text-[#4A4A4AFF] poppins-regular">
-                                                    {{ \Carbon\Carbon::parse($jadwal->tanggal_jd)->translatedFormat('d F Y') }}
-                                                </span>
-                                            </div>
-                                            <div class="k_left flex flex-col">
-                                                <span class="text-[#0B235E] lg:text-[20px] md:text-[20px] text-[15px] poppins-semibold">
-                                                    {{ date('H:i', strtotime($jadwal->jm_awal)) }} - {{ date('H:i', strtotime($jadwal->jm_akhir)) }}
-                                                </span>
-                                                <span class="text-[#004971FF]">
-                                                    Sudah Absensi
-                                                </span>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Skeleton Loading (Hidden secara default) -->
-                                        <div class="loading hidden w-full">
-                                            <div class="animate-pulse flex flex-col space-y-4 w-full">
-                                                <div class="h-4 bg-gray-300 rounded w-3/4"></div>
-                                                <div class="h-6 bg-gray-300 rounded w-full"></div>
-                                                <div class="h-4 bg-gray-300 rounded w-1/2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endforeach
-                        @else
-                            <div data-aos="fade-down" class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#83FF98FF] border-2 border-[#1A8D10FF] ">
-                                <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
-                                    <h1 class="text-[#313E5E] poppins">Belum Ada Jadwal Yang Sudah Di Isi Nih 🙏🙏</h1>
-                                </div>
-                            </div>
-                        @endif
-                        {{-- === card sudah absen === --}}
-
-                        {{-- === card tidak ada absen === --}}
-                        <div class="text-[#798AA3]"> Jadwal tidak aktif</div>
-                            @if ($getScheduleTrainer !== null && $getScheduleTrainer->isNotEmpty())
+                      
+                            @if ($getScheduleTrainer !== null && !$getScheduleTrainer->isEmpty() && $jdSudahAbsen) 
                                 @foreach ($getScheduleTrainer as $jadwal)
-                                    @if($jadwal->ket === 'Tidak Aktif')
-                                        <div data-aos="fade-down"  class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#A3072B]">
+                                    @if($jadwal->ab_trainer === 'Hadir')
+                                        <div  data-aos="fade-down"  class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#D0F8CBFF] border-2 border-[#00CE07FF]">
                                             <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
                                                 <div class="k_right flex flex-col">
                                                     <span class="poppins-regular">
@@ -219,6 +165,63 @@
                                                         {{$jadwal->sekolah}}
                                                         </span>
                                                     @else
+                                                        <span class="text-[#0B235E] poppins-semibold">
+                                                            {{ $jadwal->kelas_name }}
+                                                        </span>
+                                                    @endif
+                                                
+                                                    <span class="text-[#4A4A4AFF] poppins-regular">
+                                                        {{ \Carbon\Carbon::parse($jadwal->tanggal_jd)->translatedFormat('d F Y') }}
+                                                    </span>
+                                                </div>
+                                                <div class="k_left flex flex-col">
+                                                    <span class="text-[#0B235E] lg:text-[20px] md:text-[20px] text-[15px] poppins-semibold">
+                                                        {{ date('H:i', strtotime($jadwal->jm_awal)) }} - {{ date('H:i', strtotime($jadwal->jm_akhir)) }}
+                                                    </span>
+                                                    <span class="text-[#004971FF]">
+                                                        Sudah Absensi
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Skeleton Loading (Hidden secara default) -->
+                                            <div class="loading hidden w-full">
+                                                <div class="animate-pulse flex flex-col space-y-4 w-full">
+                                                    <div class="h-4 bg-gray-300 rounded w-3/4"></div>
+                                                    <div class="h-6 bg-gray-300 rounded w-full"></div>
+                                                    <div class="h-4 bg-gray-300 rounded w-1/2"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    @endif
+                                @endforeach
+                            @else
+                                <div data-aos="fade-down" class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#83FF98FF] border-2 border-[#1A8D10FF] ">
+                                    <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
+                                        <h1 class="text-[#313E5E] poppins">Belum Ada Jadwal Yang Sudah Di Isi Nih 🙏🙏</h1>
+                                    </div>
+                                </div>
+                            @endif
+                    
+                        {{-- === card sudah absen === --}}
+
+                        {{-- === card tidak ada absen === --}}
+                        <div class="text-[#798AA3]"> Jadwal tidak aktif</div>
+                            @if ($getScheduleTrainer !== null && $getScheduleTrainer->isNotEmpty())
+                                @foreach ($getScheduleTrainer as $jadwal)
+                                    @if($jadwal->ket === 'Tidak Aktif')
+                                        <div class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#A3072B]">
+                                            <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
+                                                <div class="k_right flex flex-col">
+                                                    <span class="poppins-regular">
+                                                        {{ $jadwal->levels }} | {{ $jadwal->nama_alat }}
+                                                    </span>
+                                                    @if ($jadwal->kelas_name == 'Club')
+                                                        <span class="text-[#0B235E] poppins-semibold">
+                                                        {{$jadwal->sekolah}}
+                                                        </span>
+                                                     @else
                                                         <span class="text-[#0B235E] poppins-semibold">
                                                             {{ $jadwal->kelas_name }}
                                                         </span>
