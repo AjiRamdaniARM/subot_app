@@ -18,7 +18,7 @@
     </div>
 
     
-    <form data-aos="fade-down" @submit.prevent="submitForm" x-data="userForm" method="POST" class="mx-auto p-6 rounded-lg" >
+    <form data-aos="fade-down" enctype="multipart/form-data" @submit.prevent="submitForm" x-data="userForm" method="POST" class="mx-auto p-6 rounded-lg" >
     @csrf
         <div>
             <fieldset class="mb-6">
@@ -52,9 +52,23 @@
                         <input type="text" x-init="$el.value = '{{ auth()->guard('trainer')->user()->telephone }}'; telephone = $el.value" id="telephone" name="telephone" x-model="telephone" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Telepone" required>
                         <span x-show="errors.telephone" class="text-red-500 text-sm relative mt-3" x-text="errors.telephone"></span>
                     </div>
+
+                    <div>
+                        <label for="ktp_file" class="block text-sm font-medium text-gray-700 mb-2">Poto Ktp</label>
+                        <input  type="file" x-ref="fileInput" @change="ktp_file = $refs.fileInput.files[0]"  class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="ktp_file" accept="image/*">
+                        <span x-show="errors.ktp_file" class="text-red-500 text-sm relative mt-3" x-text="errors.ktp_file"></span>
+                    </div>
+
+                    <div>
+                        <label for="ttd" class="block text-sm font-medium text-gray-700 mb-2">Poto Tanda Tangan</label>
+                        <input type="file" x-ref="fileInputttd" @change="ttd = $refs.fileInputttd.files[0]" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="ktp_file" accept="image/*">
+                        <span x-show="errors.ktp_file" class="text-red-500 text-sm relative mt-3" x-text="errors.ktp_file"></span>
+                    </div>
+
+                    
                 </div>
 
-                <button type="submit" :disabled="submitting"   class="w-full relative mt-4 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Submit</button>
+                <button type="submit" :disabled="submitting" id="buttonSubmit"   class="w-full relative mt-4 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Submit</button>
 
             </fieldset>
         </div>
@@ -83,6 +97,8 @@
             alamat: '',
             lulusan: '',
             telephone: '',
+            ktp_file: null,
+            ttd: null,
             errors: {
                 'password': '',
                 'telephone': ''
@@ -90,26 +106,32 @@
             submitting: false,
 
             async submitForm() {
+                // Cegah pengiriman berganda
+                if (this.submitting) return;
+
+                // Set submitting ke true untuk mencegah pengiriman ulang
+                this.submitting = true;
+
+                // Validasi password
                 if (this.password.length < 4) {
                     this.errors.password = "Password harus memiliki minimal 4 karakter";
+                    this.submitting = false;
                     return;
                 } else {
                     this.errors.password = "";
                 }
 
-                // Validate that telephone contains only numbers
+                // Validasi telepon hanya angka
                 var numbersOnly = /^[0-9]+$/;
                 if (!this.telephone.match(numbersOnly)) {
                     this.errors.telephone = "Nomor telepon harus berupa angka";
+                    this.submitting = false;
                     return;
                 } else {
                     this.errors.telephone = "";
                 }
 
-                if (this.submitting) return;
-                this.submitting = true;
-
-                // Prepare form data
+                // Siapkan data form
                 const dataInput = new FormData();
                 dataInput.append('nama', this.nama);
                 dataInput.append('email', this.email);
@@ -117,6 +139,20 @@
                 dataInput.append('alamat', this.alamat);
                 dataInput.append('lulusan', this.lulusan);
                 dataInput.append('telephone', this.telephone);
+                dataInput.append('ktp_file', this.ktp_file);
+                dataInput.append('ttd', this.ttd);
+
+                const databutton = document.getElementById('buttonSubmit');
+                databutton.disabled = true;
+                databutton.innerHTML = `
+                    <span class="flex justify-center items-center gap-2">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                        </svg>
+                        Loading...
+                    </span>
+                `;
 
                 try {
                     const response = await fetch("{{ route('akun.post', $UserAccount->id) }}", {
@@ -127,21 +163,28 @@
                         body: dataInput
                     });
 
+                    // Cek respons
                     if (response.ok) {
-                        console.log('Data berhasil disimpan');
-                        console.log(this.inputDataProfile);
-                        window.location.href = '{{route('akun')}}'
+                        console.log('Data berhasil disimpan', this.ktp_file);
+                        // Redirect jika perlu
+                        window.location.href = '{{ route('akun') }}';
                     } else {
-                        alert("Gagal mengupdate data");
+                        window.location.reload();
+                        console.log('Data Tidak berhasil di upload', this.ttd);
                     }
                 } catch (error) {
                     console.error("Error:", error);
+                    alert("Terjadi kesalahan dalam pengiriman data. biasanya dikarenakan ukuran gambar terlalu besar atau terlalu banyak response , solusinya upload masing - masing poto tanpa sekaligus /  bisa lanjut aja dan cek di profile apakah data sudah masuk atau tidak");
                 } finally {
-                    this.submitting = false;
+                    // Reset tombol
+                    databutton.disabled = false;
+                    this.submitting = false;  
                 }
             }
         }));
     });
+
+
 
     const fileInput = document.getElementById('inputProfile');
     const previewImage = document.getElementById('previewProfile');

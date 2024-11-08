@@ -207,11 +207,11 @@
                         {{-- === card sudah absen === --}}
 
                         {{-- === card tidak ada absen === --}}
-                        <div class="text-[#798AA3]"> Jadwal tidak aktif</div>
+                        <div data-aos="fade-down" class="text-[#798AA3]"> Jadwal tidak aktif</div>
                             @if ($getScheduleTrainer !== null && $getScheduleTrainer->isNotEmpty())
                                 @foreach ($getScheduleTrainer as $jadwal)
                                     @if($jadwal->ket === 'Tidak Aktif')
-                                        <div class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#A3072B]">
+                                        <div data-aos="fade-down" class="card-h  transition-all p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#A3072B]">
                                             <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
                                                 <div class="k_right flex flex-col">
                                                     <span class="poppins-regular">
