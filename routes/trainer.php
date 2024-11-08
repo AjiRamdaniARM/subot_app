@@ -18,13 +18,17 @@ Route::middleware('check.trainer.auth')->group(function () {
     // === route absen === //
     Route::get('/home/absen/{id_schedules}', [homeController::class, 'absen'])->name('absen');
     Route::get('/home/absen/', [homeController::class, 'test'])->name('absenTest');
-    Route::get('/drive', [uploadDriveController::class, 'index'])->name('drive');
-    Route::get('/absenSiswa', [Absensi::class, 'test'])->name('ab_siswa');
+    Route::get('/absenSiswa', [Absensi::class, 'absensiSiswa'])->name('ab_siswa');
+
+    // === session upload drive === //
+    Route::get('/drive/{id}', [uploadDriveController::class, 'index'])->name('drive');
+    Route::post('/drive/{id}/uploaded', [uploadDriveController::class, 'DriveUploaded'])->name('drive.upload');
 
     // === route akun profile === //
     Route::get('/akun', [AkunController::class, 'index'])->name('akun');
     Route::get('/edit', [AkunController::class, 'edited'])->name('akun.edited');
-    Route::put('/edit/prossess/{id}', [AkunController::class, 'prosess'])->name('akun.post');
+    Route::post('/edit/prossess/{id}', [AkunController::class, 'prosess'])->name('akun.post');
+    Route::post('/edit/profile/{id}', [AkunController::class, 'uploadProfile'])->name('trainer.upload');
 
     // === route jadwal trainer === //
     Route::get('/jadwalTrainer', [JadwalController::class, 'index'])->name('jadwal.menu');
@@ -50,6 +54,8 @@ Route::middleware('check.trainer.auth')->group(function () {
     Route::get('/useredit', [LoginTrainerController::class, 'useredit'])->name('useredit');
     Route::get('/historyabsen', [LoginTrainerController::class, 'historyabsen'])->name('historyabsen');
     Route::get('/riwayattrainer', [LoginTrainerController::class, 'riwayattrainer'])->name('riwayattrainer');
+
+    // === backup route === //
     Route::post('/laporantrainer/porsses/{id_schedules}', [Absensi::class, 'UpDrive']);
 
     // absensi siswa route

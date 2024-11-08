@@ -59,16 +59,18 @@ class ScheduleController extends Controller
     public function updateStatus($id_schedule)
     {
         try {
-            // Cari jadwal berdasarkan ID
             $getSchedules = Schedules::findOrFail($id_schedule);
+            $getSchedules->dj_akhir = 0;
+            $getSchedules->ket = $getSchedules->ab_trainer === 'Hadir' ? 'Aktif' : 'Tidak Aktif';
 
-            // Perbarui status menjadi 'Tidak Aktif'
-            $getSchedules->ket = 'Tidak Aktif';
+            if ($getSchedules->ab_trainer !== 'Hadir') {
+                $getSchedules->ab_trainer = 'Tidak Hadir';
+            }
+
             $getSchedules->save();
 
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
-            // Tangani error jika data tidak ditemukan
             return response()->json(['success' => false, 'message' => 'Schedule not found.'], 404);
         }
     }

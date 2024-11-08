@@ -4,25 +4,41 @@ namespace App\Http\Controllers\trainer;
 
 use App\Http\Controllers\Controller;
 use App\Models\BigData;
+use App\Models\DataMateri;
 use App\Models\DataSiswa;
+use App\Models\dataTrainer;
 use App\Models\Schedules;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class homeController extends Controller
 {
     public function home()
     {
-        // Mendapatkan ID dari trainer yang sedang terautentikasi
+
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
         $trainerId = Auth::guard('trainer')->id();
 
-        // Pastikan ada ID trainer
+        $dataCount = DB::table('schedules')
+        ->where('id_trainer',$trainerId)
+        ->where('ab_trainer', 'Hadir')
+        ->whereMonth('created_at', $currentMonth)
+        ->whereYear('created_at', $currentYear)
+        ->count();
+
+        $penghasilan = $dataCount * 50000;
+
+        $dataCountData = DB::table('schedules')
+        ->where('id_trainer',$trainerId)
+        ->whereMonth('created_at', $currentMonth)
+        ->whereYear('created_at', $currentYear)
+        ->count();
+        
         if (! $trainerId) {
-            // Tangani jika trainer tidak terautentikasi
             return redirect()->route('trainer.login')->with('error', 'Please log in first.');
         }
-
-        // $getScheduleTrainer = Schedules::where('id_trainer', $trainerId)->get();
 
         $getScheduleTrainer = DB::table('schedules')
             ->where('schedules.id_trainer', $trainerId)
@@ -47,32 +63,25 @@ class homeController extends Controller
                 'data_levels.*',
                 'data_levels.id as id_level',
                 'data_sekolahs.*'
-
-                // tambahkan kolom lainnya sesuai kebutuhan
             )
-            ->orderBy('created_at_jd', 'DESC')
-            ->get();
+            ->orderBy('created_at_jd', 'ASC')
+            ->paginate(5);
 
-        // Periksa jika jadwal ditemukan
         if (! $getScheduleTrainer) {
             return redirect()->route('trainer.home')->with('info', 'No schedule found for this trainer.');
         }
-
-        // Kembalikan view dengan data jadwal trainer
-
-        return view('trainer.pages.home', compact('getScheduleTrainer'));
+        
+        return view('trainer.pages.home', compact('getScheduleTrainer','dataCount','dataCount','dataCountData','penghasilan'));
     }
-
-    
-  
 
     public function absen($id_schedules)
     {
-        // Pastikan ada ID trainer
+
         if (! $id_schedules) {
-            // Tangani jika trainer tidak terautentikasi
             return redirect()->route('trainer.login')->with('error', 'Please log in first.');
         }
+        $getDataMateri = DataMateri::all();
+        $getDataTrainer = dataTrainer::all();
 
         $getScheduleTrainer = DB::table('schedules')
             ->where('schedules.id', $id_schedules)
@@ -87,6 +96,7 @@ class homeController extends Controller
                 'schedules.id as id_schedules',
                 'data_trainers.nama as trainer_name',
                 'data_trainers.id as id_trainer',
+                'data_trainers.ttd as tanda',
                 'data_kelas.kelas as kelas_name',
                 'data_kelas.id as id_kelas',
                 'data_alats.alat as nama_alat',
@@ -96,21 +106,22 @@ class homeController extends Controller
                 'data_levels.*',
                 'data_levels.id as id_level',
                 'data_sekolahs.*'
-                // tambahkan kolom lainnya sesuai kebutuhan
             )
             ->first();
 
         $getDataBig = BigData::where('id_bigData', $getScheduleTrainer->id_bigData)->pluck('id_siswa');
 
-        // Dapatkan data siswa berdasarkan id_siswa dari hasil sebelumnya
-        $getDataStudent = DataSiswa::whereIn('id', $getDataBig)->get();
+        $getDataStudent = DB::table('data_siswas')
+        ->whereIn('data_siswas.id', $getDataBig)
+        ->join('big_data', 'data_siswas.id', '=', 'big_data.id_siswa')
+        ->select('data_siswas.*','big_data.*')
+        ->get();
 
-        // Periksa jika jadwal ditemukan
-        if (! $getScheduleTrainer) {
+        if (!$getScheduleTrainer) {
             return redirect()->route('trainer.home')->with('info', 'No schedule found for this trainer.');
         }
 
-        return view('trainer.pages.absen', compact('getScheduleTrainer', 'getDataStudent'));
+        return view('trainer.pages.absen', compact('getScheduleTrainer', 'getDataStudent','getDataMateri','getDataTrainer'));
     }
     
     public function Test() {
@@ -119,14 +130,17 @@ class homeController extends Controller
 
     public function absensiswa($id_schedules)
     {
+        if (is_null($id_schedules)) {
+            return redirect()->route('home');
+        }
 
-        $getDataSchedules = Schedules::where('id', $id_schedules)->first();
-
+        $getDataSchedules = Schedules::where('id', $id_schedules)->first();  
+        if (!$getDataSchedules) {
+            return redirect()->route('home')->with('error', 'Data jadwal tidak ditemukan.');
+        }
         $getDataBig = BigData::where('id_bigData', $getDataSchedules->id_bigData)->pluck('id_siswa');
 
-        // Dapatkan data siswa berdasarkan id_siswa dari hasil sebelumnya
         $getDataStudent = DataSiswa::whereIn('id', $getDataBig)->get();
-
-        return view('trainer.pages.absensiswa', compact('getDataStudent', 'getDataSchedules'));
+        return view('trainer.pages.absen_siswa.index', compact('getDataStudent', 'getDataSchedules'));
     }
 }

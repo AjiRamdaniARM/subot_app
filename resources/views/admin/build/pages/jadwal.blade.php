@@ -79,7 +79,7 @@
                                                         if (--timer < 0) {
                                                             clearInterval(interval);
                                                             display.textContent = "Waktu Habis";
-                                                            updateStatus({{ $schedule->id_schedules }}); // Kirim ID jadwal ke updateStatus
+                                                            updateStatus({{ $schedule->id_schedules }});
                                                         }
                                                     }, 1000);
                                                 }

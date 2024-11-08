@@ -98,7 +98,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profileAdmin', [profile::class, 'index'])->name('profileAdmin.index');
 
     // route laporan trainer admin
-    Route::get('/laporanTrainer', [LaporanTrainer::class, 'index'])->name('laporan.trainer');
+    Route::get('/laporanTrainerAdmin', [LaporanTrainer::class, 'index'])->name('laporan.trainer.admin');
     Route::get('/laporanTrainer/{id_schedules}', [LaporanTrainer::class, 'laporan'])->name('laporan.berkas');
     //  route laporan excel
     Route::get('/laporanTrainer/Excel/{id_schedules}', [LaporanTrainer::class, 'excel'])->name('laporan.excel');

@@ -2,16 +2,17 @@
 @section('children')
 <section class="main-gg-drive">
     <div data-aos="fade-down" class="bg-white py-10">
+      <form action="{{route('drive.upload', ['id' => $id])}}" method="POST" id="upload-form" enctype="multipart/form-data">
+        @csrf
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             <div>
-              <h2 class="text-lg font-semibold leading-8 tracking-tight text-indigo-600">Unggah dokumentasi</h2>
-              <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Google Drive Cloud</p>
-              <p class="mt-6 text-base leading-7 text-gray-600">Jika anda ingin mengunggah dokumentasi hasil mengajar, Pastikan ukuran file tidak terlalu besar karena akan berpengaruh pada saat upload ke google drive nya, Direkomendasikan memakai jaringan WIFI.</p>
-              <button class="bg-[#4F46E5] hover:scale-105 transition-all flex items-center gap-3 text-white px-4 py-3 relative mt-5 rounded-[24px]"><span><img class="w-6" src="{{asset('assets/trainerImages/google-drive-icons-free-png.webp')}}" alt=""></span> Unggah Sekarang</button>
+              <h2  class="text-lg font-semibold leading-8 tracking-tight text-indigo-600">Unggah dokumentasi</h2>
+              <p id="text-one" class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Google Drive Cloud</p>
+              <p id="text-two" class="mt-6 text-base leading-7 text-gray-600">Jika anda ingin mengunggah dokumentasi hasil mengajar, Pastikan ukuran file tidak terlalu besar karena akan berpengaruh pada saat upload ke google drive nya, Direkomendasikan memakai jaringan WIFI.</p>
+              <button class="bg-[#4F46E5] hover:scale-105 transition-all flex items-center gap-3 text-white px-4 py-3 relative mt-5 rounded-[24px]" id="unggah-image"><span><img class="w-6" src="{{asset('assets/trainerImages/google-drive-icons-free-png.webp')}}" alt=""></span> Unggah Sekarang</button>
             </div>
             <dl class="col-span-2 grid grid-cols-1">
-              
                 <div class="w-full relative py-9 bg-gray-50 rounded-2xl border border-gray-300 gap-3 grid border-dashed">
                     <div class="grid gap-1">
                     <svg class="mx-auto" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +26,7 @@
                     <h4 class="text-center text-gray-900 text-sm font-medium leading-snug">Drag and Drop your file here or</h4>
                     <div class="flex items-center justify-center">
                     <label>
-                      <input type="file" name="files[]" id="file-input" multiple accept="image/*" hidden />
+                      <input type="file" name="file[]" id="file-input" multiple accept="image/*" hidden required />
                       <div class="flex w-28 h-9 px-2 flex-col bg-indigo-600 rounded-full shadow text-white text-xs font-semibold leading-4 items-center justify-center cursor-pointer focus:outline-none">Choose File</div>
                     </label>
                     </div>
@@ -34,10 +35,26 @@
                     <div id="preview-container" class="flex flex-wrap gap-4 mt-4"></div>
 
                     <script>
+                      document.getElementById('upload-form').addEventListener("submit", function() {
+                        const unggahBtn = document.getElementById('unggah-image');
+                        const textOne = document.getElementById('text-one');
+                        const textTwo = document.getElementById('text-two');
+                        unggahBtn.innerHTML ='<i class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;Sedang Mengunggah Gambar';
+                        textOne.innerHTML = 'Jangan Keluar dari Halaman Ini!!'
+                        textTwo.innerHTML = 'Anda sedang menggungah file gambar ke google drive sukarobot academy , di usahakan jangan keluar dai halaman ini ketika masih dalam keadaan loading karena dapat mengganggu prosess upload gambar'
+                        unggahBtn.disabled = true ;
+                        textTwo.disabled = true ;
+                        textOne.disabled = true ;
+                        setTimeout(() => {
+                          textTwo.disabled = false ;
+                          textOne.disabled = false ;
+                          unggahBtn.disabled = false;
+                        }, 2000);
+                      })
                         document.getElementById('file-input').addEventListener('change', function(event) {
                             var files = event.target.files;
                             var previewContainer = document.getElementById('preview-container');
-                            previewContainer.innerHTML = ''; // Kosongkan container untuk gambar baru
+                            previewContainer.innerHTML = ''; 
                     
                             if (files.length > 0) {
                                 for (var i = 0; i < files.length; i++) {
@@ -45,28 +62,18 @@
                                     var reader = new FileReader();
                     
                                     reader.onload = function(e) {
-                                        // Membuat elemen card untuk setiap gambar
                                         var card = document.createElement('div');
                                         card.classList.add('w-full', 'h-80', 'bg-gray-200', 'rounded', 'relative', 'overflow-hidden');
-                    
-                                        // Membuat elemen img untuk menampilkan preview
                                         var img = document.createElement('img');
                                         img.src = e.target.result;
                                         img.classList.add('w-full', 'h-full', 'object-cover');
-                    
-                                        // Menambahkan loading (opsional)
                                         var loading = document.createElement('div');
                                         loading.classList.add('absolute', 'inset-0', 'bg-black', 'bg-opacity-50', 'flex', 'justify-center', 'items-center', 'text-white', 'font-bold');
                                         loading.innerText = 'Loading...';
-                    
-                                        // Memasukkan img dan loading ke dalam card
                                         card.appendChild(img);
                                         card.appendChild(loading);
-                    
-                                        // Menambahkan card ke dalam preview container
                                         previewContainer.appendChild(card);
-                    
-                                        // Simulasi loading (hilangkan loading setelah 2 detik)
+                                        console.log(file);
                                         setTimeout(function() {
                                             loading.remove();
                                         }, 1000);
@@ -77,12 +84,10 @@
                             }
                         });
                     </script>
-                    
-                    
-              
             </dl>
           </div>
         </div>
+      </form>
     </div>
 </section>
 @endsection
