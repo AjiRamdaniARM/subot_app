@@ -17,7 +17,7 @@
         <div data-aos="fade-down" class="container">
             <div class="container mx-auto">
                 <div class="container mx-auto py-10">
-                    <div class="box-card w-full rounded-[24px] border-2 text-start ">
+                    <div class="box-card w-full  text-start ">
                         <div class="body lg:px-10 md:px-10 px-5 py-10">
                             <div class="content">
                                 <div class="card-1 flex flex-col gap-5">

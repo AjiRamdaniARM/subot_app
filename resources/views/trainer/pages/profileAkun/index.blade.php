@@ -23,6 +23,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="d_pribadi w-full relative py-20">
             <div class="content poppins text-center">
                 <h1 class="text-[#0B235E] text-[20px] font-[500]">{{ auth()->guard('trainer')->user()->nama }}</h1>
@@ -30,6 +31,7 @@
                 <h3 class="font-[400] text-[18px] text-[#0B235E]">Trainer</h3>
             </div>
         </div>
+
         <div data-aos="fade-down" data-aos-delay="50" data-aos-duration="200" data-aos-easing="ease-in-out" class="sub_content_head px-10 flex  justify-center items-center -mt-10 gap-10 lg:gap-44">
             <div class="sub-one text-center poppins">
                 <h1 class="text-[#0B235E] lg:text-[24px] font-[500]">3 Tahun</h1>
@@ -74,14 +76,13 @@
                         <img src="{{asset('assets/trainer_data/ktp/'. auth()->guard('trainer')->user()->ktp_file )}}" alt="" class="w-96 rounded-lg h-96 rounded-lg object-cover">
                     </a>
                 </div>
-                <div class="ttd">
+                <div class="ttd hover:scale-105 transition-all">
                     <a href="{{asset('assets/trainer_data/ttd/'. auth()->guard('trainer')->user()->ttd )}}">
                         <img src="{{asset('assets/trainer_data/ttd/'. auth()->guard('trainer')->user()->ttd )}}" alt="" class="w-96 rounded-lg h-96 rounded-lg object-cover">
                     </a>
                 </div>
             </div>
-            
-            
+         
         </div>
     </div>
 

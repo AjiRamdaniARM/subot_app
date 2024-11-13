@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('trainer.layouts.header')
+    @php
+        use Carbon\Carbon;
+    @endphp
 </head>
 <body>
+ 
 <!-- Layout -->
 <div class="flex">
     <aside class="fixed top-0 left-0 w-64 bg-[#F2F4FA] text-[#798AA3] transform -translate-x-full md:translate-x-0  transition-transform duration-300 lg:translate-x-0 z-50  h-full 
@@ -37,7 +42,7 @@
                         Akun Anda</a>
                 </li>
                  {{-- === menu jadwal anda === --}}
-                <li><a href="{{ url('/jadwalTrainer')}}"  class="block py-2 px-4 hover:bg-gray-200 hover:scale-105 hover:rounded-lg  {{ request()->routeIs('jadwal.menu') ? 'text-[#0B235E] fw-[500]' : 'text-[#798AA3] fw-[400]' }} flex items-center gap-3">
+                <li><a href="{{ route('jadwal.menu', ['date' => Carbon::today()->toDateString()]) }}"  class="block py-2 px-4 hover:bg-gray-200 hover:scale-105 hover:rounded-lg  {{ request()->routeIs('jadwal.menu') ? 'text-[#0B235E] fw-[500]' : 'text-[#798AA3] fw-[400]' }} flex items-center gap-3">
                     <span>                    
                         
                     
@@ -66,7 +71,6 @@
             <h2 class="text-2xl font-semibold">Sidebar</h2>
             <ul class="mt-4">
                 <li><a href="#" class="block py-2 px-4 ">Dashboard</a></li>
-                <li><a href="#" class="block py-2 px-4 ">Profile</a></li>
                 <li><a href="#" class="block py-2 px-4 ">Settings</a></li>
             </ul>
         </div>
@@ -111,10 +115,7 @@
                 <div id="profile-dropdown" class="absolute right-0 mt-2 w-48  bg-white rounded-md shadow-lg hidden">
                     <ul class="py-1 text-gray-700">
                         <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+                            <a href="{{route('akun')}}" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
                         </li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">

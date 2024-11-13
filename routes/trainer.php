@@ -31,8 +31,8 @@ Route::middleware('check.trainer.auth')->group(function () {
     Route::post('/edit/profile/{id}', [AkunController::class, 'uploadProfile'])->name('trainer.upload');
 
     // === route jadwal trainer === //
-    Route::get('/jadwalTrainer', [JadwalController::class, 'index'])->name('jadwal.menu');
-
+    Route::get('/jadwalTrainer/{date?}', [JadwalController::class, 'index'])->name('jadwal.menu');
+    Route::post('/filterDateJadwal', [JadwalController::class, 'filterDate'])->name('filter.jadwal');
     // === route laporan trainer === //
     Route::get('/laporanTrainer', [laporanController::class, 'index'])->name('laporan.menu');
 
