@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\trainer\Absensi;
 use App\Http\Controllers\trainer\akun\AkunController;
+use App\Http\Controllers\trainer\forgotPasswordController;
 use App\Http\Controllers\trainer\laporan\laporanController;
 use App\Http\Controllers\trainer\drive\uploadDriveController;
 use App\Http\Controllers\trainer\homeController;
@@ -33,8 +34,11 @@ Route::middleware('check.trainer.auth')->group(function () {
     // === route jadwal trainer === //
     Route::get('/jadwalTrainer/{date?}', [JadwalController::class, 'index'])->name('jadwal.menu');
     Route::post('/filterDateJadwal', [JadwalController::class, 'filterDate'])->name('filter.jadwal');
+    
     // === route laporan trainer === //
     Route::get('/laporanTrainer', [laporanController::class, 'index'])->name('laporan.menu');
+    Route::post('/filterDataLaporan', [laporanController::class, 'filterDateLaporan'])->name('laporan.filterData');
+    Route::get('/laporanTrainer/data', [LaporanController::class, 'getData'])->name('get.laporanTrainer');
 
     Route::get('/laporantrainer/{id_schedules}', [TrainerLaporanController::class, 'laporantrainer'])->name('laporantrainer');
     Route::get('/jadwalhari', [LoginTrainerController::class, 'jadwalhari'])->name('jadwalhari');
@@ -65,9 +69,15 @@ Route::middleware('check.trainer.auth')->group(function () {
 
     // route logout user trainer
     Route::post('/logout', [LoginTrainerController::class, 'destroy'])->name('logout');
+
+   
 });
 
 
+
+ // === forgot password === //
+ Route::get('/forgot-password', [forgotPasswordController::class, 'index'])->name('verifikasi_password');
+ Route::get('/edited-password', [forgotPasswordController::class, 'forgotIndex'])->name('editedPassword');
 
 
 Route::get('/LoginTrainer', [LoginTrainerController::class, 'index'])->name('login.trainer');
