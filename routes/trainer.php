@@ -38,7 +38,6 @@ Route::middleware('check.trainer.auth')->group(function () {
     // === route laporan trainer === //
     Route::get('/laporanTrainer', [laporanController::class, 'index'])->name('laporan.menu');
     Route::post('/filterDataLaporan', [laporanController::class, 'filterDateLaporan'])->name('laporan.filterData');
-    Route::get('/laporanTrainer/data', [LaporanController::class, 'getData'])->name('get.laporanTrainer');
 
     Route::get('/laporantrainer/{id_schedules}', [TrainerLaporanController::class, 'laporantrainer'])->name('laporantrainer');
     Route::get('/jadwalhari', [LoginTrainerController::class, 'jadwalhari'])->name('jadwalhari');
