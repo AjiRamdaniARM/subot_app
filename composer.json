@@ -18,6 +18,7 @@
         "spatie/laravel-image-optimizer": "^1.8",
         "spatie/laravel-permission": "^6.9",
         "twilio/sdk": "^8.3",
+        "yajra/laravel-datatables": "^10.1",
         "yaza/laravel-google-drive-storage": "^3.0"
     },
     "require-dev": {

@@ -57,7 +57,10 @@
         }, 3000); // 3000 ms = 3 detik (ubah sesuai kebutuhan)
     }
 </script>
-
+<script>
+    const jadwalRoute = "{{ route('filter.jadwal') }}"; 
+    const csrfToken = '{{ csrf_token() }}'; 
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{asset('storage/Nav_js/routerNav.js')}}"></script>      
 <script src="{{asset('storage/s_js/s_ab.js')}}"></script>      

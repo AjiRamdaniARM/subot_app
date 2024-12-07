@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('trainer.layouts.header')
+    @php
+        use Carbon\Carbon;
+    @endphp
 </head>
 <body>
+ 
 <!-- Layout -->
 <div class="flex">
     <aside class="fixed top-0 left-0 w-64 bg-[#F2F4FA] text-[#798AA3] transform -translate-x-full md:translate-x-0  transition-transform duration-300 lg:translate-x-0 z-50  h-full 
@@ -37,7 +42,7 @@
                         Akun Anda</a>
                 </li>
                  {{-- === menu jadwal anda === --}}
-                <li><a href="{{ url('/jadwalTrainer')}}"  class="block py-2 px-4 hover:bg-gray-200 hover:scale-105 hover:rounded-lg  {{ request()->routeIs('jadwal.menu') ? 'text-[#0B235E] fw-[500]' : 'text-[#798AA3] fw-[400]' }} flex items-center gap-3">
+                <li><a href="{{ route('jadwal.menu', ['date' => Carbon::today()->toDateString()]) }}"  class="block py-2 px-4 hover:bg-gray-200 hover:scale-105 hover:rounded-lg  {{ request()->routeIs('jadwal.menu') ? 'text-[#0B235E] fw-[500]' : 'text-[#798AA3] fw-[400]' }} flex items-center gap-3">
                     <span>                    
                         
                     
@@ -50,13 +55,13 @@
                     Jadwal Anda</a>
                 </li>
                 {{-- === menu jadwal anda === --}}
-                <li><a href="{{ route('laporan.menu') }}" id="laporan" class="block py-2 px-4 hover:bg-gray-200 hover:scale-105 hover:rounded-lg  {{ request()->routeIs('laporan.menu') ? 'text-[#0B235E] fw-[500]' : 'text-[#798AA3] fw-[400]' }} flex items-center gap-3">
+                <li><a href="{{ route('laporan.menu') }}"  class="block py-2 px-4 hover:bg-gray-200 hover:scale-105 hover:rounded-lg  {{ request()->routeIs('laporan.menu') ? 'text-[#0B235E] fw-[500]' : 'text-[#798AA3] fw-[400]' }} flex items-center gap-3">
                     <span>                    
                         <svg width="32" height="32" id="icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M28.1333 16.6663L30 18.5463L21.2933 27.333L16.6667 22.6663L18.5333 20.7863L21.2933 23.5597L28.1333 16.6663ZM14.6667 5.33301C16.0812 5.33301 17.4377 5.89491 18.4379 6.8951C19.4381 7.8953 20 9.25185 20 10.6663C20 12.0808 19.4381 13.4374 18.4379 14.4376C17.4377 15.4378 16.0812 15.9997 14.6667 15.9997C13.2522 15.9997 11.8956 15.4378 10.8954 14.4376C9.89524 13.4374 9.33333 12.0808 9.33333 10.6663C9.33333 9.25185 9.89524 7.8953 10.8954 6.8951C11.8956 5.89491 13.2522 5.33301 14.6667 5.33301ZM14.6667 7.99967C13.9594 7.99967 13.2811 8.28063 12.781 8.78072C12.281 9.28082 12 9.9591 12 10.6663C12 11.3736 12.281 12.0519 12.781 12.552C13.2811 13.0521 13.9594 13.333 14.6667 13.333C15.3739 13.333 16.0522 13.0521 16.5523 12.552C17.0524 12.0519 17.3333 11.3736 17.3333 10.6663C17.3333 9.9591 17.0524 9.28082 16.5523 8.78072C16.0522 8.28063 15.3739 7.99967 14.6667 7.99967ZM14.6667 17.333C15.5733 17.333 16.6667 17.453 17.88 17.6797L15.6533 19.9063L14.6667 19.8663C10.7067 19.8663 6.53333 21.813 6.53333 22.6663V24.133H14.8L17.3333 26.6663H4V22.6663C4 19.1197 11.1067 17.333 14.6667 17.333Z" fill="{{ request()->routeIs('laporan.menu') ? '#0B235E' : '#798AA3' }}"/>
                             </svg>
                     </span>
-                    Laporan Anda</a>
+                    Laporan</a>
                 </li>
             </ul>
         </div>
@@ -66,7 +71,6 @@
             <h2 class="text-2xl font-semibold">Sidebar</h2>
             <ul class="mt-4">
                 <li><a href="#" class="block py-2 px-4 ">Dashboard</a></li>
-                <li><a href="#" class="block py-2 px-4 ">Profile</a></li>
                 <li><a href="#" class="block py-2 px-4 ">Settings</a></li>
             </ul>
         </div>
@@ -111,10 +115,7 @@
                 <div id="profile-dropdown" class="absolute right-0 mt-2 w-48  bg-white rounded-md shadow-lg hidden">
                     <ul class="py-1 text-gray-700">
                         <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+                            <a href="{{route('akun')}}" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
                         </li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">

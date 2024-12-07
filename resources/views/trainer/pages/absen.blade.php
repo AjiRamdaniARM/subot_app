@@ -123,7 +123,7 @@
                     <div class="input-laporan lg:flex-row md:flex-row flex flex-col  justify-between items-center space-y-4 md:space-y-0 md:space-x-4">
                         <!-- Select 1 -->
                         <div class="select-1 w-full md:w-1/2">
-                            <select name="materi" id="materi1" class="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500">
+                            <select name="materi" id="materi1" class="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500" required>
                                 <option value="">Pilih Materi Anda</option>
                                 @foreach ($getDataMateri as $materi )
                                 <option value="{{$materi->id}}">{{$materi->materi}}</option>
@@ -133,7 +133,7 @@
                     
                         <!-- Select 2 -->
                         <div class="select-2 w-full md:w-1/2">
-                            <select name="id_ttd" id="materi2" class="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500">
+                            <select name="id_ttd" id="materi2" class="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500" required>
                                     <option value="">Pilih Tanda Tangan Anda</option>
                                @foreach ($getDataTrainer as $trainer )
                                     <option value="{{ $trainer->ttd }}">{{ $trainer->nama }}</option>
@@ -144,14 +144,19 @@
                     </div>
 
                     <div class="box-area py-5">
-                        <textarea id="catatan" name="catatan" class="w-full  p-4 border border-gray-300 rounded-md " id="laporan" placeholder="Tulis laporan di sini... (Respone anak , Kendala yang dihadapi dan lainnya)"></textarea>
+                        <textarea id="catatan" name="catatan" class="w-full  p-4 border border-gray-300 rounded-md " id="laporan" placeholder="Tulis laporan di sini... (Respone anak , Kendala yang dihadapi dan lainnya)" required></textarea>
                     </div>
                 </div>
                 {{-- === button absen === --}}
                 <div class="content-button">
-                    <button id="prossesSubmit" type="submit" class="bg-[#FBDC5C] text-[#5B4A07] w-full text-center py-4 rounded-2xl hover:scale-105 transition-all ">Selesai Absensi</button>
+                    @if ($getScheduleTrainer->absensi_anak == 'tutup')
+                        <button id="prossesSubmit" type="submit" class="bg-[#FBDC5C] text-[#5B4A07] w-full text-center py-4 rounded-2xl hover:scale-105 transition-all ">Selesai Absensi</button>
+                    @else
+                         <div disabled type="button" class="bg-[#FB5C5CFF] text-[#FFFFFFFF] w-full text-center py-4 rounded-2xl transition-all ">Belum Terbuka</div>
+                    @endif
                 </div>
                 <script>
+
                     document.getElementById('postLaporan').addEventListener('submit', function() {
                         event.preventDefault();
                         const buttonSubmitL = document.getElementById('prossesSubmit');
@@ -163,9 +168,20 @@
                                 document.getElementById('postLaporan').submit();
                             }, 2000); 
                     });
+
+
+                    data.jadwals.forEach(jadwal => {
+                    jadwalContainer.innerHTML += `
+                        <div class="jadwal-item">
+                            <p>${jadwal.nama}</p>
+                            <p>${jadwal.waktu}</p>
+                        </div>
+                    `;
+                    });
                 </script>
             </form>
           
     </div>
+  
 </section>
 @endsection

@@ -65,7 +65,7 @@ class homeController extends Controller
                 'data_sekolahs.*'
             )
             ->orderBy('created_at_jd', 'ASC')
-            ->paginate(5);
+            ->get();
 
         if (! $getScheduleTrainer) {
             return redirect()->route('trainer.home')->with('info', 'No schedule found for this trainer.');

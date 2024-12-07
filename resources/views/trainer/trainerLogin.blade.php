@@ -63,6 +63,17 @@
                                             Masuk
                                         </span>
                                     </button>
+                                    <div class="mt-3 text-[12px] flex justify-between poppins-regular">
+                                        <span>
+                                            Lupa Kata Sandi Anda? 
+                                        </span>
+                                        <a href="{{ route('verifikasi_password')}}">
+                                            <span class="text-[#F66C2D] hover:text-[#CE490BFF]">
+                                                Reset Kata Sandi
+                                            </span>
+                                        </a>
+                                       
+                                    </div>
                                     <script>
                                         document.getElementById('filterDataLaporan').addEventListener('submit', function(event) {
                                             var submitButton = document.getElementById('submitLogin');
@@ -99,7 +110,6 @@
                                     </p>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>

@@ -28,6 +28,6 @@ class Schedules extends Model
         'api_maps',
     ];
 
-    // Mutator untuk mengonversi jam ke detik saat disimpan
+    
 
 }
