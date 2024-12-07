@@ -1,40 +1,61 @@
-{{-- === component modal === --}}
-@include('trainer.pages.laporanTrainer.partials.modalDetail')
-{{-- === end component modal === --}}
 
-{{-- === component search === --}}
-@include('trainer.pages.laporanTrainer.partials.searchComponent')
-{{-- === end component search === --}}
 
 {{-- === component table === --}}
 <div class="container mx-auto p-4 lg:block hidden">
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white shadow-md rounded-lg">
             <thead>
-                <tr class="bg-[#0E2C75] from-blue-600 to-indigo-600 text-white rounded-2xl">
+                <tr class="bg-[#0E2C75] text-white rounded-2xl">
                     <th class="py-4 px-6 text-left text-sm font-semibold uppercase">No</th>
                     <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Private / Sekolah</th>
-                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase">level</th>
-                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase"> Hari</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Level</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Hari</th>
                     <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Tanggal Mengajar</th>
                     <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Detail</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="hover:bg-gray-100 border-b">
-                    <td class="py-4 px-6 text-gray-700">1</td>
-                    <td class="py-4 px-6 text-gray-700">TK BPK PENABUR</td>
-                    <td class="py-4 px-6 text-gray-700">BASIC 1</td>
-                    <td class="py-4 px-6 text-gray-700 "><span class="bg-yellow-400 py-2 px-5 rounded-lg poppins-regular">SENIN</span></td>
-                    <td class="py-4 px-6 text-gray-700">04 DESEMBER 2024</td>
-                    <td class="py-4 px-6 text-gray-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
-                        </svg>                          
-                    </td>
-                </tr>
+                @forelse ($query as $key)
+                {{-- === component modal === --}}
+                    @include('trainer.pages.laporanTrainer.partials.modalDetail')
+                {{-- === end component modal === --}}
+                    <tr class="hover:bg-gray-100 border-b">
+                        <td class="py-4 px-6 text-gray-700">
+                            {{ ($query->currentPage() - 1) * $query->perPage() + $loop->iteration }}
+                        </td>
+                        <td class="py-4 px-6 text-gray-700">
+                            {{ $key->kelas_name ?? 'Tidak Ada Data' }}
+                        </td>
+                        <td class="py-4 px-6 text-gray-700">
+                            {{ $key->level_name ?? 'Tidak Ada Data' }}
+                        </td>
+                        <td class="py-4 px-6 text-gray-700">
+                            <span class="bg-yellow-400 py-2 px-5 rounded-lg">{{ $key->hari ?? '-' }}</span>
+                        </td>
+                        <td class="py-4 px-6 text-gray-700">
+                            {{ $key->tanggal_jd ? \Carbon\Carbon::parse($key->tanggal_jd)->translatedFormat('d F Y') : '-' }}
+                        </td>
+                        <td class="py-4 px-6 text-gray-700">
+                            <button onclick="document.getElementById('modal-laporan-detail-{{ $key->id_schedules }}').showModal();" class="bg-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td class="py-4 px-6 text-gray-700">
+                            Tidak menemukan data pencarian
+                        </td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
+        
+        <div class="mt-4">
+            {{ $query->links('vendor.pagination.tailwind-custom') }}
+        </div>
     </div>
 </div>
 {{-- === end component table === --}}
@@ -90,24 +111,3 @@
     </div>
 </div>
 
-<script>
-    const modal = document.getElementById('modal-detail-component');
-    const btn = document.getElementById('button-modal-detail');
-    const closeBtn = document.getElementById('close-modal');
-
-    if (modal && btn && closeBtn) {
-        btn.addEventListener('click', function() {
-            modal.classList.remove('hidden');
-        });
-        closeBtn.addEventListener('click', function() {
-            modal.classList.add('hidden');
-        });
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.classList.add('hidden');
-            }
-        });
-    } else {
-        console.error('Modal, tombol buka, atau tombol tutup tidak ditemukan!');
-    }
-</script>

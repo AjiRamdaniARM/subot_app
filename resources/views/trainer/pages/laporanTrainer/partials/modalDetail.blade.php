@@ -1,51 +1,108 @@
-<div id="modal-detail-component" class="fixed hidden z-50 inset-0 overflow-y-auto">
-    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-
-        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-        </div>
-
-        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
-
-        <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
-            role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-            <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
-                <button type="button" id="close-modal" data-behavior="cancel" class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    <span class="sr-only">Close</span>
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div class="sm:flex sm:items-start">
-                <div
-                    class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
+<dialog id="modal-laporan-detail-{{ $key->id_schedules }}">
+	<h2 class="text-[30px]">Detail Mengajar</h2>
+	<div class="">
+        <div class="content-body">
+            <div class="bg-[#F4F4F7] w-full px-10 py-5 rounded-[16px]">
+                <div class="content-body flex gap-3">
+                    <img src="{{asset('assets/imgmodal/ICON-FOLDER.svg')}}" class="w-20" alt="">
+                    <div class="text-body">
+                        <h1 class="poppins-semibold text-2xl">Absensi Anda Pada :</h1>
+                        <p class="poppins-regular">12 November 2024</p>
+                    </div>
                 </div>
-                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                        Your Confirmation Message
-                    </h3>
-                    <div class="mt-2">
-                        <p class="text-sm text-gray-500">
-                            Your body text goes here.
-                        </p>
+                <div class="content-flex flex gap-3 mt-3">
+                    <div class="bg-[#FFDBD8] rounded-[16px] px-4 py-2">
+                        Private
+                    </div>
+                    <div class="bg-[#F0DAFB] rounded-[16px] px-4 py-2">
+                            Basic 1
+                    </div>
+                    <div class="bg-[#CBE3FF] rounded-[16px] px-4 py-2">
+                        12.00 
                     </div>
                 </div>
             </div>
-            <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                <button type="button" data-behavior="commit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
-                    Commit
-                </button>
-                <button type="button" data-behavior="cancel" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:w-auto sm:text-sm">
-                    Cancel
-                </button>
-            </div>
+            
         </div>
     </div>
-</div>
+	<button onclick="document.getElementById('modal-laporan-detail-{{ $key->id_schedules }}').close();" aria-label="close" class="x">❌</button>
+</dialog>
+
+{{-- === internal css === --}}
+<style>
+    dialog {
+        padding: 1rem 3rem;
+        background: white;
+        max-width: 700px;
+        padding-top: 2rem;
+        border: 0;
+        border-radius: 24px;
+        box-shadow: 0 5px 30px 0 rgb(0 0 0 / 10%);
+        animation: fadeIn 1s ease both;
+        &::backdrop {
+            animation: fadeIn 1s ease both;
+            background: rgb(255 255 255 / 40%);
+            z-index: 2;
+            backdrop-filter: blur(20px);
+        }
+        .x {
+            filter: grayscale(1);
+            border: none;
+            background: none;
+            position: absolute;
+            top: 15px;
+            right: 10px;
+            transition: ease filter, transform 0.3s;
+            cursor: pointer;
+            transform-origin: center;
+            &:hover {
+                filter: grayscale(0);
+                transform: scale(1.1);
+            }
+        }
+        h2 {
+            font-weight: 600;
+            font-size: 2rem;
+            padding-bottom: 1rem;
+        }
+        p {
+            font-size: 1rem;
+            line-height: 1.3rem;
+            padding: 0.5rem 0;
+            a {
+                &:visited {
+                    color: rgb(var(--vs-primary));
+                }
+            }
+        }
+    }
+
+    button.primary {
+        display: inline-block;
+        font-size: 0.8rem;
+        color: #fff !important;
+        background: rgb(var(--vs-primary) / 100%);
+        padding: 13px 25px;
+        border-radius: 17px;
+        transition: background-color 0.1s ease;
+        box-sizing: border-box;
+        transition: all 0.25s ease;
+        border: 0;
+        cursor: pointer;
+        box-shadow: 0 10px 20px -10px rgb(var(--vs-primary) / 50%);
+        &:hover {
+            box-shadow: 0 20px 20px -10px rgb(var(--vs-primary) / 50%);
+            transform: translateY(-5px);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+</style>

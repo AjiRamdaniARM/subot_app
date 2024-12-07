@@ -25,8 +25,17 @@ class laporanController extends Controller
             ->where('schedules.id_trainer', $fetchTrainerId)
             ->where('ab_trainer','Hadir')
             ->when($search, function ($query, $search) {
-                return $query->where('nama', 'like', "%{$search}%");
-            })
+                return $query->where('data_kelas.kelas', 'like', "%{$search}%")
+                            ->orWhere('hari', 'like', "%{$search}%")
+                            ->orWhere('data_levels.levels', 'like', "%{$search}%")
+                            ->when(strlen($search) === 4, function ($query) use ($search) {
+                                return $query->orWhereRaw("YEAR(tanggal_jd) = ?", [$search]);
+                            })
+                            ->when(strlen($search) === 2, function ($query) use ($search) {
+                                return $query->orWhereRaw("MONTH(tanggal_jd) = ?", [$search]);
+                            });
+                            ;
+                })
             ->select(
                 'schedules.*',
                 'schedules.id as id_schedules',
@@ -42,8 +51,31 @@ class laporanController extends Controller
 
             
             if ($request->ajax()) {
-                return view('partials.siswa_table', compact('query'))->render();
+                if ($query->isEmpty()) {
+                    return response()->json(' <table class="min-w-full bg-white shadow-md rounded-lg">
+            <thead>
+                <tr class="bg-[#0E2C75] text-white rounded-2xl">
+                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase">No</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Private / Sekolah</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Level</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Hari</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Tanggal Mengajar</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+             <tr colspan="5" class="hover:bg-gray-100 border-b">
+                        <td class="py-4 px-6 text-gray-700">
+                          Tidak data dalam pencarian
+                        </td>
+                    </tr>
+            </tbody>
+            </table>
+            ');
+                }
+                return view('trainer.pages.laporanTrainer.partials.dataTable', compact('query'))->render();
             } 
+            
     
         return view('trainer.pages.laporanTrainer.index', compact('query'));
     }

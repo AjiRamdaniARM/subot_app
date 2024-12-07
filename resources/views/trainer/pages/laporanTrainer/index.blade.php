@@ -18,7 +18,12 @@
             </div>
         </div>
         <div data-aos="fade-down" class="container">
-          @include('trainer.pages.laporanTrainer.partials.dataTable')
+        {{-- === component search === --}}
+        @include('trainer.pages.laporanTrainer.partials.searchComponent')
+        {{-- === end component search === --}}
+            <div id="laporanTableContainer">
+                @include('trainer.pages.laporanTrainer.partials.dataTable', ['query' => $query])
+            </div>
         </div>
 </section>
 @endsection
